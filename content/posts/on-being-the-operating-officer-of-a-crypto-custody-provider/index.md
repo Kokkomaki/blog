@@ -1,0 +1,131 @@
++++
+title = "On Being the Operating Officer of a Crypto Custody Provider"
+date = "2024-06-01 11:38:01"
++++
+
+**tl;dr.**
+
+<!--more-->
+
+- Titles are just labels; the work defines the role.
+- Clear communication is fundamental in daily tasks.
+- Key responsibilities include managing documentation, ensuring compliance, and coordinating with regulatory authorities.
+- Proactive self-learning is essential.
+- Understanding the cryptocurrency ecosystem is crucial.
+- The shift in cryptocurrency perception: Moving towards regulated and institutional acceptance.
+- Increasing difficulty in moving crypto into and out of custody services.
+- Cryptocurrencies viewed more as inflation protection assets rather than a means of transaction.
+- The original vision of decentralized, peer-to-peer money is diminishing.
+
+While the title of Chief Operating Officer (COO) sounds impressive, it’s the work that we do that truly defines the role.
+
+![](/images/on-being-the-operating-officer-of-a-crypto-custody-provider-166700.gif)Listen to Batman.
+
+Titles are just labels. It is the stories we tell that matter.
+
+Let me tell you the story.
+
+## Daily Work
+
+Sometimes, to avoid lengthy explanations, I would joke to my close friends that we were doing money laundering, a common misconception about cryptocurrencies. It goes without saying that this was just a joke – we were deeply committed to compliance and transparency.
+
+If I had to explain my typical day to a five-year-old, I would say the it would involve a lot of talking, writing and reading. Meetings and emails. This is why clear communication was fundamental.
+
+I wrote extensive documentation, mainly business processes, guidelines, and company policies.
+
+![](/images/on-being-the-operating-officer-of-a-crypto-custody-provider-untitled-diagram-1.png)*The typical business process model looked like this.*
+
+I managed website content to attract the right audience. I coordinated with the Finnish Financial Supervisory Authority (FIN-FSA) to ensure our licences and risk assessments were up to date.
+
+A significant part of my job was ensuring we had enough documentation for auditors to demonstrate our compliance and transparency in our operations.
+
+With no mentor or set guidelines, I had to be proactive in learning everything myself. My co-workers helped me understand the business structures and priorities. Still, oftentimes, I had to ask the right questions and find the right answers, by myself.
+
+Some books really helped me along the way in understanding roles, product and business development, tools, and the importance of team spirit.
+
+## Key Books
+
+- Riding the Shotgun: Role of the COO
+- The Product Book: How to Become a Great Product Manager
+- Product Roadmaps Relaunched: How to Set Direction while Embracing Uncertainty
+- Business Model Generation: A Handbook for Visionaries, Game Changers, and Challengers
+- BPMN 2.0: Introduction to the Standard for Business Process Modelling
+- Corporate Culture in Practice: Concrete Ways to Manage a Culture of Ambition (Finnish)
+
+## Ecosystem
+
+Before stepping away from the academia into the industry, I didn't know how each entity, from the individual to the international, interact.
+
+Understanding the rules and roles of everyone involved in handling cryptocurrencies is like looking at different layers of the ecosystem, having levels of analysis.
+
+![](/images/on-being-the-operating-officer-of-a-crypto-custody-provider-new-project-1.png)
+
+### Microsystem
+
+**Individual User and Business**
+
+This is where people and businesses directly deal with companies that provide crypto services (like buying, selling, or storing cryptocurrencies). It's the most immediate and noticeable part of the experience for users.
+
+When you use a service to buy Bitcoin, you're interacting directly with the company that provides that service.
+
+**Crypto-Asset Service Provider**
+
+These companies work directly with their customers and must follow rules set by national financial authorities (like FIN-FSA in Finland). They need to follow these rules to keep operating and to earn their customers' trust.
+
+A company that stores Bitcoin for you has to follow certain rules to make sure your Bitcoin is safe.
+
+### Mesosystem
+
+**Financial Supervisory Authority (e.g. FIN-FSA)**
+
+FIN-FSA oversees and makes sure that crypto service providers in Finland follow the rules. This oversight helps protect users even though it might not be directly visible to them.
+
+FIN-FSA checks that the company storing your Bitcoin is doing everything correctly and safely.
+
+### Exosystem
+
+**EU Authorities (e.g. EBA, ESMA)**
+
+These European organisations create the basic rules and guidelines that countries like Finland must follow at minimum. These rules affect how companies are checked and regulated, even though these organisations are a step away from the companies themselves.
+
+EBA and ESMA make general rules about how Bitcoin should be stored safely, and then Finland uses these rules to check local companies.
+
+### Macrosystem
+
+**Global International Organisations (e.g. FATF)**
+
+FATF sets worldwide standards to combat money laundering and terrorist financing. Their recommendations shape the rules that European authorities create, which then influence national regulations.
+
+For example, FATF says that Bitcoin transactions whose history cannot be determined may be a high risk for illicit finance, and therefore unacceptable so as to prevent illegal activities. Then, this idea gets turned into rules that everyone follows.
+
+## Frameworks
+
+I learned the ways of how financial institutions, and the managers thereof, perceive the real-world. While my master’s thesis focused on the benefits, financial institutions focus on potential dangers.
+
+### Risks and Costs
+
+It’s crucial for companies that handle crypto-assets to understand risks and costs. They should look at every decision by considering what could go wrong and what it might cost. These risks and costs could involve money, how they operate, or their reputation.
+
+A company thinking about improving their security systems would weigh the risk of a cyberattack against the cost of the upgrade. They need to decide if the cost is worth it to avoid a possible data breach.
+
+Or put another way, some big banks launder money because the profits are bigger than the costs.
+
+### Threat-Default
+
+Financial institutions treat everyone as a potential threat and assume they are risky until proven otherwise. This is different from the justice system, where everyone is presumed innocent until proven guilty.
+
+In business, this means always being prepared for the worst. For financial institutions, this includes doing detailed checks on new clients, transactions, or technologies to spot any potential threats. When they get a new client, they perform thorough, privacy-invasive checks to confirm the client’s identity and actions, and ensure they’re not involved in illegal activities.
+
+## Conclusion
+
+Straight out of university, I was grateful for the opportunity to combine my passion in crypto with my profession.
+
+Helping in the business development of an API-based cryptocurrency custody solution for business clients was both tough and rewarding. I learned a lot and had to really understand the rules involved.
+
+What's next for cryptocurrencies? Well, by early 2025, it will be harder for most people to move crypto into a custody service from a self-custody wallet. Taking crypto out will also get tougher with limits on how much you can withdraw, higher fees, and some cryptocurrencies, like Monero and ZCash, won't be available in certain areas.
+
+The prior narrative of cryptocurrencies as a cypherpunk, peer-to-peer form of money is fading. Now, they're seen more as a way to protect against inflation—a kind of (crypto) asset, not really a currency. This means people won't think of crypto as something to buy things with anymore in the Global North.
+
+As crypto becomes more regulated and accepted by big institutions in the form of exchange traded funds (mostly Bitcoin and Ethereum), their price most likely goes up. But, the downside is a lack of privacy and demonisation on holding your own crypto. It's sad to see such a shift from the original, hopeful vision to this heavy, regulated reality.
+
+![](/images/on-being-the-operating-officer-of-a-crypto-custody-provider-crypto_gym_bro_52024_the_image_is_ghibli_style._it_features_a_m_83ff906e-aef1-4e4a-9bf0-700c4b6898f7.png)Peace out. *Photo by Midjourney.*

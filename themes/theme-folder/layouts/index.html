@@ -1,0 +1,28 @@
+{{ define "main" }}
+  {{ .Content }}
+
+  <!-- Recent posts list -->
+  <section class="home-posts time-list">
+    <ul>
+      {{ range first 10 (where .Site.RegularPages "Type" "posts") }}
+      <li>
+        <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
+        <div>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+
+    <div class="load-more">
+      <a href="/posts/" class="button">→</a>
+    </div>
+  </section>
+
+
+  <!-- Navigation (About / Now / etc.) -->
+  <div class="terminal-nav">
+    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+  </div>
+
+  {{ end }}

@@ -1,0 +1,30 @@
++++
+title = "The Weeks Preceding This Moment, a Review"
+date = "2018-09-16 16:48:00"
++++
+
+The current milieu: rain is deluging the streets, wind is blowing from all angles and dark grey clouds loom above. Distant, frustrated drivers honking at who knows, and the air in the streets stenches like garbage. Makes me question why urbanization is trending. I am currently sitting on an uncomfortable plastic chair and enjoying the occasional Doppler effect of an ambulance siren buzz. Fortunately, my audiophile quality music occupies the sound space of my consciousness.
+
+<!--more-->
+
+## Orientation week Leiden
+
+Prior to the beginning of my studies, I participated in the Orientation Week Leiden, where I met new people, made new contacts, and a few friends. Personally, I found the programme slightly drab and the dull weather didn't help the case either. It could've also been my disappointment in the cheap food that resembled a lot like the 'expectations versus realization' meme. Or maybe it was my stubborn personality that posed a mental barrier for me to commute long distance journey: I wasn't willing to use the public transport—rather, I cycled 17 kilometers there and back. Sometimes people call me Uncle Scrooge.
+
+So it happened that I skipped two out of five days, and then more on the days I was actually present. Yet, did I miss anything 'fun' or 'important'? No, I don't think so and who gives a shit. Admittedly, my conclusion is heavily influenced by hindsight, though it provides me security and confirmation in this mental construction of events.
+
+Friday, the last day of OWL was the best. The food was now better, sun was shining, and I met the friend who messaged me via Facebook back when I was looking for an apartment. She gave me some advice as to where to look for accommodation, and more. She is a kind and cute Chinese student from Beijing, currently doing her Master's in CS.
+
+Spontaneously, I joined her group of Master students from the department of Science. At first, the group leaders wondered with large eyes as to who I was and why was I there, but slowly they accepted me under their wing. They were a great bunch with whom I had many talks till the evening. Night came, and the final party was about to start. Truthfully, I wasn't and am not too keen on nightclubs, but as she offered me the ticket, I gladly accepted it. How could I have turned it down? She was very cool and I wanted to know more about her.
+
+We walked to the nightclub together with the group, but we diffused into the mass upon arriving. So there I was, not really drunk, tired, and not enjoying the mainstream music. I did find my original group, but I didn't care for jumping to the mindless beat. In the end I got enough, returned home, alone, in the pitch black, quiet and cold night.
+
+## Delving into psychology
+
+I was on easy-mode throughout the first week of studies, while simultaneously figuring things out. The lecturer did warn everyone in the first day: hit the ground running—obviously I didn't do that. That backfired, and now in the second week I had to steer my course or I'd be kaputt. Learning this fact first-hand was crucial, since the pace is super fast, time is short and one has to develop routine and motivation.
+
+Also, I thought I would read the literature via an electrical device, but that ended up being extremely cumbersome and constrained. Reading from an LCD screen feels unnatural and 2D-ish if that makes sense. So I changed me mind and bought most of the books required in the curriculum. Like someone once said: books are like boobs: they're nice on screens, but even better between our hands.
+
+In the second week I've been reading more than I ever have—haven't had the time to socialize, do any hobbies or whatever. That's fine, since the new psychological concepts and ideas are intriguing. Hardest part is making all that information stick into my cabbage brains. As for all things, I endured and survived. Third week is now right around the corner, only difference being: this time I am prepared.
+
+[#OWL](https://www.kokkomaki.com/tag:OWL) [#Leiden](https://www.kokkomaki.com/tag:Leiden) [#psychology](https://www.kokkomaki.com/tag:psychology)

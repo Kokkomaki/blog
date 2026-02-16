@@ -1,0 +1,174 @@
++++
+title = "My Bachelor Thesis"
+date = "2021-10-06 17:18:00"
++++
+
+## The association between mindfulness and student well-being during 15 days of ecological momentary assessment
+
+<!--more-->
+
+## Abstract
+
+Coronavirus disease 2019 has negatively affected the general population, and especially university undergraduates. Attending to and being aware of the present moment in an open, accepting and compassionate manner (i.e. mindfulness) has been shown to decrease depression, anxiety, and stress symptoms, and increase positive affect. In our present study, we used network analysis to examine the associations between anxiety, depression, stress, mindfulness and joy. An observational research design was used with a convenience sample of 66 undergraduate students aged 18 to 34 years who completed an ecological momentary assessment (EMA) on their phones. They were asked eight questionsーtwo psychological constructs and six subclinical psychopathology symptomsーfour times a day for two weeks. Network analysis resulted in temporal and contemporaneous network models, indicating that mindfulness at time t does not significantly predict any variable at later time t+1 on the temporal level. At the contemporaneous level, mindfulness is associated with depression, anxiety, stress, and joy. Given the limitations of the present study and the hypothesis-generating nature of network analysis, we conclude that the significant partial correlations between mindfulness, psychological well-being and joy in the contemporaneous network may indicate potential causal relations worth following up on in future research.
+
+**Keywords:** mindfulness, joy, psychological well-being, COVID-19, ecological momentary assessment, network approach
+
+As of early 2020, a virus named coronavirus disease 2019 (COVID-19; Pascarella et al., 2020) has wreaked havoc all around the world (WHO, 2020). To curb the spread of the infection, nations have restricted their citizens' movement and closed all non-essential services and events except grocery stores and pharmacies. COVID-19 has directly and indirectly worsened the general population’s psychological well-being compared to before the virus outbreak (Salari et al., 2020; Twenge & Joiner, 2020; Vindegaard & Benros, 2020). In specific to students, there is evidence that depression and anxiety symptoms have increased compared to prior academic terms (Huckins et al., 2020). Therefore, it is of great interest to find protective factors that can prevent the deterioration of psychological well-being in these hard times. One such protective factor against psychological distress could be mindfulness (Di Giuseppe et al., 2020).
+
+Mindfulness is elevated by meditating, which has been touted for its positive effects on well-being. The history of meditation dates back to a 2500-year-old Buddhist tradition, until the 1970s when Jon Kabat-Zinn (2003) introduced and integrated the concept of mindfulness and the practise of meditation into Western psychology (for a more extensive review of mindfulness, see Keng, Smoski & Robins, 2011). These days one can choose from a variety of guided meditation apps on the digital marketplace and they can bring about positive short-term benefits, like reduced depression, anxiety, and stress, and increased psychological well-being. However, there is not yet evidence for their long-term effects (Gál, Ștefan & Cristea, 2021).
+
+Meta-analyses conclude that mindfulness-based interventions (MBI; for a more comprehensive review, see Creswell, 2017) elevate mindfulness, which in turn, increases psychological well-being. In particular, MBIs reduce depression, anxiety, and stress (Eberth & Sedlmeier, 2012; Fumero et al., 2020; Goyal et al., 2014; Grossman et al., 2004; Kallapiran et al., 2015; Keng, Smoski, & Robins, 2011) and increase positive affect (Enkema et al., 2020; Gotink et al., 2016; Hill & Updegraff, 2012; Spears et al., 2019). Though, Goyal et al., (2014) found low evidence that an MBI would increase positive affect. In specific to our population of interest, there is also evidence that secondary and post-secondary students benefit from meditation (Breedvelt et al., 2019; Halladay et al., 2019; Lahtinen & Salmivalli, 2020; Regehr, Glancy & Pitts, 2012).
+
+However, researchers do not yet know the specific mechanisms behind mindfulness or meditation, though there are some proposals (e.g., Hölzel et al., 2011; Shapiro et al., 2006). Indeed, mindfulness has remained somewhat of an umbrella term (van Dam et al., 2018), which is not uncommon for complex, multifaceted psychological constructs (e.g., emotion, intelligence). What makes matters worse is that there are an array of complex meditation practises that all share similar benefits to psychological well-being (Ospina et al., 2007). In any case, some researchers define mindfulness as a psychological process, a trait, or a practise (Keng, Smoski, & Robins, 2011), but as far as the aim of this paper goes, we consider mindfulness a temporary state of mind (Brown & Ryan, 2003). Indeed, the most common and shared definition of mindfulness is a state of mind whereby a person directs his or her attention to and awareness of the present moment in an open, accepting and compassionate manner (Bishop et al., 2004). While this operational definition of mindfulness has two components (i.e., the self-regulation of attention and the adoption of a particular orientation towards an experience), Baer (2003) argues that mindfulness is a five-facet construct (nonreactivity, observing, acting with awareness, describing, nonjudging). Nonetheless, both parties agree that the awareness of the present moment is a fundamental facet of mindfulness.
+
+We adopt the operational definition of mindfulness by Bishop et al. (2004) and use a particular item from the Five Facet Mindfulness Questionnaire (FFMQ) that measures ‘Acting with Awareness’ subfacet of mindfulness (Baer, 2003). This subfacet can predict improvement in depressive and anxiety symptoms (de Bruin et al., 2012; Enkema et al., 2020; Soysa and Wilcomb; 2015; Webb et al., 2019). Essentially, to act with awareness, one attends to current activities and is not in “automatic pilot” mode, absent-minded, or dissociated with the present moment (Baer et al., 2006).
+
+Given that mindfulness and positive affect go hand in hand (Enkema et al., 2020; Gotink et al., 2016; Hill & Updegraff, 2012; Spears et al., 2019), we investigate whether there is an association and if they can predict one another. We are especially keen on how positive affect, namely the experience of joy, is associated with mindfulness. Essentially, when a person experiences positive affect, they undergo a brief, emotional state (Sander & Scherer, 2009) that has a certain emotional valence and arousal attached to it (Russell, 1980; Lang, 1995, as cited in Nummenmaa & Tuominen, 2018). Whereas laypeople call this ‘feeling’, scientists refer to ‘affect’ that is the experience of emotion. And to not confuse ‘feeling’ for ‘emotion’, the difference lies in the fact that emotion is a complex construct made out of multiple components─behavioral, expression, cognitive, physiological and affect/feeling components (Scherer, 2005).
+
+In line with the componential view of emotion, joy is defined as a positive affect where physical movements are more fluid than normal (behavior); smiles are difficult to suppress (expression); one’s attention and thinking broadens (cognitive); and where bright and light feelings, and vivid colors are present (feeling) (Fredrickson, 1998, as cited in Sander & Scherer, 2009). Surprisingly, there is no research done on physiological markers of joy (Johnson, 2020). We made our own item that measures one’s experience of joy.
+
+Since mindfulness and positive affect vary moment-to-moment (Enkema et al., 2020), an ecological momentary assessment (EMA) presents a useful methodology to measure such changes (Shiffman, Stone & Huffort, 2008). During EMA, participants are prompted multiple times throughout the day to answer questions about their thoughts, feelings and/or behaviors, usually through a smartphone. As such, EMA collects real-time data in real-life contexts, which provides ample data on how daily experiences and psychological processes develop over time (Moskowitz & Young, 2006). EMA provides excellent ecological validity, and thus results are generalizable to real-life situations (for a detailed review of EMA, see Shiffman, Stone & Huffort, 2008). In their systematic review, Enkema et al. (2020) looked at EMA studies where mindfulness, affect and well-being were of focus. They concluded that EMA is a sensitive and valid measure to spot small changes in mindfulness, affect and depression, but not for anxiety as there was not enough evidence.
+
+EMA coupled with a network analysis presents a novel way to approach and understand mental disorders. In its essence, the network approach posits that there is no latent, mental disorder that causes the symptoms (Borsboom, 2017; Robinaugh et al., 2020). Instead, there are only symptoms and whence they interact, they create a state of mind that we call “mental disorder X” (Borsboom & Cramer, 2013). In other words, the “mental disorder X” does not cause the symptoms—how can it—for it does not exist! Only the symptoms exist, and the mental disorder emerges from the relations among symptoms. To be specific, mental disorders are seen as complex, dynamic symptom networks that causally, and possibly in self-reinforcing-ways interact together, rather than as effects of a latent disorder (Borsboom, 2017; Bringmann & Eronen, 2018). Thus, network theories of mental disorders have a philosophical advantage compared to the traditional latent variable theories (Kendler, Zachar & Craver, 2011), which makes baseless reification of mental disorders redundant (Hyman, 2010).
+
+A network is made out of nodes and edges. Nodes are visualized as circles and can represent basically anything from symptoms to ecosystems. In turn, edges are visualized as lines that represent any conceivable association, for example, partial correlations or Bayesian probabilities (Borsboom, 2013). Nodes and edges connect to each other creating a network structure that informs us about associations, though not about causal relations. Albeit, network structures can answer Granger-causal hypotheses; that is, how well does a variable predict another variable at the next time point when controlling for other variables (Granger, 1969).
+
+There are two elements to consider when it comes to networks: estimating the network structure and assessing its characteristics (Robinaugh et al., 2020). Estimating a network of symptoms creates a model that can inform us about contemporaneous, temporal and between-subjects associations, and tell us about the network’s stability and accuracy. In contrast, assessing the network’s characteristics refers to node centrality, node predictability, node clustering, and community structure (ibid.). In this study, we focus on network estimation, namely contemporaneous and temporal networks. Furthermore, these network structures represent partial correlations, which means there is no opportunity for multicollinearity or predictive mediation. As such they are “exploratory hypothesis-generating structures” (Epskamp & Fried, 2018, p. 4) that can indicate potential causal relations.
+
+The present study is limited not only in how many items we can ask from the participants (i.e., risk of attrition and diminished statistical power), but also by the complex, multifaceted nature of mindfulness and emotion. And while we are not able to study them in their entirety, we can mitigate this problem by focusing on two specific subfacets of these respective constructs. A subfacet named ‘Acting with Awareness’ is part of the psychological construct ‘Mindfulness’, and therefore we will continue referring to mindfulness with the full knowledge that it is not the whole picture but a part of it. And the same applies to the experience of ‘Joy’ that measures positive affect but is only one of many positive affect that people can experience.
+
+In line with previous research, the aim of the present study is threefold: (1) the first aim is to find out the dynamical associations between mindfulness and psychological well-being (operationalized as depression, anxiety, and stress); (2) the second aim is investigate the dynamical associations between mindfulness and joy; (3) and the third aim is exploratory in nature and seeks to understand at what time students are most mindful. We hypothesize that (H1) mindfulness is significantly negatively associated with depression, anxiety, and stress on the contemporaneous and temporal level. Next, we hypothesize that (H2) mindfulness is significantly positively associated with joy on the contemporaneous and temporal level. Finally, we set out one research question to explore (H3) at what time students are most mindful.
+
+## Results
+
+A convenience sample of 63 (86% women) undergraduate students from Leiden University, whose age ranged between 18 to 34 years, participated in the baseline questionnaire. There were 9 different nationalities, though the majority consisted of Dutch (N=30) and German (N=21). Most of them studied psychology (71%). Almost a third (30%) reported having a clinically diagnosed mental disorder either currently or in the past. DASS-21 at baseline indicates mild depression (M = 6.29, SD = 4.60), mild anxiety (M = 4.86, SD = 3.58), and mild stress (M = 7.83, SD = 4.24). MAAS at baseline indicates below average mindful attention to the present moment (M = 2.81, SD = 1.25).
+
+There were three students who did not fill the baseline questionnaire. As a result, there were 66 students who participated in the EMA. If a participant had >50% missing data, we excluded them from the network analyses. On the rest of the sample we used the Kalmar filter to impute the missing data. We ended up having 51 students in the network analyses. The assumption of stationarity was met by detrending the data.
+
+### Mindfulness and psychological well-being
+
+We hypothesized that (H1) there were significant negative associations on the contemporaneous and temporal level between mindfulness and psychological well-being. The network models showed partially confirmed evidence in favor of the hypothesis H1 (See Figure 1.). Namely, there were no temporal associations between mindfulness and psychological well-being, but there were contemporaneous associations, albeit relatively weak: mindfulness was significantly negatively associated with depression (anhedonia; r = –.10), anxiety (worry; r = –.07), and stress (relax; r = –.09). The associations were computed at significance level of α = .05.
+
+### Mindfulness and joy
+
+We hypothesized that (H2) there was a significant positive association on the contemporaneous and temporal level between mindfulness and joy. The network models showed partially confirmed evidence in favor of the hypothesis H2 (See Figure 1.). The temporal network model displayed no significant partial correlations, whereas the contemporaneous network model showed a significant positive partial correlation (r = .15). The associations were computed at significance level of α = .05.
+
+*Figure 1.* The temporal (left) and contemporaneous (right) network models.
+
+![](/images/my-bachelor-thesis-55aoi4b4.jpg)
+
+*Note.* Depression (Ftr. and Anh.), anxiety (Nrv. and Wrr.), and stress (Rlx. and Irr.). Red indicates negative association and blue positive association. The thicker and more saturated the edge, the stronger the association. Only significant edges are shown (α = .05).
+
+### Mindfulness and time-of-day
+
+Our research question (H3) explored at what time students were most mindful. The average level of mindfulness over each day and each participant was 1.73, 1.77, 1.84 and 1.82 at 12:00, 15:00, 18:00 and 21:00, respectively. It seems that students tend to become more mindful toward the evening. We computed a two-sided t-test between the highest (1.84) and the smallest (1.73) average level of mindfulness, which pointed toward a non-significant difference (t = 1.83, p = .07). *(1)*
+
+## Discussion
+
+### Discussion of the key findings
+
+COVID-19 has weakened the general population’s psychological well-being (Salari et al., 2020; Twenge & Joiner, 2020; Vindegaard & Benros, 2020), and therefore it is of great importance to find protective factors against negative effects of COVID-19. One such protective factor could be mindfulness (Di Giuseppe et al., 2020). Accordingly, our goal was to find out whether students being more mindful could not only protect against psychological distress by being more aware of the present moment, but also increase positive affect. Lastly, we explored at what time students are most mindful during the day on average.
+
+Because of the complex, multifaceted nature of mindfulness, we chose one node that represents mindfulness in the network. This node measures 'Acting with Awareness’ subfacet of mindfulness, which has been shown to predict improvement in depressive and anxiety symptoms (de Bruin et al., 2012; Enkema et al., 2020; Soysa and Wilcomb; 2015; Webb et al., 2019). We examined the association between mindfulness and joy. Past evidence suggests that mindfulness and positive affect have a self-reinforcing effect on each other (Enkema et al., 2020; Gotink et al., 2016; Hill & Updegraff, 2012; Spears et al., 2019). That is, feeling good makes you attend to and be more aware of the present momentーand vice versaーin a spiraling fashion.
+
+However, the temporal network model revealed no associations (i.e., partial correlations) between mindfulness and psychological well-being or joy. This implies that mindfulness at time t does not predict improvement in psychological well-being nor increased joy after three hours. However, this is not evidence against such associations but rather our analyses failed to estimate such significant edges in the network models. We talk about this in the limitations.
+
+Be that as it may, the estimated edges in the contemporaneous network model do show unique associations between mindfulness, psychological well-being and joy. This means that at the same time interval, mindfulness is uniquely associated with psychological well-being and joy. In specific, mindfulness seems to be weakly yet significantly associated with one of two nodes of depression, anxiety, and stress. The largest association between mindfulness and psychological well-being is relatively low (r = –.09) and the association between mindfulness and joy is medium (r = .15), when compared to the maximum association in the network (r = .33). Again, the estimated network models are conservative in the sense that they reveal only significant partial correlations. Therefore, we do not have evidence that there does not exist other associations in the networks. But we can be certain that the aforementioned associations on both network models do exist.
+
+Finally, we explored at what time students were most mindful on average. Students felt slightly more mindful toward the evening. It could be that students are more in touch with the present moment toward the evening after the day’s work is over. But on closer inspection, we computed the significance of the smallest (1.73 at 12:00) and largest (1.84 at 18:00) average level of mindfulness, and found this difference to be non-significant (t = 1.83, p = .07). As of now, we do not have evidence that the time of day has any impact on how mindful students are in the present moment. Further research is warranted.
+
+### Limitations
+
+This study has generated new insights into the predictive and potential causal associations between mindfulness, psychological well-being and joy. However, there are limitations. First, while the use of a single item measure of mindfulness was methodologically suboptimal, it was required so as to keep the daily questions minimally demanding to the participant. As a result, one node representing mindfulness in the network was not only an oversimplification of mindfulness, but also its subfacet ‘Acting with Awareness’. Studying a complex, multifaceted psychological construct like mindfulness with one self-report item is crude (Friend & Nesse, 2015), and it does not say much about mindfulness as a whole. As a result, our content validity is compromised. And while we had the benefit of studying one specific aspect of a subfacet of a complex psychological construct multiple times throughout weeks and revealing its dynamics, it would be more interesting to find out how mindfulness and its basic components interact with psychological well-being and joy at the contemporaneous and temporal level.
+
+Second, our temporal network model failed to estimate edges between mindfulness and other variables. This could be due to a number of reasons. One, because of different sized lag intervals, we may not capture the full impact of our mindfulness variable to other variables (Epskamp et al., 2018a). Indeed, there is no reason why mindfulness should take a few hours to impact psychological well-being or joy. In the same time window, mindfulness was significantly associated with other variables, when controlled for temporal effects and all other items. So there may actually be a different sized lag interval at play. Two, our mindfulness variable simply does not predict other variables temporally. There may not exist a causal relationship. Although, our mindfulness variable might be more central to other mindfulness symptoms in the network than psychological well-being or positive affect. Or three, our temporal network model lacks statistical power to reveal significant associations between mindfulness and other variables in the network (Epskamp et al., 2018a). Small sample sizes often lead to low statistical power wherein detecting true edges becomes hard (low sensitivity), while at the same time estimating false edges (high specificity) is extremely unlikely (Epskamp et al., 2018a).
+
+### Future directions
+
+To our knowledge, this is a first study estimating the network structure between mindfulness, depression, anxiety, and stress, and joy. Since our study had a correlational design, with the caveat that we had the opportunity to make Granger-causal predictions, we cannot explain the unique associations as causal. Therefore, future studies could look into experimental manipulation so as to evaluate its impact on the other nodes in the network, for example, a mindfulness-based intervention. Such studies are important to understand how symptoms relate amongst themselves (Robinaugh et al., 2019). In time, a network theory of mindfulness should emerge.
+
+Finally, if and when the network structure of mindfulness has been accurately estimated, it is natural to explore how it functions in relation to psychological well-being. However, answering 15 questions from the MAAS and 21 questions from the DASS-21 four times a day is awfully demanding resulting in high participant attrition. Therefore, our recommendation for the future studies is to study one subfacet of mindfulness like ‘non-judging’ and one aspect of psychological well-being, like ‘anxiety’. This way participants are not flooded with too many questions.
+
+## Conclusion
+
+Our goal of the present study was to examine the complex, dynamic network structures of mindfulness, psychological well-being and joy on the contemporaneous and temporal levels. This goal was motivated by the dire need to find a protective factor against the psychopathological symptoms caused by the presently ravaging COVID-19. Prior research has elucidated on the benefits of mindfulness on psychological well-being as well as the self-reinforcing relationship with joy. The results of the network analyses partially confirmed the two hypotheses: there are contemporaneous associations between and amongst mindfulness, psychological well-being and joy. However, mindfulness does not seem to predict increased psychological well-being nor joy.
+
+Unquestionably, our study has many limitations that alter the significance and interpretation of the results. Our study is limited in that the network in which mindfulness is depicted as a node is only one aspect of a subfacet of a complex psychological construct. Be that as it may, “all models are wrong, but some are useful” (Box, 1979, p. 202). Accordingly, we opine that our study generated new insights into the possible causal relationships between mindfulness, psychological well-being and joy, as evidenced by the significant partial correlations in the contemporaneous network model.
+
+## Methods
+
+### Participants
+
+We aimed to recruit 100 undergraduate students from Leiden University through online advertisements in social networking sites. The participants had the option to receive SONA credits proportional to how many questions they answered throughout the weeks or a chance to win one of four VVV gift cards, if the participant showed at least 80% participation in the study. Participants were eligible for the study if they met the following criteria: 1) older than 18 years of age, 2) regular undergraduate student (full-time attendance at Leiden University), and 3) fluent in English.
+
+### Procedure
+
+The study took place between 29.03.2021 and 12.04.2021, and consisted of three parts. First, the participants completed a 25-minutes-long baseline questionnaire. In the second part, a 15-day EMA was conducted. Lastly, we conducted a 10-minute post-assessment.
+
+### Baseline assessment
+
+We instructed participants to fill a baseline assessment containing 13 demographic questions and 7 scales regarding psychological well-being, social media use, physical activity, fatigue, loneliness, joy, sedentary behavior, and mindfulness. Thus, our study was part of a larger study.
+
+### Ecological momentary assessment
+
+We instructed the participants to download an EMA app called “Ethica Data” ([https://ethicadata.com/](https://ethicadata.com/)) and complete daily questions four times a day in three hour intervals (12:00, 15:00, 18:00, 21:00) for 15 days. Each assessment lasted approximately two minutes. Participants had to answer the prompts within a 30-minute time window after which it expired. The questions measured how much the participant endorsed a certain thought, feeling and/or behavior (1 = Not at all, 2 = Slightly, 3 = Moderately, 4 = Very, 5 = Extremely) or how much time they spend on a certain activity (0 minutes, 1-15 minutes, 15-60 minutes, 1-2 hours, over 2 hours).
+
+*Table 1.* Ecological momentary assessment items queried 4 times per day for 15 days.
+
+![](/images/my-bachelor-thesis-slyhca5m.jpg)
+
+*Note:* Item options were: 1 = Not at all, 2 = Slightly, 3 = Moderately, 4 = Very, 5 = Extremely.
+
+### Measures
+
+#### Baseline assessment
+
+##### Depression, anxiety, and stress
+
+Depression, anxiety and stress were assessed with the adapted version of the Depression Anxiety Stress Scale (DASS-21) (Oei et al., 2013). DASS-21 is a 21-item questionnaire with 7 items per subscale that are rated on a four-point Likert scale from 0 (Did not apply to me) to 3 (Applied to me very much, or most of the time). A sum score of the respondent is calculated by adding up the items. The total score varies between 0 to 60. The higher the score on a subscale, the more severe the symptoms. The severity score is categorized as normal, mild, moderate, severe, or extremely severe. The total scale score of the DASS-21 shows excellent internal consistency (Cronbach’s alpha) of .93 (Henry & Crawford, 2005), as well as for the separate subscales: depression at .94, anxiety at .87, and stress at .94 (Antony et al., 1998). Furthermore, there have been studies with clinical and non-clinical samples that show good convergent and discriminant validity (Cheung et al., 2016; Gomez et al., 2014).
+
+##### Mindfulness
+
+Baseline state mindfulness was assessed with the Mindfulness Attention Awareness Scale (MAAS), which is a 15-item self-report questionnaire that measures mindful attention in daily life (Brown & Ryan, 2003). Participants rate each item using a five-point Likert scale from 1 (Never or very rarely true) to 5 (Very often or always true), with higher scores reflecting higher mindfulness (these answer options were an adaptation of the original MAAS). To score MAAS, one has to compute a mean of the 15 items. The MAAS shows great internal consistency (Cronbach’s alpha) of .82 in the student sample and .87 in the general adult sample (ibid.). The MAAS is in public domain and no special permission is required for research or clinical purposes (Brown, n.d.).
+
+#### Ecological momentary assessment
+
+##### Depression, anxiety, and stress
+
+To avoid inundating participants with too many questions, we decided to use six items from the DASS-21 subscales of depression, anxiety, and stress. The items for depression were “I felt that I had nothing to look forward” and “I couldn't seem to experience any positive feeling at all”; for anxiety items “I felt nervous, anxious or on edge” and “I was worried about different things”; and for stress “I found it difficult to relax” and “I felt very irritable” (See Table 1.). The six items were assessed on a five-point Likert scale from 1 (Not at all) to 5 (Extremely). A higher score indicates more severe symptoms of depression or anxiety, or higher stress.
+
+##### Mindfulness
+
+State mindfulness was measured using a single item derived from the Five Facet Mindfulness Questionnaire (FFMQ) (Baer et al., 2006). This item asks if “It seems I was “running on automatic,” without much awareness of what I was doing” with five-point Likert scale options from 1 (Not at all) to 5 (Extremely). The tense was changed from present to past, and the answer options were an adaptation from FFMQ by Baer et al. (2006). Therefore, in pre-processing we reversed the scale so that higher scores indicate higher awareness to the present moment.
+
+##### Joy
+
+Joy was measured using a single item created by us. The item measures positive affect, and asks if “I experienced joy” with five-point Likert scale options from 1 (Not at all) to 5 (Extremely). Higher scores indicate a stronger experience of joy.
+
+#### Post-assessment
+
+After completing the study, the participants received an email where they could share their opinions about the study, whether they had any technical difficulties, and give open feedback. Thus, post-assessment was created to improve the subsequent studies in the future.
+
+#### Ethical statement
+
+Ethical review of the study plan was conducted by Leiden University Ethics Committee. The Committee approved the research proposal (number 2021-02-28-E.I. Fried-V2-2990). All procedures performed in the studies involving human participants were in accordance with the ethical standards of the institutional and/or national research committee and with the 1964 Helsinki declaration and its later amendments or comparable ethical standards. Informed consent was obtained from all participants included in the study.
+
+### Statistical analysis
+
+Full code and syntax is available online, as well as full data, excluding the data we erased to guarantee anonymity (see [https://osf.io/n4xw6/?view_only=7740db5988d149bb9020f72841b73891](https://osf.io/n4xw6/?view_only=7740db5988d149bb9020f72841b73891)).
+
+#### Pre-processing
+
+We used the free statistical program R version 4.0.3 to pre-process the baseline and EMA data. In doing so, we ensured anonymity, and removed duplicate data. We also reversed the baseline MAAS scale and the mindfulness EMA item scale to match with the original scale.
+
+#### Network estimation
+
+We estimated the networks using a two-step multi-level vector autoregression (two-step mlVAR; Epskamp et al., 2018b). This function is suited for intensive longitudinal data, and can compute three networks: temporal (i.e., lag-1 regression weights), contemporaneous (i.e., partial correlations) and between-subject networks. The present study focuses on temporal and contemporaneous networks. The temporal network is computed directly from the model and the contemporaneous network is estimated post-hoc by correlating the residuals (for a more technical description, see Epskamp, 2020; Haslbeck, Bringmann & Waldorp, 2020). The contemporaneous network computes unique statistical associations between the items in the same window of measurement (akin to partial correlations), whereas the temporal network computes these associations across time (lag-1, i.e. from one time point to the next). Thus, the statistical associations in the temporal network can be seen as Granger-causal (i.e., how well an item predicts another item at the next time point when controlling for other items) (Granger, 1969).
+
+One important assumption for mlVAR is stationarity (Haslbeck, Bringmann & Waldorp, 2020). This means that while data can fluctuate over time, there should be no overall, consistent means over time (i.e., a variable should not significantly decrease or increase). This assumption is achieved by detrending the data (Fried, Papanikolaou & Epskamp, 2020; Raffalovich, 1994). If significant slopes were present for a given variable, we multiplied the time series by its slope to achieve stationary parameters across time. Lastly, we used the Kalman filter to estimate missing time points in the time-series data if less than 50% of time points were missing (Hamaker & Grasman, 2012). If more were missing, the participants were removed from all analysis regarding EMA data. Kalman filter is a statistical algorithm that uses collected data from before and after the missing time point, to estimate the unknown measurement. By considering a series of measurements at different time points, the estimation of one missing measurement is more accurate. The Kalman filter estimates values for missing time points of one person on one variable (ibid.), and we therefore loop the filter over all participants and variables.
+
+#### Network visualization
+
+The networks were visualized using the R package qgraph (Epskamp et al., 2012). Items are treated as nodes (circles) that are connected with edges (lines). The thicker the edge, the stronger the statistical association. The color red indicates a negative association whereas the blue a positive association. We do not make strong assumptions about directionality, and thus we are able to visualize reciprocal associations and feedback loops. Reciprocal associations are directed edges (e.g., Xt-1 → Yt) and feedback loops are edges that attach to one self (Xt-1 → Xt) (Haslbeck, Bringmann & Waldorp, 2020). All variables were treated as continuous.
+
+*(1)* This should have been analysed through MANOVA.

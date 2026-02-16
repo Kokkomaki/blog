@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>How Yle Portrays Bitcoin in News Articles | Ville Kokkomäki</title>
+<link rel="apple-touch-icon" sizes="57x57" href="/favicon_io/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicon_io/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicon_io/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicon_io/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicon_io/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicon_io/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicon_io/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicon_io/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/favicon_io/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon_io/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="/favicon_io/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicon_io/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/custom.css">
+
+
+      <script src="/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+
+</head>
+<body>
+  <header>
+    <header>
+  <nav class="path-nav">
+    <ol>
+      
+  
+    
+  
+    
+  
+
+  <li>
+    <a href="/">
+      
+        Ville Kokkomäki
+      
+    </a>
+    /
+  </li>
+
+  
+
+  <li>
+    <a href="/posts/">
+      
+        Posts
+      
+    </a>
+    /
+  </li>
+
+  
+
+  <li class="current">
+    <a href="/posts/how-yle-portrays-bitcoin-in-news-articles/">
+      
+        How Yle Portrays Bitcoin in News Articles
+      
+    </a>
+    
+  </li>
+
+    </ol>
+  </nav>
+</header>
+
+
+
+  </header>
+  <main>
+    
+  <h1>How Yle Portrays Bitcoin in News Articles</h1>
+  
+
+
+  
+  
+  
+  
+    <nav class="toc">
+      <strong>Table of contents</strong>
+      <div class="toc-content">
+        <nav id="TableOfContents">
+  <ol>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#procedure">Procedure</a></li>
+    <li><a href="#results">Results</a>
+      <ol>
+        <li><a href="#general-information">General Information</a></li>
+        <li><a href="#coefficients-table">Coefficients Table</a></li>
+      </ol>
+    </li>
+    <li><a href="#discussion">Discussion</a></li>
+    <li><a href="#limitations">Limitations</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+      </div>
+    </nav>
+  
+
+  <h2 id="abstract">Abstract</h2>
+<p>This study explores how Yle, a Finnish public media company, covers Bitcoin. Yle has nearly 100 years of experience in informing and educating the public. The research aims to understand the sentiment in Yle’s coverage of Bitcoin and identify common themes. I collected data from 436 articles on Bitcoin, narrowing it down to 379 after removing those with little relevance. I performed a sentiment analysis using OpenAI&rsquo;s GPT-4o, which showed a significant decline in neutral and positive sentiments over the years, with a growing trend towards negative representations. Most articles linked Bitcoin to crime and fraud. Yle&rsquo;s coverage seems to increase during Bitcoin price spikes. Overall, this research highlights the need for more neutral and balanced reporting on Bitcoin to inform the public accurately.</p>
+<h2 id="introduction">Introduction</h2>
+<p>Yle is a Finnish public media company. It has nearly 100 years of history in informing, educating, and entertaining the public. As a public service broadcaster, Yle does more than just provide news and entertainment. It helps support democracy, promote equality, and strengthen national culture. Yle makes sure that all Finns, including those in remote areas and minority groups, can access a wide range of reliable media content.</p>
+<p>Fernando Nikolić has noted that Bitcoin is often reported negatively in BBC news.<a href="https://x.com/basedlayer/status/1803489778056269950">[1]</a> This inspired me to explore how Yle covers Bitcoin. Yle shares many features with the BBC.</p>
+<p>Mainstream media tends to focus on negative news stories because they attract more viewers. Many people also see Bitcoin in a negative light. I approached my research as exploratory, not confirmatory. This means I wanted to find new insights rather than confirm existing ideas. A single piece of data is not enough for a theory, while two pieces can help show a pattern that later studies can confirm.</p>
+<p>Exploratory research is about discovery. Confirmatory research is about validation.</p>
+<p>In this study, I looked at how Yle news portrays Bitcoin (negative, positive, or neutral) and identified common themes using OpenAI&rsquo;s GPT-4o.</p>
+<h2 id="procedure">Procedure</h2>
+<p>I used OpenAI&rsquo;s GPT-4o to generate Python code, which you can see on GitHub.<a href="https://github.com/Kokkomaki/ylebitcoincoverage">[2]</a></p>
+<p>First, I collected data by scraping the Yle website. A bot copied the article&rsquo;s header, content, publication date, and URL. It also assigned an index number to each article. This process resulted in a list of 436 articles.</p>
+<p>Next, I manually added missing content and dates. I also created code to count how many times words like &lsquo;bitcoin**&rsquo;, &lsquo;virtuaalivaluut**&rsquo;, and &lsquo;kryptovaluut*&rsquo; appeared in the articles. This helped me remove articles with few or no mentions of Bitcoin. I deleted articles in these cases:</p>
+<ul>
+<li>Summaries of the week&rsquo;s articles</li>
+<li>Articles with no mention of Bitcoin</li>
+<li>Articles that only mentioned Bitcoin briefly</li>
+<li>Articles focused on alternative cryptocurrencies or scams (e.g. Onecoin)</li>
+</ul>
+<p>This left me with 379 articles.</p>
+<p>Then, I used the OpenAI API to analyse the headers and content, categorising the sentiment as neutral, negative, or positive and identifying themes such as crime, speculation, investment, environment, and taxation, with the following prompts:</p>
+<ol>
+<li>Analyse the sentiment of the following article as it relates to bitcoin. The sentiment can be positive, negative, or neutral. Provide only one word as the sentiment.</li>
+<li>Identify the main theme of the following article. The theme cannot be bitcoin. Provide only one english word representing the most appropriate theme.</li>
+</ol>
+<p>Next, I used logistic regression to analyse the data, sentiment, and year to find significant trends. Finally, I visualised the data.</p>
+<h2 id="results">Results</h2>
+<h3 id="general-information">General Information</h3>
+<p>MNLogit Regression Results</p>
+<p><img src="/images/regressionresultsyle.jpg" alt=""></p>
+<h3 id="coefficients-table">Coefficients Table</h3>
+<p>This table shows the estimated coefficients for each category (level) of the <code>sentiment</code> variable:</p>
+<p><img src="/images/variablevalues.jpg" alt=""></p>
+<p><strong>Neutral Sentiment (<code>sentiment_encoded = 1</code>)</strong></p>
+<p>The coefficient for <code>year</code> in the neutral sentiment category was negative (β = -0.1331, p = 0.002). This means that as the years go up, the likelihood of a neutral sentiment (compared to negative) goes down. This shows a trend of decreasing neutral sentiments over time.</p>
+<p><strong>Positive Sentiment (<code>sentiment_encoded = 2</code>)</strong></p>
+<p>The coefficient for <code>year</code> in the positive sentiment category was also negative (β = -0.2287, p <img src="/images/how-yle-portrays-bitcoin-in-news-articles-stacked-yle-coverage-of-bitcoin.png" alt=""></p>
+<p><strong>Figure 2. Yle Absolute Coverage Of Bitcoin</strong></p>
+<p><img src="/images/how-yle-portrays-bitcoin-in-news-articles-yle-coverage-of-bitcoin-absolute-1.png" alt=""></p>
+<p><strong>Figure 3. Most Common Themes</strong></p>
+<p><img src="/images/how-yle-portrays-bitcoin-in-news-articles-wordcloud.png" alt=""><strong>Note.</strong> Colours here are the same: red is negative, yellow neutral, and green positive. Size is dependent on frequency.</p>
+<h2 id="discussion">Discussion</h2>
+<p>Overall, the trends I have observed in both neutral and positive sentiments about Bitcoin indicate that, over time—from 2011 to 2024—there has been a significant decline in neutral or positive expressions compared to negative ones. This shift points to a growing negativity in public sentiment towards Bitcoin. The trend is particularly strong in positive sentiment (β = -0.2287) compared to neutral sentiment (β = -0.1331), and both trends are statistically significant, suggesting that they are unlikely to occur by chance.</p>
+<p>It is notable that Yle tends to cover Bitcoin more frequently when its price sharply rises or falls, as seen in 2014, 2018, and 2021 (see Bitcoin price performance from those periods). This suggests that their coverage is often driven by Bitcoin&rsquo;s popularity rather than by a sustained interest in its broader implications.</p>
+<p>One major drawback of negative coverage is that it can lead to Bitcoin being associated primarily with crime. One way people form their opinions is through the news they consume, so if they only hear about crime and drug trafficking, those are the associations they will retain regarding Bitcoin. Interestingly, not that many worries for money-laundering or terrorism, which are de facto reasons for state regulation of Bitcoin and related crypto-assets.</p>
+<p>However, this negative perception does not stem from Bitcoin itself but rather from how people choose to use it. Bitcoin is simply a tool that can facilitate both good and bad actions. Stories about people’s experiences with Bitcoin tend to be more engaging than stories focused solely on the technology itself.</p>
+<p>Notwithstanding, Yle, as a public service broadcaster, has a range of topics it could explore more thoroughly. For instance, it could discuss how Bitcoin mining can heat homes or stabilise electricity grids. Articles could also focus on how Bitcoin is being used to support human rights activists whose traditional bank accounts have been frozen. Additionally, Yle could look into the history, philosophy and ethics of money production and explore Bitcoin&rsquo;s relationship to these concepts. Other potential topics include Bitcoin’s role in cross-border payments, its potential as a hedge against inflation due to its scarcity, the importance of financial privacy, and the implications of central bank digital currencies and cashless societies.</p>
+<p>But should there be more positive articles about Bitcoin? Not necessarily. The few positive articles I did come across often originated from businesses or individuals who directly profit from Bitcoin trading. Other articles focused primarily on price increases, which do not contribute valuable insights into its broader implications or uses. I believe that neutral articles would be more beneficial. This is what research is all about: It aims to be balanced and critical, allowing people themselves to make informed decisions based on a full spectrum of information.</p>
+<h2 id="limitations">Limitations</h2>
+<p>One limitation might be that the definitions of sentiment or theme were not clearly defined in the prompt. This could lead to different results if the definitions were different. However, a quick manual review of over 50 articles showed that the themes and sentiments were accurate.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The exploratory research conducted here reveals that Yle portrays Bitcoin negatively. The results demonstrate a significant downward trend in both neutral and positive sentiments over the years, indicating an increasing prevalence of negative sentiment expressions.</p>
+<p>Bitcoin is often associated with different types of crime. However, Bitcoin articles need not be positive either, as this skews the image of bitcoin to something else. Instead, Yle, as a supposedly non-biassed news outlet, should write articles on bitcoin more balanced, displaying their criticism.</p>
+<h2 id="references">References</h2>
+<p>[1] Nikolić, F. (2024). BBC coverage of Bitcoin since 2013. <a href="https://x.com/basedlayer/status/1803489778056269950">https://x.com/basedlayer/status/1803489778056269950</a></p>
+<p>[2] Kokkomäki, V. (2024). Github. <a href="https://github.com/Kokkomaki/ylebitcoincoverage/blob/main/README.md">https://github.com/Kokkomaki/ylebitcoincoverage/blob/main/README.md</a></p>
+  <time datetime="2024-10-09">2024-10-09&nbsp;</time>
+
+
+  
+    <div class="terminal-nav">
+      <div class="back-nav">
+        <a href="../" class="back-link">../</a>
+      </div>
+    </div>
+  
+
+  </main>
+  <footer>
+    <p>
+  &copy; Copyright 2026 &middot;
+  <a href="https://github.com/ntk148v/shibui">shibui</a>
+</p>
+
+  </footer>
+</body>
+</html>

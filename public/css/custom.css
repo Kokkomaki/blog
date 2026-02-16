@@ -1,0 +1,13 @@
+time {
+  color: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) - 35%));
+  opacity: 0.6;
+}
+/* You can add custom style here */
+
+img {
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: none !important;
+}

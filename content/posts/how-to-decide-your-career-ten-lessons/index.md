@@ -1,0 +1,160 @@
++++
+title = "How To Decide Your Career – Ten Lessons"
+date = "2022-01-05 17:24:00"
++++
+
+![](/images/how-to-decide-your-career-ten-lessons-j4xzygzg.jpg)
+
+<!--more-->
+
+> Man sacrifices his health in order to make money. Then he sacrifices money to recuperate his health. And then he is so anxious about the future that he does not enjoy the present; the result being that he does not live in the present or the future; he lives as if he is never going to die, and then dies having never really lived.
+
+This comment by the 14th Dalai Lama inspired me in my search for a career after I read it for the first time at age 20. It was the time when I had to make the big career decisions and choose what to do after upper secondary school (lukio).
+
+However, I think career development begins much sooner. Through socialization, our family and relatives ask us what we want to do when we grow up. Our upbringing plants the seeds of possibilities and impossibilities; the beliefs that we can or cannot be whatever we want to be.
+
+I remember wanting to be a formula driver at age 6, astronaut and astrophysicist at age 13, visual effects artist and film editor at age 17, and psychologist and therapist at age 21. Now at age 25, I want to be a teacher and educator and work in politics. It appears that already at a young age we are reminded to think about our future career—questions about career concerns all ages. Thus, the ten lessons I tell you are applicable to anyone at any stage of their career.
+
+While studying psychology, along the way I found new interests. Cognitive sciences, neuroscience, social sciences, and more. I had the opportunity to take a course in *Perspective in Career Planning* in Leiden University. Others thought the course a waste of time or weren't too excited about it altogether, but I liked it. Though I did not like it as if it was the best thing ever. I just think some articles had valuable lessons that I am now going to share with you and give stories from my own life.
+
+## Understand how luck works🍀
+
+We weave a narrative to explain everything in terms of our own doing. But in fact favourable chance events, or in other words luck, for example economic situations, unexpected information, and unexpected personal events all account for your career development [4]. Sometimes chance can play a bigger role than you anticipated, so don't be guilty if your career benefited from chance. See also [Veritasium’s video Is Success Luck or Hard Work?](https://www.youtube.com/watch?v=3LopI4YeC4I).
+
+> People think it has to be either skill or luck that explains success, but the truth is you need both. ― Veritasium
+
+I was accepted to Leiden University in 2018 but I didn’t have a house to live in. I applied through university relatively late and therefore they did not offer me a room in the given price range. I traveled to the Netherlands in search of a room but no luck. Then two weeks before the start of the studies I called the university and they told me to call again after two days. I called and they offered me a room. I was lucky but I did not wait for luck like Gladstone Gander, instead I generated these three events (applying, traveling, calling) and the third time was the charm.
+
+## Generate lucky events on which you can capitalize
+
+Beneficial chance events, lucky coincidences, and happy accidents are events that come about through, for example, taking classes directly or remotely, getting to know and interacting with new people, and surfing the internet [4]. These events can lead you to places paramount to your career growth.
+
+And as you network, don’t just make contacts, *make friends*. I recently found this [Guide to Twitter](https://tasshin.com/blog/a-guide-to-twitter/) where Tasshin mentions how Twitter is one of the best places to make new friends. See also Codus Operandi's piece about [Luck Surface Area](https://www.codusoperandi.com/posts/increasing-your-luck-surface-area).
+
+> It turns out that Twitter is a wonderful place for finding friends. ― Tasshin
+
+I've made good friends who could have helped me in different things, such as recommend me as research assistant, work in a start-up, or get an internship. I did not capitalize on these chance events because they were not in my interest at that moment. But it goes to show that having friends will lead you to new ideas and opportunities. Ask yourself, would you hire a stranger or a friend?
+
+## Embrace uncertainty
+
+Uncertainty is anxiety-inducing. Anxiety is normal when planning the future but it is possible to overcome it. And truth to be told, uncertainty is present despite having a seemingly stable career [4]. You can never know what out of the blue may happen next, as evidenced by the pandemic. And because the future and individual human behavior are impossible to predict, we should therefore humbly accept uncertainty.
+
+My anxiety decreased the more diligently and earlier I prepared and worked toward a goal. I curiously explored possible Master’s studies during my second year of psychology studies. And as the time to apply was near, I found all the possible Master’s studies that I was interested in, ranked them according to my felt preference, “gut feeling”, and then applied accordingly. I wasn't anxious about the results during the application phase anymore because I had done my work toward finding what I was interested in, and also wrote good enough motivation letters.
+
+## Use rational and intuitive decision-making styles
+
+There are five decision-making styles [2,5]:
+
+- logical and structured approach (rational style)
+- reliance on feelings and impressions (intuitive style)
+- reliance on the support of others (dependent style)
+- postponing or avoiding making decisions (avoidant style)
+- impulsive decision making (spontaneous style)
+
+Dependent, avoidant, and spontaneous styles are all manifestations of nonproductive indecision. In contrast, people who combine both rational *and* intuitive decision-making styles are in the best place to make the best productive decisions.
+
+It works as follows. First gather as much necessary information as possible, and then let unconscious thought processes carry out their task; that is, don't consciously mull and work on it. After a seemingly inactive period, you will get vague feelings, “gut feelings” rather than explicit thoughts about the direction you are going to follow. For more, see [The Theory of Unconscious Thought](https://www.alice.id.tue.nl/references/dijksterhuis-nordgren-2006.pdf).
+
+> Contrary to popular belief, decisions about simple issues can be better tackled by conscious thought, whereas decisions about complex matters can be better approached with unconscious thought. ― A. Dijksterhuis & L. Nordgren
+
+I have used this method everywhere since I first learned about unconscious thought processes at age 20. I read a book called [The Power of Your Subconscious Mind](http://lessonsintruth.info/library/wp-content/uploads/2015/04/your_subconscious_mind.pdf) by Joseph Murphy. The book, and namely unconscious thought processes, helped me to choose to study psychology out of all other possible career paths.
+
+I recount the feeling very strongly. Before I fell asleep, I asked myself the question 'what should I study' a dozen times. When I woke up, I had forgotten about it and went on about my morning. As I was about to make a sandwich, I remember vividly how my mind emanated the words and prompted a cocksure feeling that inspired me to study either law or psychology. (Sounds schizophrenic I know!)
+
+## Good enough is the key to happiness
+
+Having too many or too few options can make you less happy [5]. It is a U-shaped relationship: having limited options is the best, the goldilock zone. Too few options suck, while too many options lead to paradox of choice, which can lead to regret because people want to *maximize* their options. In other words, the feeling that you *could've* had or done better because you knew there was or was going to be a better alternative. It all makes sense in hindsight, right?
+
+![](/images/how-to-decide-your-career-ten-lessons-rlyyagsr.jpg)
+
+> The key to happiness is to limit desires, and then be happy about the mundane things that you get for free.
+
+I could've applied to a dozen different Master's programmes across Europe. But I limited my options by applying to Finnish programmes that had interesting courses.
+
+In the end I planned to apply to five Master's programmes. Whilst writing a motivation letter I decided not to pursue neuroscience. I was rejected from two programmes, and then finally accepted to the peace programme. Consequently, I decided not pursue clinical psychology because the peace programme was good enough.
+
+## Be aware of your (dis)advantages
+
+People are born to a time, place and parents that they did not choose, with varied weaknesses and strengths that their upbringing and genetics dictate. So described, there exists real limitations, personal and contextual factors that potentially limit what you can and cannot do [4]. Limitations notwithstanding, focus on the positive, the advantages that you can use in your favor.
+
+> We cannot change the cards we are dealt, just how we play the hand. ― [The Last Lecture](https://www.youtube.com/watch?v=ji5_MqicxSo)
+
+I was born in a welfare country and to a family that is not nuts. And I think this is possibly one of the greatest eras in human history to live in. A dozen potential human extinction events in the future and present negative news in the media notwithstanding, humans around the globe, on average, are doing much better now than they ever were in the past. (Then again, *humans* are doing well, but what about other animals and environment?)
+
+(For more, read [Factfulness](https://www.goodreads.com/book/show/34890015-factfulness?from_search=true&from_srp=true&qid=Xg2aPPydpL&rank=1) by Hans Rosling and [Ten Global Trends Every Smart Person Should Know](https://www.goodreads.com/book/show/55209421-ten-global-trends-every-smart-person-should-know?from_search=true&from_srp=true&qid=qoF5w6Sadq&rank=1) by Ronald Bailey and Marian Tupy.)
+
+Finally, in the past five years through healthy interpersonal comparison and meditative self-reflection, I have begun to understand my personal strengths and weaknesses that I am not going to elaborate and list further.
+
+## Believe in yourself you can do it
+
+Self-efficacy simply refers to your belief that you can do it. It is extremely important in career development as it is strongly and inversely correlated to career indecision [1]. The more you believe in yourself that you can do it, the better you are at making the decision. Check out the [4 Ways To Improve And Increase Self-Efficacy](https://positivepsychology.com/3-ways-build-self-efficacy/) by Positive Psychology.
+
+> [Luke:] I can't believe it. [Yoda:] That's why you fail.
+
+Before applying to entrance exams in psychology in Turku, I had high self-efficacy. After the results I was disappointed to hear that I wasn’t accepted. My belief in my own abilities hit rock bottom. I didn't fix it by trying again because I was afraid of failure. Instead I decided to apply abroad. Studying psychology abroad certainly rebuilt my self-efficacy. I actually had enough confidence to apply to Turku again, but by then I had set my mind to other options.
+
+## Know that your personality matters
+
+The Big Five personality test can predict important life outcomes. High conscientiousness, extraversion, and openness, and low neuroticism are shown to be related to successful career development [1]. Get to know yourself better through these free tests:
+
+- [http://www.personal.psu.edu/~j5j/IPIP/](http://www.personal.psu.edu/~j5j/IPIP/)
+- [https://www.truity.com/test/big-five-personality-test](https://www.truity.com/test/big-five-personality-test)
+- [http://www.personalitytest.org.uk/](http://www.personalitytest.org.uk/)
+- [https://www.sapa-project.org/](https://www.sapa-project.org/) (very long)
+- [https://similarminds.com/bigfive.html](https://similarminds.com/bigfive.html)
+
+When I was 20 I did the Meyer-Briggs personality test. It inspired me, and motivated me to study psychology. I later learned that it wasn't a scientifically proven test. Whatever, because it helped me to understand myself better. Notwithstanding, I now recommend Big-5 personality tests given it is a more scientifically rigorous and more accurate picture of your personality. Then again, you can take the MBTI test to find career inspiration while knowing that it does not reflect your personality.
+
+## Be aware of your outcome expectations
+
+Outcome expectations can take the shape of social, material, and self-evaluative forms. Is it good for my family? Is it good for us financially? Is it good for me? What will happen if I try?
+
+These questions can dictate your behavior [1]. If you think that the outcome is going to be bad, you have already given into pessimism and defeatism that feeds further surrender and inaction. In contrast, if you remain positive and optimistic, there is a larger probability that the outcome is going to be favorable.
+
+While the quote below by Lao Tzu is a slippery slope, psychological science tells us that outcome expectations (thoughts) can influence our actions significantly. I don't know if they can influence your “destiny”.
+
+> Watch your thoughts, they become your words; watch your words, they become your actions; watch your actions, they become your habits; watch your habits, they become your character; watch your character, it becomes your destiny. ― Lao Tzu
+
+Going to the Netherlands meant leaving family and friends behind, spending money on tuition, and studying psychology that would not promise me the title of psychologist. Alternatively, it also meant new friends and experiences, investing in myself namely education, and opening new opportunities in career development.
+
+## And be resilient
+
+Given that adverse unexpected events can happen anytime during your career development, it is extremely important to be resilient. To bounce back from adversity, you have to be nimble, protean, and resilient. Career resilience naturally increases as you age and gain experience through the process of persisting, adapting, and flourishing despite challenges, changes, and disruptions over time [3].
+
+Next, notice which personal and contextual factors you can improve to increase career resilience, but also which factors may hinder or block your career growth.
+
+**Personal factors:**
+
+- individual's characteristics (The Big-5, internal locus of control, self-efficacy, self-esteem)
+- skills (technical competence, time management, interpersonal and communication skills)
+- attitudes (optimism/pessimism)
+- behavior and habits (physical exercise, self-care, help-seeking, learning about the organization's culture, professional development)
+- career history (prior experience)
+
+**Contextual factors:**
+
+- supportive workplace (supervisory support, peer support, psycho-social mentoring, career mentoring, supportive organizational policies)
+- job characteristics (autonomy, feedback)
+- supportive family (spouse/partner support, emotionality of partner)
+
+![](/images/how-to-decide-your-career-ten-lessons-m2bz34oa.jpg)
+
+Together personal and contextual factors form a bidirectional relationship affecting each other. These two then together affect career resilience that impacts your career satisfaction, intentions to change careers, and subjective career success.
+
+In the summer of 2021, I was cutting grass in several districts and motor roads. Then the company hired another person to cut grass. It didn’t take long until I realized that there wasn’t enough work for everybody. (It was a hot and dry summer that burnt the grass.) I made the uncertain, short-term decision to change jobs, and one week later I got a call to work on excavation.
+
+I end this post with my second favourite quote that I live by:
+
+> “If you don't know where you want to go, then it doesn't matter which path you take.” ― Lewis Carroll, Alice in Wonderland
+
+## References
+
+[1]. Lent, R. W. & Brown, S. D. (2013). Social Cognitive Model of Career Self-Management: Toward a Unifying View of Adaptive Career Behavior Across the Life Span. Journal of counseling psychology, 60(4), 557-568. [https://doi.org/10.1037/a0033446](https://doi.org/10.1037/a0033446)
+
+[2]. Lipshits-Braziler, Y., Gati, I. & Tatar, M. (2015). Strategies for coping with career indecision: Concurrent and predictive validity. Journal of vocational behavior, 91, 170-179. [https://doi.org/10.1016/j.jvb.2015.10.004](https://doi.org/10.1016/j.jvb.2015.10.004)
+
+[3]. Mishra, P. & McDonald, K. (2017). Career Resilience: An Integrated Review of the Empirical Literature. Human Resource Development Review, 16(3), 207-234. [https://doi.org/10.1177/1534484317719622](https://doi.org/10.1177/1534484317719622)
+
+[4]. Mitchell, K. E., Al Levin, S. & Krumboltz, J. D. (1999). Planned Happenstance: Constructing Unexpected Career Opportunities. Journal of counseling and development, 77(2), 115-124. [https://doi.org/10.1002/j.1556-6676.1999.tb02431.x](https://doi.org/10.1002/j.1556-6676.1999.tb02431.x)
+
+[5]. van Vianen, A. E. M., De Pater, I. E. & Preenen, P. T. Y. (2009). Adaptable Careers: Maximizing Less and Exploring More. The Career development quarterly, 57(4), 298-309. [https://doi.org/10.1002/j.2161-0045.2009.tb00115.x](https://doi.org/10.1002/j.2161-0045.2009.tb00115.x)

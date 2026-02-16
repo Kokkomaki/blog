@@ -1,0 +1,134 @@
++++
+title = "Skeemoja Bitcoinista"
+date = "2020-06-14 17:02:00"
++++
+
+Olin viisi- tai ehkä kuusivuotias kun aloin ymmärtää, mitä raha tarkoittaa. Meidän perheessämme liikkui ensin markkoja ja krooneja, sitten euroja ja krooneja, ja myöhemmin vain euroja. Muistan, kun joskus pienenä mietin itsekseni, miksi maailmassa ei ole rahaa, jota kaikki ihmiset käyttäisivät: maailmanlaajuinen raha. No nyt on. Sen nimi on Bitcoin.
+
+<!--more-->
+
+*Muutokset: Blogin struktuuri korjattu, kansikuva poistettu, ja kaninkolo vaihdettu.* ¹
+
+**Mistä tässä oikein on kyse?** Bitcoin on verkko ja bitcoin on rahaa. Kuten internetiin, jonka päälle on rakennettu blogeja, videopalveluita ja kaikenmaailman ohjelmia, myös Bitcoin-verkon päälle voi innovoida erilaisia palveluita.
+
+Siinä missä internet mahdollistaa tiedonvälityksen, Bitcoin mahdollistaa arvonvälityksen. Bitcoinilla voit lähettää rahaa miljardien eurojen edestä muutamalla sentillä salamannopeasti vaikkapa Suomesta Antarktikaan.²
+
+Nykyisessä järjestelmässä tällainen ei ole mahdollista, tai ei ainakaan ilman mittavia kustannuksia. Näin on siksi, että nykyisellään pankit eivät syystä tai toisesta suostu lähettämään rahaa toiseen maahan tai jos suostuvat, ottavat ne itselleen varsin suuren välityspalkkion.
+
+Bitcoin mahdollistaa kitkattoman rahalähetyksen kahden ihmisen välillä ilman kolmatta osapuolta. Bitcoinilla ei siis ole mitään yritystä, joka olisi vastuussa verkosta ja sen käyttäjistä. Sinä olet.
+
+**Bitcoinissa on potentiaalia.** Tosin, jotta Bitcoinista voisi tulla maailmanlaajuinen ilmiö, sen käyttämisen tulisi olla helppoa ja mahdollista ilman sen kummempaa teknologista ymmärrystä. Tähän tarpeeseen Bitcoin ei ainakaan vielä tällä hetkellä tunnu vastaavan.
+
+Ensinnäkin, meillä kaikilla ei ole *aikaa* opetella Bitcoinin protokollan yksityiskohtia. Toiseksi, joillakin ei edes ole *mielenkiintoa* opetella Bitcoinin protokollan kaunista mutta vaikeaa poikkitieteellistä puolta.
+
+Ajan ja mielenkiinnon puutteen ei kuitenkaan tarvitse olla este bitcoinin laajalle ja sujuvalle käytölle. Esimerkiksi, suuri enemmistö ihmisistä ei tiedä, tai heitä ei suoraan sanottuna kiinnosta miten internet toimii.
+
+Tärkeintä on, että se toimii. Moni muu asia saattaa tuntua tärkeämmältä, kuin internetin toiminnan perinpohjainen ymmärtäminen. Ymmärrettävää.
+
+Bitcoin vaatii ohjelmoinnin, matematiikan, kryptografian, peliteorian ja taloustieteen tietoa ja osaamista. Olisitko sinä valmis opettelemaan tämän kaiken? Ehkä jos olisit ohjelmistokehittäjä, mutta tuskin tuiki tavallisena käyttäjänä.
+
+Oli miten oli, tavallisina käyttäjinäkin meidän tulee olla edes jollain lailla tietoisia siitä, mistä Bitcoinissa oikeastaan on kyse. Muuten olemme vaarassa joutua huijauksen uhreiksi (varsinkin kun puhutaan rahasta).
+
+Bitcoin antaa sinulle suuren vallan, jonka seurauksena sinulla on suuri vastuu.
+
+**Bitcoinia on kuvattu monin eri tavoin, monesta eri perspektiivistä.** Näitä erilaisia lähestymistapoja voidaan selittää skeemojen avulla. Skeemat ovat mielen sisäisiä malleja maailmasta, tilanteista ja kaikesta niiden välistä. Jokaisella meistä on skeemoja.
+
+Sosiaalisessa tieteessä näiden mieleemme rakentuneiden sisäisten mallien sanotaan organisoivan tietoa, suuntaavan kognitiivisia prosesseja ja käytöstä. Uutta tietoa käsitellään sen mukaan, kuinka se sopii tähän mielen sisäiseen rakenteeseen.³
+
+Kun tukeudumme skeemoihimme, olemme toisinaan kuin ”sokeat miehet, jotka kuvaavat norsua”: Uskomme, jonkun asian olevan totta ja perustelemme sen meidän rajallisiin henkilökohtaisiin kokemuksiimme vedoten. Harvoin yritämme nähdä kokonaiskuvaa ennen päätelmäämme. Muodostamme mielipiteitä epätäydellisen tiedon perusteella.
+
+Siksi meillä on erilaisia mielipiteitä ja kuvauksia Bitcoinista. Yrittäessämme ymmärtää ja selittää Bitcoinin uusia ja omituisia ominaisuuksia, me yritämme omaksua ne meidän olemassa oleviin skeemoihimme.⁴
+
+Jopa Bitcoinin salaperäisellä keksijällä, Satoshi Nakamotolla, ei ollut aavistustakaan siitä, mihin verrata Bitcoinia:⁵
+
+> Sorry to be a wet blanket. Writing a description for this thing for general audiences is bloody hard. There's nothing to relate it to.
+
+Ei yksinkertaisesti ole asiaa, joka olisi samanlainen kuin Bitcoin. Bitcoin vaatii sinua rakentamaan täysin uuden skeeman.
+
+Olen kerännyt luettelon erilaisia kuvauksia Bitcoinista. Jokaiselle kuvaukselle on olemassa tiettyjä ehtoja ja konteksti, jotta kuvaus olisi tarkka. (Vähän niinkuin kaikissa asioissa elämässä.) Jotkut kuvaukset ovat enemmän totta kuin toiset.
+
+Jokainen kuvaus vaatii kuitenkin aikaa ymmärtääkseen mistä se kumpuaa. Jos yksi kuvaus kuulostaa merkityksettömältä sinulle, niin toinen voi huutaa heureka. Bitcoin tarkoittaa eri asioita eri ihmisille eri puolilla maailmaa.
+
+Itse uskon että Bitcoin edustaa uutta alkua.
+
+**Bitcoin**
+
+- on maailmanlaajuinen kirjanpitojärjestelmä
+- on maailman turvallisin rahaverkko
+- on sosiaalinen ja kulttuurinen paradigman muutos
+- on investointiväline
+- on poliittinen lausunto
+- on säästöpossu
+- on kovaa rahaa
+- on arvon säilyttäjä, vaihdon väline ja rahan yksikkö
+- on ihmisoikeus
+- on rahaa, joka perustuu avoimeen lähdekoodiin
+- on halpa ja nopea käyttää
+- on järjestelmä jossa on säännöt mutta ei hallitsijaa
+- on sinun oma sveitsiläinen pankkisi
+- on rahan internet
+- on ekonominen singulariteetti
+- on rauhanomainen vallankumous
+- on helppo kuljettaa
+- on maailman niukin raha
+- on digitaalista kultaa
+- on idea, joka ajateltiin mahdottomaksi
+- on kuollut
+- on pelkkää spekulaatiota
+- on pyramidi/ponzi huijaus
+- on rotanmyrkky potenssiin kaksi
+- on helppo tapa rikastua
+- on energian tuhlausta
+- on terroristien, pornotuottajien, pedofiilien ja veronkiertäjien rahaa
+- on elektronista käteistä
+- on käteinen siinä suhteessa, että se on peruuttamaton kun transaktio on tehty
+- on vaihtoehto status quo:lle
+- on mahdollistanut vapauden kommunikoida arvoa
+- on rahaa, joka ei diskriminoi kansallisuutta, ikää, tai taloudellista tilannetta
+- on jotain, joka on olemassa mutta ei oikeastaan ole olemassa
+- on anti-konsumerismin symboli
+- on rahaa jota ei pysty takavarikoimaan tai sensuroimaan
+- on verkko joka on auki 24/7 (vrt. pankin aukioloaikoihin)
+- on hajautettu tietoverkko
+- on hajautettu kello
+- on rahaa, joka ei vaadi käyttöoikeuksia
+- on rahaa, joka ei vaadi henkilötunnuksia
+- on rahaa, jota ei pysty väärentämään
+- on rahaa, jota ei pysty heikentämään (debase)
+- on rahaa, johon on rakennettu ennalta arvattava rahapolitiikka
+- on matemaattisesti tuettu raha (vs. valtion uskoon tuettu raha)
+- on rahaa, joka antaa sinulle rahataloudellisen yksinvaltiuden
+- on omaisuuden turvapaikka
+- on suojaus Orwellin tulevaisuutta vastaan
+- on suojaus inflaatiota vastaan
+- on suojaus käteisetöntä yhteiskuntaa vastaan
+- on rahan ja valtion erottamista (niin kuin valtio ja kirkko aikoinaan)
+- on mahdollistanut mikro transaktiot eli alle sentin arvonvälityksen (Lightning Network)
+- on ohjelmoitavaa rahaa
+- on mahdollistanut läpinäkyvän selvityksen
+- on rahaa, joka edustaa liberalistista näkökulmaa
+- on rahan evoluution seuraava vaihe
+- on kaninkolo
+- on Matrix:in punainen pilleri
+- on tulevaisuuden raha
+- on uusi alku
+
+Varoitus: Bitcoin on kaninkolo. Voi olla, että et tule takaisin kun putoat! Rakenna oma skeemasi käyttäen Jameson Lopp:in verkkosivua. Hän on Bitcoinin advokaatti. Hän päivittää sivuaan jatkuvasti.
+
+https://www.lopp.net/bitcoin-information.html
+
+Vaihtoehtoisesti voit myös katsoa minun GitHub sivuani, johon talletin omat kirjanmerkkini joita olen vuosien varrella keräillyt. Tekstit ja videot ovat lajiteltu lukutaitoon perustuen aakkosjärjestykseen.
+
+https://github.com/Kokkomaki/Bitcoin/wiki/Rabbit-hole-(Kaninkolo)
+
+### Alaviitteet
+
+[1] Syy: blogin alkuperäinen struktuuri oli liian paksu lukijoille, kansikuva ei teemaltaan sopinut tekstiin, ja kaninkoloon on helpompi tutustua.
+
+[2] [https://lightning.network/](https://lightning.network/)
+
+[3] [https://www.britannica.com/science/schema-cognitive](https://www.britannica.com/science/schema-cognitive)
+
+[4] Esimerkiksi 'louhinta' termi kuvaa prosessia, joka turvaa Bitcoin-verkon ja tästä saa palkkion mikäli löytää oikean ratkaisun. Todellisuudessa mitään “louhintaa” ei tapahdu. Sitä termiä käytetään, koska se sopii meidän vanhaan skeemaan kaivosmiehestä (miner), joka löytää kultaa (block reward).
+
+[5] [https://bitcointalk.org/index.php?topic=234.msg1976#msg1976](https://bitcointalk.org/index.php?topic=234.msg1976#msg1976)

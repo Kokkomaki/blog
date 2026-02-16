@@ -1,0 +1,46 @@
++++
+title = "Why did George Floyd die?"
+date = "2020-05-29 17:00:00"
++++
+
+As a habitual redditor, I follow the memes and schemes of the world. I've seen things some of you wouldn't believe. A day ago, I watched how a black man was choked to death coldblooded by a “police officer”. His name was George Floyd. His death and its aftermath is all over the news. This time the matter will not fade like tears in the rain. Time for justice.
+
+<!--more-->
+
+![](/images/why-did-george-floyd-die-6mzyhm1.jpg)
+
+Events such as these make my back neck hair just stand up from cold chills. I hate to see injustice happen to colored people. Why do people have to be so racist? The shades of brown are just skin pigmentation! That's biology; nothing more. It does not define the value of a person.
+
+Of course, that is not how people perceive skin color. We label, filter, and describe people into neat little boxes in our heads. This quick hack makes life easier, but it also distorts reality.
+
+As per **social categorization theory**, we categorize people into social groups that make sense to us, for example man, woman, black, white, and so forth. Thus, we think and behave differently depending on the category. A good example is your behavior with your parents compared to with your friends.
+
+Basically, if you haven't had positive experiences with, say, black people, then every, single, black person you meet belongs to a group made out of a category with a label and vague description under it. The content of the box rests wholly on what you have experienced, heard, or constructed yourself in your mind. This category now applies to every black person you see.
+
+Such a person is now not *an individual*, but a very simplistic member of a social group. Nothing more than a label; a nigger, an orange man, a blue-eyed-devil.
+
+The consequences of this may range from absolutely nothing to absolutely everything. It is a continuum. When was the last time that a categorization like 'father' lead to killing?
+
+However, when extremely stereotypical, discriminating and prejudiced thinking and behavior precedes, this in turn can culminate into a manslaughter, which is exactly what happened with George Floyd. This thinking and behavior is further strengthened by the context. Environmental and personal factors such as the tensity of the situation and the person's tendency for aggression.
+
+I wondered, what did the man do? Apparently, he used a fake twenty-dollar bill, after which [the shop assistant followed protocol and called the police](https://edition.cnn.com/videos/us/2020/05/28/george-floyd-store-owner-staff-call-police-ctn-sot-vpx.cnn). The arrest was peaceful until the moment when he collapsed next to the police car.
+
+I have watched the [tragic videos](https://www.youtube.com/watch?v=ObkVokRud_g) (do not click if you are not comfortable!) and images of George Floyd's arrest and death, and they do not lie: George Floyd was killed by the police officer kneeling down on his neck for eight minutes, and thus choked him slowly to death. His cry for help fell into deaf ears, and nobody did nothing. [On the contrary, the whole police department of Minneapolis was behind the killer.](https://www.reddit.com/r/PublicFreakout/comments/gs3cc7/large_group_of_officers_lined_up_in_front_of/)
+
+Whatever the reason for an arrest, police officers should *never* use force unless absolutely necessary. When I studied to become a bouncer, I learned how to correctly use force, and where and when. The thing is that one should never use force unless the perpetrator is using force too.
+
+Imagine force as a mirror: when you see yourself pushing the mirror, then the reflection also pushes towards you. Always try to calm the situation down with gestures and words, and so the person or crowd will mirror that.
+
+Why didn't the civilians help George Floyd? [Because, people should not have the responsibility to save people from police officers](https://www.reddit.com/r/PublicFreakout/comments/gskntu/true/)—it should be the other way around! While writing I thought the bystanders were the civilians videoing the situation. But I was wrong. The real bystanders of this situation were the three other cops standing alongside the crooked police officer! Why did they not help then?
+
+As per the **bystander effect**, individuals are less likely to offer help to a victim when there are other people present; the greater the number of bystanders, the less likely it is that one of them will help. [Remember this video](https://www.youtube.com/watch?v=OSsPfbup0ac) of person laying on the ground and others passing by minding their own business?
+
+The **diffusion of responsibility** between the police officers was evident as well. Perhaps they thought it was not their responsibility but of the one who held George Floyd on the ground. As a more familiar example, you might have experienced a pile of dishes waiting in the kitchen. It happens precisely for the same reason: nobody really knows who's responsibility it is, and nobody wants to take that responsibility.
+
+Lastly, the aforementioned social categorization theory states that the group membership affects behavior. For example, if you identify as a poor student, you act and think like one as well. Regarding the crooked police officer, my guess is that given his prior history of complaints against him, he had zero empathy for criminals. Perhaps even hatred towards colored people. I don't know.
+
+I don't claim to understand the situation in Minneapolis. I do not live there. However, I have given some examples from social psychology that I have learned along the way. Perhaps they explain why he was killed from that perspective. I hope justice will happen, but it won't happen unless it is demanded and actions are taken. (Because somehow the legal system in the United States feels broken?)
+
+The death of George Floyd sparked protests but has now escalated into riots. Desperate times call for desperate measures?
+
+**PS.** This event made me question: how did the four incompetent police officers became police officers in the first place? Shockingly, the full length from applying to becoming a police officer in Minneapolis is just under [10 months](http://www.minneapolismn.gov/police/recruiting/reqs/police_recruiting_academy)—what on earth? In contrast, in Finland it takes 36 months until you get the title 'constable' and start working in the police force.

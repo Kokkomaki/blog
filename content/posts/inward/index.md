@@ -1,0 +1,66 @@
++++
+title = "Inward"
+date = "2025-03-04 15:25:45"
++++
+
+![](/images/inward-upscalemedia-transformed.png)Inward [Kendall Kessler](https://kendall-kessler.pixels.com/)
+
+<!--more-->
+
+In the middle our rushing world, I have ample time to do anything I want now. Time to breathe, time to think, time to simply be. This gift has turned my gaze inward, giving me the chance to reflect on how I engage with the world around me. I ask myself: What am I doing right now?
+
+I "FOMO" world news and Finnish rants on Reddit. I used to doomscroll on Instagram mornings and evenings. I follow bitcoiners on X and LinkedIn, tip satoshis on [stacker.news](https://stacker.news), and occasionally surf the [Hacker News](https://news.ycombinator.com/). I read books on philosophy—those relating to multiculturalism, gender, and fascism. I read classics. I collect bookmarks.
+
+The problem? I forget most of the information I "learn". (Moreover, it makes me exhausted to follow politics that I cannot influence.) So what's the point of knowing everything when you'll just forget it anyway? What's the point of watching news everyday from the telly when you don't do anything with that "information"? Our brains are designed to forget things that aren't necessary for survival.
+
+## The information addiction
+
+Looking at the problem on a broader scale, I think we are drunk on information. We assume that *consuming* more will somehow save us from ourselves. We are information omnivores.
+
+We desire more stimuli to keep us distracted, and often it is informational stimuli with its own intellectual, seemingly justified basis behind it: That by accumulating knowledge, we can escape the uncomfortable emptiness of our inner lives, create an illusion of understanding, and temporarily silence the existential anxiety that lurks beneath our constant scrolling, reading, and consuming. We mistake information for wisdom, data for insight, and the act of gathering facts for genuine self-reflection or meaningful engagement with the world around us.
+
+Modern culture, particularly Western education and professional environments, often privileges rational, fact-based knowledge while treating intuition, emotions, and internal experiences as secondary or less reliable. This imbalance misses something important about being human.
+
+As such, we systematically forget to look inward. Consequently, we have many issues in the world that seem to stem from "out there," whereas it is actually from "inside" of us that we need to begin with.
+
+## Limits of intellectual knowledge
+
+No amount of reading about the Holocaust can match the feeling of sorrow and being small and helpless amid the stone monuments in Berlin. Or that of walking through Auschwitz.
+
+No psychology textbook explanation of anger compares to the visceral experience of feeling it course through your veins and learning to sit with it.
+
+No academic paper on consciousness will ever capture what it feels like to be alive in your own body or in that of a "Nagel's bat."
+
+## What truly moves us
+
+No statistic or some random written text has really changed my life as much as people or art has.
+
+Nobody stands in line for hours to see a famous textbook. A gallery on racism shook me so much I started to cry. Cave paintings from 40,000 years ago make me feel responsible for future generations.
+
+People line up to hear Tony Robbins's motivational speeches—not because of the content—but the emotions they drive in his listeners.
+
+Meanwhile, last year's groundbreaking academic papers gather digital dust (did you ever read my [paper](https://www.doria.fi/handle/10024/187407) even though it was the first of its kind in its field?).
+
+And I don't mean those intellectual discussions we have with friends. Often they're just taking turns making noise at each other. "I read this fascinating book about—" "OH THAT REMINDS ME OF SOMETHING ABOUT ME." We're not engaging our intellects; we're waiting for our turn to speak.
+
+The people who have a lasting impact on me are the people who make me laugh and who listen to my problems. The significant others who cause heartbreaks for a chance to grow spiritually.
+
+## Disconnection
+
+When we focus exclusively on informational knowledge, we disconnect from our bodies, from each other, and from the immediate experience of being alive. We become post-emotional "man-children", debating "Trumpism" online while being unable to sit with our own discomfort for five minutes.
+
+We notice neither our shallow nor our deep breathing. The wisdom of our bodies, the quiet knowing of our hearts—these go unheard beneath the cacophony of information we constantly consume.
+
+## Different path
+
+What if instead of looking outward for answers in books and media, we looked inward? What if all that knowledge we're desperately accumulating is just keeping us from finding the answers that are already inside us?
+
+When was the last time you actually felt your body? Put your awareness on the sensations on top of the head, then the face, the arms, the fingers, the upper back, the lower back, your thighs, and then your toes. It is a whole another world that has nothing to do with knowledge.
+
+Maybe instead of constantly reaching outward for more information, more opinions, more knowledge, we should be reaching inward.
+
+The answers you seek might already be there, like the treasure the *[Little Prince](https://blogs.ubc.ca/edcp508/files/2016/02/TheLittlePrince.pdf)* discovered—not in distant planets or intellectual pursuits, but in the care he gave his rose, in the wisdom of the fox, and in understanding that "what is essential is invisible to the eye."
+
+Your heart, like the *Little Prince*'s, may already know what matters most if you simply take the time to listen.
+
+**PS.** Perhaps I say this to myself more than to you. Here I am, typing away, preaching about the virtues of stillness and action, aware of the irony that I'm using words on a screen to advocate for disengaging from the noise of powerful voices. Change starts small.

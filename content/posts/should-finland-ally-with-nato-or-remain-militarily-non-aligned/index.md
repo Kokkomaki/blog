@@ -1,0 +1,228 @@
++++
+title = "Should Finland Ally with NATO or Remain Militarily Non-Aligned?"
+date = "2022-04-20 17:25:00"
++++
+
+I argue that Finland should ally with NATO.
+
+<!--more-->
+
+In this blog post, (1) I will tell you about the rules of the game that the (2) players play, and (3) what kind of moves they can make in the game. Then (4) I will describe the the necessary past moves (history) and (5) what is happening in the present. With this knowledge, (6) I will make two predictions. All things considered, (7) I argue that Finland should ally with NATO. I end the post with a short note on limitations.
+
+*N.B! I do not think that any aspect of life is a “game of chess”; the words (i.e., players, moves, game) used in this blog post is to make it easier for me and you to understand what is happening.*
+
+## Rules of the Game
+
+Let us start with the logic behind neorealism—one of the *many* theories of international relations (IR)—that is the following:
+
+- We live in a system that has no rules and no guarantees of safety. States realise this and thus their need for power.
+- This power is realised by material capability such as land, wealth, and manpower.
+- Because of this offensive capability, states fear, mistrust, and suspect other states’ intentions.
+- This leads states pursuing survival by maintaining territorial integrity and autonomy of their domestic political order through increased material capabilities.
+- States are rational actors making rational decisions in a self-interested and maximising manner, where the costs and benefits of possible choices, reactions, and outcomes are evaluated. However, sometimes rational actors make mistakes because of insufficient or bad information.
+- Therefore, it makes perfect strategic sense for states to gain as much power as possible and, if circumstances are right, to pursue hegemony.
+- The current paradigm of neorealism is one of constant security competition in which threatened states do their utmost to survive, which consequently threatens other states, and they in turn to the next, and so forth.
+- Hence conquest and domination are not good but having overwhelming power is the best way to survive.
+- Power is the means to an end and the end is survival.
+
+*N.B! Neorealism does not account for emotions (e.g., fear and hatred). Emotions are a huge factor in human behavior, and it is a huge mistake of neorealism to disregard them. But mind you, neorealism emerged during the same time when behaviorism was hot—a school of thought in psychology that also ignored emotions.*
+
+Neorealism has two variants: offensive and defensive. They are as follows.
+
+Offensive realism says that states seek to maximise their power by conquering land and expanding their sphere of influence. Indeed, states that initiate aggression win three out of five times (*n*=63). This makes these states revisionist. Revisionist state aims to change or put an end to the current system.
+
+In contrast, defensive realism sees that states seek to maximise security through maintaining the status quo. It is the safest path to ensure survival. Overexpansion is almost never profitable and its consequences are dire. For defensive realists, overexpansion is the product of domestic and unit-level variables such as cognitive biases, cartels, propaganda, and state personnel.
+
+In many ways Russia follows the offensive realist approach and Finland defensive realist.
+
+## Players
+
+According to neorealism, the only actors in IR are states. Non-state actors are said to possess little power in IR. I do not agree with this but let us assume this for the sake of the argument.
+
+There are small states and great powers (“big states”). They are the “players” that follow the “rules of the game”. This paper regards Finland as a small state and Russia as a great power, which is clear in many respects to academics and non-academics alike.
+
+The difference between a great power and a small state is the following material power: manpower, territory, and economy.
+
+A great power is a state with a larger material power, and therefore it has more power (capacity to influence) to exercise outside its borders, better security from outside pressure and attack, and more space to exercise its national policy.
+
+In turn, a small state is the opposite, and as such more vulnerable to pressure, more likely to give in under stress, and has limited political options that it can pursue.
+
+Of course, just the sheer physical size of the state in terms of manpower, territory, and material are not the only factors discerning great power from a small state.
+
+Societal well-being, geographical proximity to potential conflicts, the cohesion of the general population, and the amount of domestic support that a government enjoys are all factors that affect a state's ability to exist and be an active member of the international community.
+
+However, neorealism often ignores these factors, not because they do not exist, but because they do not have as much impact as material power in IR.
+
+Despite small states’ lack of material power, they have succeeded multiple ways in international organisations, norm-building, climate change debates, diplomacy, and alliance-forming. Where small states lack militarily, they can compensate economically, diplomatically, and institutionally. Other IR theories explain these much better than neorealism can.
+
+*N.B! How to define 'small states' and 'great powers' is an ongoing debate and I do not know the answers to that. However, I do argue that a definition such as 'small state' and 'great power' elicit ideas of static attributes and disregard the notion that power is a dynamic relationship. As such, how we understand states and their relationships has a direct impact on analysis and conclusions.*
+
+## Moves
+
+Traditionally neorealism is the theoretical framework through which IR explains alliances. Small states and great powers usually form alliances to survive and concentrate power or they can avoid conflict and maintain political independence by remaining neutral.
+
+In other words, allying or remaining neutral are the possible “moves” that the “players” can make in the “game”.
+
+Neutrality has many synonyms like non-allied, non-alignment, military non-alignment, non-belligerency, military neutrality, and neutralisation, all of which have their own subtle differences.
+
+For the purposes of this blog post, it is worth defining neutrality, military non-alignment, neutralisation, and military alliance.
+
+Neutrality means to not taking part in a war. Military non-alignment is one where the state is not a member of a military alliance. Neutralisation is a process by an outside power to make the target state neutral either voluntarily (e.g., Austria) or coercively (e.g., Finland). Military alliance is a a formulated mutual commitment to contribute military assistance in the event one of the alliance partners is attacked.
+
+## Pros and Cons of Military Alliance
+
+Pros are extended deterrence and military assistance *assuming* a war happens. Cons are sacrificing autonomy in controlling national resources, losing freedom of political manoeuvre and choice, and becoming involved in wars that have no direct benefit to the nation
+
+There is supportive empirical evidence that a state is more likely to go to war to aid another state if they are formally allied. In any case, military alliance is not a golden ticket to survival. Even with a military alliance, small states must *always* be on alert on matters of security. That is, in my opinion, even if Finland is to join NATO, we cannot assume that the U.S will come and save Finland nor to assume that the U.S stays in NATO.
+
+## Pros and Cons of Military Non-Alignment
+
+Pros are not sacrificing autonomy, not losing freedom of political manoeuvre and choice, and not becoming involved in wars. Although, while Finland was neutral during the Cold War, it had little autonomy and freedom in how to exercise foreign policy.
+
+Cons are that there are not many safety guarantees, effective neutrality depends on trusting that the neighbour does not invade, and on the neutral state’s own military deterrence capabilities. For example, Sweden and Switzerland understood from WWII that neutrality is only effective if it is coupled with high levels of domestic armament.
+
+## Past Moves
+
+Finland successfully defended itself from the Red Army in 1944.
+
+In 1948 Finland was coercively neutralised by Soviet Russia when it signed the Agreement of Friendship, Cooperation and Mutual Assistance (YYA Treaty), which denied Finland from joining any alliance that Soviet Russia would perceive to be a threat. Overall Finland had very limited foreign policy options, and Finland never considered the treaty to be a military pact and avoided any more cooperation than necessary.
+
+Finland became a Western country and society once it entered the European Economic Community in 1972.
+
+The Cold War ended the TFCMA which formally removed the last restrictions on an independent Finnish foreign policy. A new treaty on the Foundations of Relations was signed between Russia and Finland thereafter.
+
+And upon finally joining the EU in 1995, Finland stopped being a non-aligned country as it agreed on the EU treaties of military assistance clauses. Finland integrated with European policies and now shares broader strategic concerns with the EU.
+
+The notion of ‘military non-alignment’ morphed into ‘no membership in military alliances’ in 2007. However, I do not think there is a difference between the two in essence.
+
+## Present Situation
+
+Both the EU and NATO have binding obligations of mutual defence, Article 42.7 and Article 5 respectively. Military assistance obligations notwithstanding, even if the EU were to be a military alliance *in theory*, it is not *in practice* simply because “the EU has no explicit collective defence or collective security guarantees or functions” compared to NATO. In the foreseeable future the military structures and preparedness that exist in NATO will not be built within the EU.
+
+Bergquist et al. (2017) list defence and military implications and strategic and political effects of NATO membership for Finland.
+
+**Defence and military implications are the following.**
+
+1. Given that Finland and NATO have congruent defence policy and requirements, NATO membership does not therefore necessarily lead to Finland devising plans for defence expansion in the Baltic area in a considerable manner. Finland’s military contribution is limited in defending the Baltic area anyway. In all likelihood, it would be the major powers who would help them.
+2. When it comes to nuclear weapon capabilities, Finland will not acquire them but may join the Nuclear Planning Group to be part of the planning.
+3. NATO membership brings more tools to Finland’s existing hybrid warfare defence framework.
+4. Finland would still maintain conscription and its defence forces.
+5. In terms of increasing defence budget allocations, NATO tries to maintain a 2% ratio to GDP. Finland should, despite NATO membership, increase its readiness and modernise the force structure. (At the moment Finland holds a 1.96% ratio.)
+
+**Strategic and political effects are as follows.**
+
+1. Sweden and Finland joining NATO would be the single widest NATO expansion since 1952 when Turkey and Greece joined it. This would strengthen Finland’s and Northern Europe’s immediate security, and increase military deterrence.
+2. The membership would probably lead to a serious crisis with Russia, though any military conflict would not happen due to Article 5.
+3. Some European countries accept Finland and Sweden into NATO but at the same time they are hesitant and think that it would create more problems than solve them, and thus the status quo should be preserved.
+
+Indeed, Sweden and Finland would and should have to make the same strategic choices given that they share the same security and defence concerns and uncertainties in the Nordic and Baltic space. (This was a surprise to me when I started to research the topic.)
+
+If Finland joins but Sweden does not, it would create an awkward NATO discontinuity, whereas if Sweden joined but Finland did not, it would recreate the Cold War setting. Therefore, Finland and Sweden will most likely ally together or remain militarily non-aligned together.
+
+## Predictions: Possible Moves
+
+Dan Reiter (1994) examines the reasons for states’ preferences for alliance and neutrality. With a quantitative approach, he tests and compares the predictions of *Balance of Power Theory* based on principles of neorealism and the predictions of *Learning Theory* based on principles of social psychology.
+
+*Balance of Threat Theory* is concerned about short-term reactions to changes in the international environment. In turn, *Learning Theory* focuses more on long-term ideas about the plan of action.
+
+These two theories are in no way opposites but they do test different premises within the same framework. Both theories are tested against ‘formative events’, which are defined as systemic wars where great powers fight. Accordingly, these events realign state relationships, alliance and neutrality policies.
+
+## Balance of Threat Theory
+
+Small states are cumulatively more likely to prefer alliance than neutrality, despite experiences of the past, if the following conditions apply:
+
+1. If the small state is geographically exposed to a potential revisionist than if it is not
+2. If there is a perception of imminent high threat and,
+3. If there is a considerable military disadvantage
+
+> Prediction: Finland shares a 1340-kilometre border with Russia, there is a perception of threat (not imminent per se), and there is a military disadvantage. Therefore, Finland would seek alliance.
+
+## Learning Theory
+
+States are more likely to prefer alliance than neutrality, despite heightened international tensions, if either the following conditions apply:
+
+1. If a state's past experiences during a formative event were not favourable when neutral or allied, then a state learns to change its alliance policy.
+2. If its past experiences were favourable as a neutral or an allied state, a state learns that it is worthwhile to keep it this way the way forward.
+
+> Prediction: Finland allied with the Axis powers during WWII, experienced failure, and then opted for neutrality. Therefore, Finland would continue military non-alignment as that has worked so far.
+
+Reiter's quantitative analysis (*n*=127) had the following conclusions:
+
+- Small states learned lessons from formative national experiences that shaped their neutrality-alliance policy, and that variations in the levels of external threat barely affected this decision. That is, Learning Theory predicted the outcomes significantly better!
+- Small states act congruent to their own experiences rather than according to experiences of all states in order to draw wider lessons.
+
+Accordingly, this would imply a higher likelihood that Finland maintains its military non-alignment policy despite the elevated international tensions and Russian invasion on Ukraine. Furthermore, Finland may not draw lessons from the war in Ukraine regarding whether Finland should join NATO. In other words, the military non-alignment policy has worked so far and therefore Finland would continue this policy.
+
+## Conclusion
+
+Even if the predictions based on Reiter’s work say that Finland would *statistically-speaking* remain militarily non-aligned, I think it is a mistake to remain non-allied.
+
+I reason as follows. The fact is that Finland and Sweden are part of the EU and cooperate with NATO as much as they virtually can. From a Russian perspective, both countries are already “westernised” countries that cooperate with NATO to the fullest extent without official military alignment and agreements.
+
+Moreover, the war in Ukraine was an impetus for Finland and Sweden to ally with NATO. It would be a grave miscalculation on Russia's part to assume that such an impetus would not happen. NATO expansion in the Northern Europe would be counter to their motivation to thwart NATO expansion in the first place in Ukraine.
+
+Therefore, Russia—assuming they are acting rationally as per neorealism—has already calculated this outcome and therefore does not see the two Nordic countries aligned with NATO as a more of a threat than they already are without the membership.
+
+If this is the case, then Finland has all the risks of NATO membership without, however, the supplied deterrence provided by Article 5.
+
+Therefore, I argue that Finland should ally with NATO.
+
+From a peace student perspective this seems an interesting conclusion. But honestly I do not think that a neighbour who does not value treaties can be trusted to respect our territorial integrity. Russia is already testing the Baltic area with hybrid warfare and aerial violations. Indeed, former Finnish president and peace broker, Martti Ahtisaari, thinks that Finland should have joined NATO years ago, to be part of the Western idea of security and safety, norms and beliefs.
+
+Should Finland join NATO or not, I think that Finland should not play by the same “game rules” (read, neorealism) as Russia does. This is where my knowledge falls; I do not know what that would entail. But I do think that Finland cannot just seek power through weapons and conscripts. **[1]**
+
+As Kennan said in his telegram in 1948, “At bottom of Kremlin's neurotic view of world affairs is traditional and instinctive Russian sense of insecurity”. He continues, “[Russia is] impervious to logic of reason, and it is highly sensitive to logic of force“.
+
+Therefore, NATO membership is nice and all, but in the end, I hope that Finland and NATO builds only the minimum necessary military structures in Finland. There is no need for walls and bases.
+
+Finally about **limitations**. I do not necessarily subscribe to the idea of neorealism on all accounts as it does not account for many other phenomena in IR or human behavior at large. Indeed, that is why IR theorists have come up with many other theories from the English School to Green Theory. So described, I must say that I have yet to learn and understand other IR theories and their implications and predictions to Finland's future military non-alignment policy. This is a considerable drawback in my analysis.
+
+**[1]** EDIT. Therefore, there is an inherent weakness in this analysis: as I follow the neorealism lens the analysis becomes biased, and ignores the other ways we can handle the situation with Russia.
+
+## Bibliography
+
+Agius, C. & Devine, K. (2011). 'Neutrality: A really dead concept?' A reprise. Cooperation and conflict, 46(3), 265-284. [https://doi.org/10.1177/0010836711416955](https://doi.org/10.1177/0010836711416955)
+
+Bergquist, M., Heisbourg, F., Nyberg, R. & Tiilikainen, T. (2017). The effects of Finland's possible NATO membership: An assessment. Ulkoasiainministeriö.
+
+Dunne, T., Kurki, M. & Smith, S. (2020). International relations theories: Discipline and diversity (5. edition.). Oxford University Press.
+
+European Parliament. (2022). Mutual defence clause (Article 42.7 TEU) and Solidarity clause (Article 222 TFEU). [https://www.europarl.europa.eu/meetdocs/2009_2014/documents/sede/dv/sede200612mutualdefsolidarityclauses_/sede200612mutualdefsolidarityclauses_en.pdf](https://www.europarl.europa.eu/meetdocs/2009_2014/documents/sede/dv/sede200612mutualdefsolidarityclauses_/sede200612mutualdefsolidarityclauses_en.pdf)
+
+Feinstein, S. G. & Pirro, E. B. (2021). Testing the world order: Strategic realism in Russian foreign affairs. International politics (Hague, Netherlands), 58(6), 817-834. [https://doi.org/10.1057/s41311-021-00285-5](https://doi.org/10.1057/s41311-021-00285-5)
+
+Finnish Institute of Foreign Affairs (FIIA). (2022). Archive and chronology of Finnish foreign policy: Year 1992 in Finnish foreign policy. [https://www.eilen.fi/en/chronology/1992/](https://www.eilen.fi/en/chronology/1992/)
+
+Fox, A. B. (1959). The power of small states: Diplomacy in World War II. University of Chicago Press.
+
+Handel, M. I. (2016). Weak States in the International System. [https://doi.org/10.4324/9781315035468](https://doi.org/10.4324/9781315035468)
+
+Huth, P. & Russett, B. (1988). Deterrence Failure and Crisis Escalation. International studies quarterly, 32(1), 29-45. [https://doi.org/10.2307/2600411](https://doi.org/10.2307/2600411)
+
+Ingebritsen, C. (2002). Norm Entrepreneurs: Scandinavia's Role in World Politics. Cooperation and conflict, 37(1), 11-23. [https://doi.org/10.1177/0010836702037001689](https://doi.org/10.1177/0010836702037001689)
+
+Jakobson, M. (1987). Finland: Myth and reality. Otava.
+
+Lobell, S. (2010). Structural Realism/Offensive and Defensive Realism. Oxford Research Encyclopedia of International Studies.
+
+Long, T. (2017). It’s not the size, it’s the relationship: From ‘small states’ to asymmetry. International politics (Hague, Netherlands), 54(2), 144-160. [https://doi.org/10.1057/s41311-017-0028-x](https://doi.org/10.1057/s41311-017-0028-x)
+
+Lukacs, J. (1992). Finland Vindicated. Foreign Affairs.
+
+Martikainen, T., Pynnöniemi, K. & Saari, S. (2016). Neighbouring an unpredictable Russia: Implications for Finland. The Finnish Institute of International Affairs.
+
+Puolustusvoimat. (2022). PUOLUSTUSMINISTERIÖN HALLINNONALAN MENOJEN OSUUS BKT:STA (%). [https://www.defmin.fi/files/5215/TAE_2022_BKT-osuus_27.9.2021.pdf](https://www.defmin.fi/files/5215/TAE_2022_BKT-osuus_27.9.2021.pdf)
+
+Reiter, D. (1994). Learning, Realism, and Alliances: The Weight of the Shadow of the Past. World politics, 46(4), 490-526. [https://doi.org/10.2307/2950716](https://doi.org/10.2307/2950716)
+
+Salmon, T. (2006). The European Union: Just an alliance or a military alliance? Journal of strategic studies, 29(5), 813-842. [https://doi.org/10.1080/01402390600900911](https://doi.org/10.1080/01402390600900911)
+
+Singer, J. D. & Small, M. (1966). Formal Alliances, 1815-1939: A Quantitative Description. Journal of peace research, 3(1), 1-32. [https://doi.org/10.1177/002234336600300101](https://doi.org/10.1177/002234336600300101)
+
+The North Atlantic Treaty Organization (NATO). (1949). The North Atlantic Treaty (1949). [https://www.nato.int/nato_static/assets/pdf/stock_publications/20120822_nato_treaty_en_light_2009.pdf](https://www.nato.int/nato_static/assets/pdf/stock_publications/20120822_nato_treaty_en_light_2009.pdf)
+
+Vital, D. (1967). The inequality of states: A study of the small power in international relations.
+
+Walt, S. M. (1987). The origins of alliances. Cornell University Press.
+
+Waltz, K. N. (2008). Realism and international politics. Routledge.

@@ -1,0 +1,57 @@
+baseURL = 'http://kokkomaki.com/'
+languageCode = 'en-us'
+title = 'Ville Kokkomäki'
+theme = "theme-folder"
+
+[params]
+  author = "Ville Kokkomäki"
+  email = "kokkomaki@tuta.io"
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  # By default, Goldmark trims unsafe outputs which might prevent some shortcodes from rendering.
+  # It is recommended to set markup.goldmark.renderer.unsafe=true if you encounter problems.
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Enable user to embed HTML snippets in Markdown content.
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    noClasses = true
+    tabWidth = 4
+    style = "algol_nu"
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = true
+
+[menus]
+  [[menus.main]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+  [[menus.main]]
+    name = "About"
+    url = "/about/"
+    weight = 20
+  [[menus.main]]
+    name = "Now"
+    url = "/now/"
+    weight = 30
+
+
+
+
+[build]
+  writeStats = true
+
+[frontmatter]
+  date = ['date', 'publishDate', 'lastmod']
+  expiryDate = ['expiryDate']
+  lastmod = [':git', 'lastmod', 'date', 'publishDate']
+  publishDate = ['publishDate', 'date']
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'

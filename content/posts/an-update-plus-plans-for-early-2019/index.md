@@ -1,0 +1,40 @@
++++
+title = "An Update, plus Plans for Early 2019"
+date = "2019-01-12 16:53:00"
++++
+
+It has been a while since the last time I wrote. Getting back to the routine is tough after spending a lazy and nonchalant Christmas vacation. I had no worries because I found an inexpensive room from a village called Noordwijk just before vacation started. The sympathetic private agent called and told a decision was made and I was chosen. He asked if I accepted the room. Oh HELL yea! It happened so fast that I could not believe my eyes (ears technically speaking). One phone call and all stress evaporated.
+
+<!--more-->
+
+The search took one month. I emailed tons of private agencies, had many phone calls and visited dozen viewings. I learned plenty along the way and I want to share my experiences and knowledge later in a separate post. That post will be 'a guide' sort of post that can perhaps be of help to other students.
+
+## Finland
+
+I arrived to my home town. Brother picked me up and we got home. Mom got emotional and I started to mirror those same emotions. Dad was excited as well. Everything seemed nostalgic somehow. Four months away made me feel like a stranger to my home: everything seemed new yet familiar.
+
+However, the old environment had such a magnetic force that it drew me to old routines. What amazed me was the time it only took. Just a one day and I was the “previous version” of myself. That was fine because I anticipated my routines would shift. I planned to have a period of reflection to see what has changed and which routines I should stick to.
+
+I enjoyed sauna almost every day, but I swam only once at the sea (wish I had gone more often though). The water was not as cold as I expected: only four degrees. The water needs to be so cold you can see thick layer of ice surrounding you once you dip into the water. Only then you can experience the full spectrum of sensations that come with ice-swimming. Note that not every Finn likes ice-swimming or winter for that matter!
+
+I saw close relatives, friends, a colleague from work, and a relative who also studies psychology. Sadly, I had booked early flight that was set to takeoff right under the New Year's Eve.
+
+## Amsterdam airport
+
+I arrived at the airport and noticed all the electronic train timetables were offline. What the hell. ...No trains moving? I checked the timetables, the website and google maps but no avail. Apparently the first train would arrive the next morning close to six.
+
+I could not think with an empty stomach so I grabbed a burger. I sat and viewed my options. Should I just book a hotel? Hotels were all fully booked. Maybe a taxi can get me home? That cost 110 euros: hell-to-the-no! I guess I'll just wait eight hours and read a book then.
+
+I changed my seat and sat close to a guy near his thirties. The Indian fellow soon approached me and inquired if I knew when the trains would come. I knew as much as he did. We had a chat. His girlfriend messaged him and found out that apparently the next train would arrive at one o'clock in the morning. What? The ns.nl website showed false information whereas the smartphone app was supposedly accurate. Really guys?
+
+In the meanwhile I got to know him more. His name was Siddhanta. But people call him Sid. He studies material science. Sid was a knowledgeable fellow with witty jokes. The airport horns made a loud noise when the clock hit midnight. “Happy New Year!” we chuckled. After 45 minutes the train timetables turned back on. His girlfriend was right. The next train would arrive 01:05 AM. Thank heavens!
+
+We moved down to the silent, empty platform. Suddenly a shady guy asked help on how to operate the train card and we helped him. He had an extremely sketchy smile and stare... Thankfully, before getting violently pushed and murdered under the moving train, it arrived in the nick of time and people flooded from every direction. The train emptied completely in one minute. I hopped quickly onto the train. I am glad that I got to spend New Year with Sid than alone.
+
+## Hague
+
+All-in-all, I don't mind that I arrived back early. I needed time to re-adjust and plan the weeks ahead. I took measurements of my new room, visualized the design, made blueprints and finished my shopping cart and order.
+
+The next two weeks will be full of studying math and clinical psychology, finishing the last assignments and preparing for the ever-closing exam week. Then some moving preparations and eventually move out around mid-January.
+
+I will end this post on New Year's resolutions. I don't usually do those but what the heck. For one, I will get rid of the winter fur. Two, learn basic Dutch, and then lastly, I'll attempt to have some fixed rate of writing blog posts. So that is that. I will see you in February!

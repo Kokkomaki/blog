@@ -1,0 +1,89 @@
++++
+title = "Thing About Stories That Make Society Work (And Bitcoin)"
+date = "2025-02-16 12:35:57"
++++
+
+![](/images/thing-about-stories-that-make-society-work-and-bitcoin-woh4gzvjn-7jrgbemvrvr4tablp5__8dg5foelcymgnogttxudhdzqy4lke0tt7393q1c6bu0fhp8khxygayvon8pzliihacuuizrq.avif)*Andy Satoshi Nakamoto* by [cryptobadass](https://cryptobadass.com/)
+
+<!--more-->
+
+I want to talk about reality - not the physical kind with atoms and gravity, but the kind we made up and somehow made real. You know, like money, nations, and the concept of a "weekend."
+
+I read this somewhat dry book *Europe* by Timo Miettinen, and it got me thinking about how our entire civilisation runs on shared hallucinations that work surprisingly well. This is well described in what Yuval Noah Harari in *Sapiens* calls a "story".
+
+My friend was adamant that these stories be called social constructs, shared fiction, or even narratives. Indeed, story sounds too simplified and belittling a word to describe the complexity that I strive to open here. I like stories personally, but I accept to use them here interchangeably for his happiness.
+
+Let's look at an example right away. Take money, for instance: Why is a piece of paper worth €100? Because we all agree it is. It's like a collective game of pretend that actually works.
+
+Take Bitcoin, for instance - it's perhaps the purest example of our collective ability to transform abstract numbers into perceived value.
+
+When you "look" at Bitcoin, what you're actually seeing is a UTXO (Unspent Transaction Output) - essentially a number stored in a specific format in the Bitcoin's distributed ledger, blockchain.
+
+In the actual code of Bitcoin Core, it appears as `nValue` inside a `CTxOut` class - literally just a number of satoshis (Bitcoin's smallest unit) and some rules about who can spend it. When you check your Bitcoin wallet and it shows you own 1 BTC, you're looking at a shared hallucination about the meaning of some numbers in a distributed database!
+
+Here’s the actual C++ code (`[transaction.h](https://github.com/bitcoin/bitcoin/blob/master/src/primitives/transaction.h)` in Bitcoin Core):
+
+class CTxOut
+{
+public:
+    CAmount nValue;
+    CScript scriptPubKey;
+
+    CTxOut()
+    {
+        SetNull();
+    }
+
+    CTxOut(const CAmount& nValueIn, CScript scriptPubKeyIn);
+
+    SERIALIZE_METHODS(CTxOut, obj) { READWRITE(obj.nValue, obj.scriptPubKey); }
+
+This is the closest thing to "where bitcoin exists" in the code.
+
+But here's where it gets philosophically spicy: these social constructs aren't just stories - they're stories that can have real effects. It's like we're all playing a massive multiplayer game where the rules are made up, but the penalties are very much real.
+
+John Searle calls social constructs "institutional facts," distinguishing them from "brute facts" like gravity. Money is fake, but poverty is real. Nations are imaginary, but borders will still stop you. Laws are just fancy PDFs until they put you in a very non-imaginary jail.
+
+Bitcoin, this purely digital construct, this number in a computer, has driven people to dig out harddrives from garbage dumps, has funded everything from drug empires to democracy movements, and has nation-states worried about their monetary sovereignty.
+
+It's a story written in C++ that became real enough to make and break fortunes. Unlike traditional currency, which at least has the courtesy to exist as physical objects you can hold, Bitcoin doesn't even pretend to be anything other than what it is: a collective agreement that these particular numbers, stored in this particular way, verified by these particular mathematical processes, have value.
+
+It's like we took the concept of money, already abstract, and abstracted it one level further - and somehow, it worked. (So far.)
+
+Cypherpunks - disliking government control - had been relentlessly been trying to create their own money, backed by mathematics instead of government promises. There have been many attempts at this: DigiCash, b-money, Bit Gold, Liberty Reserve. None of them worked like Bitcoin. Now there are other cryptocurrencies. But their stories are not as strong as Bitcoin.
+
+And here's the delicious irony: both systems ultimately run on belief. When that belief wavers - whether in Weimar Germany or in cryptocurrency crash like Luna or Trumpcoin - the whole thing collapses faster than a philosophical argument at a physics convention. *Cryptocurrencies* become about as valuable as Monopoly money.
+
+The student debt crisis offers another fascinating thought experiment.
+
+Theoretically, if everyone stopped paying their student loans simultaneously, the entire system would collapse. It's a perfect example of what philosophers call "collective intentionality" - the debt exists because we collectively agree it exists. But try organising millions of people to simultaneously stop believing in debt. It's like trying to coordinate a nationwide game of "Simon Says" where the penalty for playing alone is financial ruin.
+
+> "Debt is too often treated like a personal failing that shouldn’t be discussed in public, rather than a common struggle against systemic exploitation. We also tend to think of debt as a non-negotiable fact rather than a social construct. Once we realise that debts are shared fictions that can be renegotiated or even rejected entirely, we discover we have the power to pull the plug on a system that relies on our separation, shame, and consent."
+>
+>
+>
+> by Sarah Jaffe & Matthew Skomarovsky in [Beautiful Trouble](https://beautifultrouble.org/)
+
+And here's where social constructivism gets interesting.
+
+Yes, these institutions are "just" stories, but they're stories with feedback loops, enforcement mechanisms, and emergent properties that operate independently of our belief in them. Once established, they develop their own logic, their own momentum.
+
+This brings us to a crucial question: how do we judge between competing social constructs? Democracy versus authoritarianism? Capitalism versus socialism? Fiat or Bitcoin (think in terms of the [ethics of money production](https://cdn.nakamotoinstitute.org/docs/the-ethics-of-money-production.pdf))?
+
+It's not enough to say "they're all stories" - we need what philosophers call a meta-narrative, a story about which stories are better. This is where, for example, ethics comes in, not as another social construct but as a necessary framework for evaluating our social constructs. It's like having a referee in a game - the referee's authority is part of the game's rules, but without it, the game descends into chaos.
+
+It's like needing a fixed point to measure how fast two things are moving relative to each other.
+
+Moreover, these stories are incredibly sticky. Try changing someone's mind about their religion, or their political beliefs, or whether pineapple belongs on pizza. It is hard to see water when you are the fish. We inherit stories from dead people who lived thousands of years ago, and we're still arguing about them.
+
+Michel Foucault argued that institutions aren't just built on belief but are shaped by material conditions, power relationships, and historical accidents. Think about how same-sex marriage went from unthinkable to constitutional right, or how smoking went from sophisticated to stigmatised. These changes required more than just new stories - they needed changing material conditions, shifting power dynamics, and actual human beings willing to push against the existing narrative.
+
+Groups like Extinction Rebellion understand that climate change isn't just a physical problem - it's a problem of narrative. The story of infinite growth on a finite planet is starting to show some plot holes. But changing this story isn't just about facts and figures - it's about creating a new narrative compelling enough to override the old one, and robust enough to survive contact with reality.
+
+If you want to change the world, you need to understand both the power and limitations of social constructs. Yes, they're "just" stories, but they're stories enforced by very real power structures, maintained by very real interests, and sustained by very real human needs and desires.
+
+The trick isn't to dismiss these constructs as "mere" stories, but to understand how they work, why they persist, and what it takes to change them. Sometimes the most radical act isn't to reject the story entirely, but to write yourself into it in a way that changes its meaning.
+
+In the end, maybe the most important question isn't whether something is "just" a story, but whether it's a story that serves human flourishing. Because while we can't live without stories, we can choose which ones we tell - and more importantly, which ones we believe enough to make real.
+
+But just don't try explaining the shared fiction of democracy to your friend at the gym. They might be surprisingly unreceptive to postmodern interpretations when they are waiting for you to finish the set of deadlifts.
