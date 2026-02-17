@@ -1,4 +1,4 @@
-baseURL = 'https://kokkomaki.com/'
+baseURL = 'https://www.kokkomaki.com/'
 languageCode = 'en-us'
 title = 'Ville Kokkomäki'
 theme = "theme-folder"
