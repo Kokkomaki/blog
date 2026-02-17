@@ -1,4 +1,4 @@
-baseURL = 'http://kokkomaki.com/'
+baseURL = 'https://kokkomaki.com/'
 languageCode = 'en-us'
 title = 'Ville Kokkomäki'
 theme = "theme-folder"
@@ -55,3 +55,5 @@ theme = "theme-folder"
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
+
+
