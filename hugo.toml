@@ -41,7 +41,8 @@ theme = "theme-folder"
     weight = 30
 
 
-
+[permalinks]
+  posts = "/:year/:month/:day/:slug/"
 
 [build]
   writeStats = true
