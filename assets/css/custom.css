@@ -38,3 +38,7 @@ main {
     overflow-x: hidden;
   }
 }
+
+a {
+  margin-left: 0;
+}
