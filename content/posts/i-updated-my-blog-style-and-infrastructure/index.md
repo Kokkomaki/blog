@@ -1,6 +1,6 @@
 +++
 title = "I updated my blog style and infrastructure"
-date = "2026-02-18 13:00:00"
+date = "2026-02-18T13:29:00+02:00"
 +++
 
 ## My blog across the years 
