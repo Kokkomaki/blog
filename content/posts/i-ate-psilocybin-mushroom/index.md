@@ -5,8 +5,6 @@ date = "2025-07-08 12:50:57"
 
 ![](/images/i-ate-psilocybin-mushroom-ascii_art8-edited.png)
 
-<!--more-->
-
 Omg but psilocybin is a drug! And? So is caffeine and alcohol, the ones that you are so dependent of to have fun at celebrations and to start your day in the morning.
 
 My grandma told me once that "Do not eat those white mushrooms or else you end up in damnation!" She was probably just protective. And I wonder if she had tried them and had a bad experience, or "a bad trip" as they call it? Hmm. Well, the white mushrooms were probably deadly.

@@ -39,6 +39,7 @@
       "back-nav",
       "button",
       "current",
+      "highlight",
       "home-posts",
       "load-more",
       "path-nav",
@@ -136,6 +137,7 @@
       "hire-an-agent",
       "housing-options",
       "how-scarce-is-bitcoin",
+      "hugo-ssg-and-github-pages",
       "human-rights",
       "hyperbitcoinisation",
       "incentivize-greener-mining",
@@ -174,6 +176,7 @@
       "mindfulness-and-time-of-day",
       "monuments-and-identity",
       "moves",
+      "my-blog-across-the-years",
       "my-experience",
       "my-journey-to-this-point",
       "my-perspective-on-where-things-are-going",
@@ -264,6 +267,7 @@
       "väestörakenne",
       "we-are-ignorant",
       "web3",
+      "what-do-i-write-next",
       "what-is-bitcoin",
       "what-is-money",
       "what-scarcity-does",
@@ -274,7 +278,8 @@
       "when-money-breaks",
       "where-this-leaves-us",
       "why-we-work",
-      "workgroups"
+      "workgroups",
+      "writeas-to-wordpress"
     ]
   }
 }
