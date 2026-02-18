@@ -11,3 +11,30 @@ img {
   box-shadow: none !important;
   background: none !important;
 }
+
+/* Force images to never overflow */
+img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Add explicit overflow prevention */
+main {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Aggressive mobile fix */
+@media (max-width: 600px) {
+  img {
+    width: calc(100% - 2em);
+    padding: 0.5em 1em;
+  }
+  
+  main {
+    overflow-x: hidden;
+  }
+}
