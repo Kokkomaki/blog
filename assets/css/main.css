@@ -15,7 +15,7 @@
   /* Base theme knobs */
   --bg-h: 44;
   --bg-s: 50%;
-  --bg-l: 90%;
+  --bg-l: 95%;
 
   /* Background colors */
   --color-bg-primary: hsl(var(--bg-h) var(--bg-s) var(--bg-l));
