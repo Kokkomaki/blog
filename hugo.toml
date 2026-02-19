@@ -6,6 +6,7 @@ theme = "theme-folder"
 [params]
   author = "Ville Kokkomäki"
   email = "kokkomaki@tuta.io"
+  webringSlug = "kokkomaki"
 
 [markup]
   defaultMarkdownHandler = "goldmark"

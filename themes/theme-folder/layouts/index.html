@@ -20,9 +20,16 @@
   </section>
 
 
-  <!-- Navigation (About / Now / etc.) -->
-  <div class="terminal-nav">
-    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+<!-- Navigation (About / Now / etc.) -->
+  <div class="terminal-nav" style="display: flex; justify-content: space-between; align-items: center;">
+   {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+    <div>
+      <a href="https://hotlinewebring.club/kokkomaki/previous">Previous</a>
+      ·
+      <a href="https://hotlinewebring.club">Hotline Webring</a>
+      ·
+      <a href="https://hotlinewebring.club/kokkomaki/next">Next</a>
+    </div>
   </div>
 
   {{ end }}

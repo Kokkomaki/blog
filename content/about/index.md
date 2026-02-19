@@ -18,4 +18,4 @@ A brief note on the use of large language models like ChatGPT or Claude (heretof
 
 **How to contact me?**
 
-You can send me email to kokkomaki (at) tuta (dot) io 
+You can send me email to ville.kokkomaki (at) protonmail (dot) com
