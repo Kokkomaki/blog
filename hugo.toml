@@ -5,7 +5,7 @@ theme = "theme-folder"
 
 [params]
   author = "Ville Kokkomäki"
-  email = "kokkomaki@tuta.io"
+  email = "ville.kokkomaki@protonmail.com"
   webringSlug = "kokkomaki"
 
 [markup]
@@ -41,9 +41,8 @@ theme = "theme-folder"
     url = "/now/"
     weight = 30
 
-
-[permalinks]
-  posts = "/:year/:month/:day/:slug/"
+#[permalinks]
+#  posts = "/:year/:month/:day/:slug/"
 
 [build]
   writeStats = true
