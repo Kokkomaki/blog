@@ -16,6 +16,8 @@ But even now we don't pierce through those apparent layers to find out about the
 
 A brief note on the use of large language models like ChatGPT or Claude (heretofore, "AI"). I do use AI mostly for structuring draft notes, get feedback, generate lists and tables, spar ideas, and vibe code. I have used AI sparingly to generate text on occassion, and copy pasted it with edits. However, I make sure that on the whole the text doesn't lose "soul" and retains my writing style. In general, I abhor AI-generated text, and I can see it a mile away. AI kills the purpose of writing: For me writing is a way to think, create, share, and most of all, write. 
 
+If you wish to get notified when new posts arrive, I have [a RSS feed](https://kokkomaki.com/index.xml) you can subscribe to. 
+
 **How to contact me?**
 
 You can send me email to ville.kokkomaki (at) protonmail (dot) com

@@ -15,7 +15,7 @@ Lucky for me though: Now I can show you how my blog looked back then! Unfortunat
 
 **Fig 1. Blog in 2020.**
 
-![](/images/blog2020.png)
+![](/images/blog2020.jpg)
 
 My favourite colour was orange, and I was using Sans Serif font. I didn't have many blog posts so I figured to share the description of the post and leave a "read more" button, too. 
 
@@ -25,7 +25,7 @@ Later I combined 'contact' with 'me' to make it simpler.
 
 **Fig 2. Blog in 2021.**
 
-![](/images/blog2021.png)
+![](/images/blog2021.jpg)
 
 Later I started to lean more into minimalism. So much so that I lost all colour from my blog, and went back to black and white aesthetics. I also didn't like to put images to blog posts, but only text. In other words, literal "black on white". I really appreciated the simplicity. 
 
@@ -34,7 +34,7 @@ I capitalised all the nouns in the post headings. Now I am leaning back to only 
 
 **Fig 3. Blog in 2024 and 2025.**
 
-![](/images/blog2024.png)
+![](/images/blog2024.jpg)
 
 Then the aesthetics looked liked this. I really liked it, and it looked more professional. I paid 66 euros for this per year, compared to 40 euros in previous years. It wasn't so much money because I had just started to work a "big boy job". However, it was quite a lot of money for something that didn't produce revenue. I don't earn anything from my writing and I don't subscribe to the attention economy and advertising hell. 
 
