@@ -42,7 +42,7 @@ Be that as it may, I thought anyway that not all things need to be looked from t
 
 **Fig 4. Blog in 2026.**
 
-![](/images/blog2026.png)
+![](/images/blog2026.jpg)
 
 What's cool about this is that now I pay *zero, nada, nil, nothing!* I should've done this long ago, but back then I wasn't sure if I'm going to keep writing or not. At that time, I just wanted things to be easy and out of the way. I had more urgent things to attend to. Moreover, I didn't know how to code. But with the advent of LLMs and "vibecoding", it was fairly easy to do this. It was quite enjoyable yesterday to get it finally working. 
 
