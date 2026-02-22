@@ -1,6 +1,6 @@
 +++
 title = "How I surf the Web"
-date = "2026-02-18T15:00:00+02:00"
+date = "2026-02-22T19:49:00+02:00"
 +++
 
 ![me as a kid](/images/me-as-a-kid.jpg)
