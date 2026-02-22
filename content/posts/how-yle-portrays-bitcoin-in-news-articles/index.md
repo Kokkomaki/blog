@@ -47,15 +47,37 @@ Next, I used logistic regression to analyse the data, sentiment, and year to fin
 
 ### General Information
 
-MNLogit Regression Results
+```goat
+                          MNLogit Regression Results
+==============================================================================
+Dep. Variable:      sentiment_encoded   No. Observations:                  379
+Model:                        MNLogit   Df Residuals:                      375
+Method:                           MLE   Df Model:                            2
+Date:                Tue, 08 Oct 2024   Pseudo R-squ.:                 0.03318
+Time:                        15:22:39   Log-Likelihood:                -296.61
+converged:                       True   LL-Null:                       -306.79
+Covariance Type:            nonrobust   LLR p-value:                 3.792e-05
 
-![](/images/regressionresultsyle.jpg)
+```
 
 ### Coefficients Table
 
 This table shows the estimated coefficients for each category (level) of the `sentiment` variable:
 
-![](/images/variablevalues.jpg)
+```goat
+
+=================================================================================
+sentiment_encoded=1       coef    std err          z      P>|z|      [0.025      0.975]
+---------------------------------------------------------------------------------------
+Intercept             267.5385     86.532      3.092      0.002      97.939     437.138
+year                   -0.1331      0.043     -3.105      0.002      -0.217      -0.049
+---------------------------------------------------------------------------------------
+sentiment_encoded=2       coef    std err          z      P>|z|      [0.025      0.975]
+---------------------------------------------------------------------------------------
+Intercept             459.3864    126.981      3.618      0.000     210.508     708.265
+year                   -0.2287      0.063     -3.632      0.000      -0.352      -0.105
+=================================================================================
+```
 
 **Neutral Sentiment (`sentiment_encoded = 1`)**
 
