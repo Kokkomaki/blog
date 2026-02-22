@@ -33,7 +33,7 @@ Vähävaraisemmilta suomalaisilta pääoma siirretään varakkaimpien käsiin. K
 
 Suomen työmarkkinoilla menee heikosti tällä hetkellä monesta syystä.
 
-## Militarismi
+### Militarismi
 
 Venäjän sota Ukrainassa sai kovien miesten kakat housuihin, kansalaiset ajoittamaan sähkösaunan ja uunin käytön, ja heikensi vientiä naapuriin. Se vaikuttaa niin suorasti kuin epäsuorasti Suomen työttömyyteen, niin lyhyellä kuin pitkällä aikavälillä. Suomi on Venäjän naapuri ja se ei miksikään muutu. Meillä on oma historiamme heidän kanssa, joten on parempi katsoa kuin katua. Siispä puolustusmenoihin satsataan enemmän ja enemmän.
 
@@ -43,11 +43,11 @@ Minä lähdin reservistä en paetakseni, vaan koska koen että [pasifismi on nyt
 
 Tämä budjetointi murskaa tai on jo murskannut hyvinvointivaltiomallin. 1.5% BKT:sta puolustusvoimiin riitti "uskattovaksi puolustukseksi" silloin, niin miten [suunniteltu 3%](https://valtioneuvosto.fi/en/-/finland-to-raise-defence-spending-to-at-least-three-percent-of-gdp) selittyy nyt? Maailman paras puolustus? Suomi käyttää henkilöä kohti [enemmän](https://worldbeyondwar.org/militarism-mapped/) rahaa aseisiin kuin Venäjä. Kysykää: [Kuinka paljon asevarustelua on riittävästi?](https://timovirtala.net/archives/7003) Suomen puolustuksen tulisi olla uskottava, mutta kuka tämän uskottavuuden saa määritellä? Onko asevarustelumenojen kasvu saanut meidät tuntemaan olomme turvallisemmaksi? Entä onko se lisännyt Suomen, Euroopan ja maailman turvallisuutta?
 
-## Inflaatio
+### Inflaatio
 
 Inflaatio ja korkeat korot ovat vähentäneet ihmisten ostovoimaa ([Bitcoin eläköön]({{< ref "posts/the-hyperbitcoinised-world/" >}})) ja tehneet lainanotosta kallista, mikä on saanut yritykset lykkäämään investointeja ja rekrytointeja. Koronapandemian seuraukset näkyy yhä. Riskialttiit kryptovaluutat näyttävät tässä valossa houkuttelevalta sijoitukselta.
 
-## Väestörakenne
+### Väestörakenne
 
 Suomen väestörakenne on myös haaste: työikäinen väestö vähenee ja eläkeläisten määrä kasvaa, mikä hidastaa talouskasvua. Yli 65-vuotiaita on nyt yli miljoona Suomessa jossa asuu 5,6 miljoonaa ihmistä. Tämän lisäksi syntyvyys on alhaista ja se ei pidemmän päälle kannattele hyvinvointivaltiomallia. Tukiahan on systemaattisesti leikattu 90-luvusta lähtien.
 
