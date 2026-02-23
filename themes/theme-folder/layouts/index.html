@@ -4,7 +4,7 @@
   <!-- Recent posts list -->
   <section class="home-posts time-list">
     <ul>
-      {{ range first 10 (where .Site.RegularPages "Type" "posts") }}
+      {{ range first 5 (where .Site.RegularPages "Type" "posts") }}
       <li>
         <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
         <div>
