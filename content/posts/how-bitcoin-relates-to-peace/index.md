@@ -9,6 +9,8 @@ date = "2026-02-05 13:31:37"
 
 My friends and friends's friends scratch their heads bamboozled when I tell them that Bitcoin is a tool for promoting peace. But that's not all: Bitcoin is essentially a peaceful invention that shapes the monetary infrastructure to be more ethical and fair. First, protesters can receive donations in Bitcoin, so they don't have to worry about their cash flow being cut off and their nonviolent movement losing momentum. Nation-states can also benefit from this feature in specific situations. Second, governments cannot create more bitcoin out of thin air like they do debt, making it more difficult to weaponise Bitcoin for military campaigns.
 
+{{< center >}}—{{< /center >}}
+
 The story begins in 2011, when the US government cut off Wikileaks' funding. The cash flow dried up and the organisation's operations were threatened. Among other things, Wikileaks revealed documents leaked by whistleblowers about US war crimes and corruption. In order to survive financial censorship and continue its work, Wikileaks urged its supporters to donate bitcoin. In practice, Bitcoin became their only means of ensuring the continuity of their operations.
 
 A similar development was seen in the east in 2016 with the Russian opposition movement Anti-Corruption Foundation (FBK). Led by the late Alexei Navalny, the organization published extensive material exposing the links between the country's political elite and those in power to corruption. In response, the authorities ransacked the organisation's offices, arrested employees, and froze bank accounts. The aim of this crackdown was to paralyse the organisation's activities and prevent further revelations. As a result, FBK turned to Bitcoin, which enabled it to continue its activities despite the censorship.
@@ -19,9 +21,13 @@ A similar situation occurred in Canada with the Freedom Convoy movement. When Co
 
 These stories, among many others, show how Bitcoin helps resistance movements continue their activities so that fellow citizens can live in better conditions. Unfortunately, there is inevitable resistance and skepticism towards Bitcoin in general. People have long-held views of Bitcoin as the latest money grab by capitalists, which will die like all other pyramid schemes. As a result, people do not understand what Bitcoin really represents. Indeed, we must start from the end to get to the heart of the matter.
 
+{{< center >}}—{{< /center >}}
+
 First, we need to dispel a few myths and assumptions about Bitcoin. The first common idea is that "Bitcoin is criminal money." That is, the money of porn producers, money launderers, terrorists, hackers, drug dealers, and child abusers. Maybe it was. Maybe it still is. But the user base of Bitcoin has grown so rapidly that it can no longer be said to be the money of crooks. These are old stories that do stand the light of day, even though Finland has cold winters and dark hours.
 
 Unfortunately, Bitcoin is perceived as the aforementioned moral scourge, which is why understanding does not penetrate deeper than the surface. Bitcoin is blamed for all human evil, so it is impossible to see it in a positive light. And yet, the demographics are simply all-encompassing, although the skew currently favors white, wealthy men who understand technology. That too will change over time. In practice, Bitcoin is open to everyone.
+
+{{< center >}}—{{< /center >}}
 
 Another misconception is that Bitcoin destroys nature. This is an old story, and the new reality does not match it. Today, Bitcoin's annual consumption mirrors Sweden's annual figures. *Wait a minute, isn't this the very energy waste and destruction of nature?!* someone might ask. It's true that just a few years ago, Bitcoin miners consumed an obscene amount of Chinese and Kazakh fossil fuels to support the decentralised money network and network security. But now, fortunately, those taps have been turned off.
 
@@ -35,9 +41,13 @@ It is important to understand that peace is strongly linked to ecological well-b
 
 In contrast, the ethics of shiny precious metals and stones are tainted by colonialist and violent backdrop. In this respect, if we take a deliberately narrow-minded approach, maintaining the Bitcoin network is probably more ethical than mining shiny metals and precious stones from the ground, assuming that we consider gold and diamonds to be solely stores of value. They do have many other uses, but this is probably their main function. Historically, these stones have had colonialist and militaristic purposes, not to mention the destruction of nature. The physical infrastructure of the Bitcoin network is a gray, boring warehouse building from the outside. Moreover, anyone can "mine" it from anywhere, contrary to precious metals.
 
+{{< center >}}—{{< /center >}}
+
 Thirdly, we are prisoners of our own biases. This means that we may not understand the bigger picture of how different everyday life is for some other people who live on the other side of the world, in Argentina for example. We may have heard some stories in the news, but that's about it. In reality, people live very different lives from us here in the Nordic countries. On the other hand, we Finns have not escaped the effects of globalisation either. Despite this, Finns are said to enjoy a better quality of life and happiness than the rest of the world, at least according to certain indicators. We rarely need to look further afield.
 
 The fact is that about two-thirds, or little more than five billion people, live under authoritarian rule. In the worst cases, this sadly means that their money is only good for toilet paper or kindling. This is difficult to understand because we do not live their lives moment to moment. This empathy is also more difficult to share in a world where militarism and nationalism rage. Under authoritarian rule, there may be a negative peace from war and conflict, but positive peace is completely absent: namely, respect for human rights and justice.
+
+{{< center >}}—{{< /center >}}
 
 So far, we have seen how old stories shape our minds to be judgmental. In fact, I have conducted research to find out what tone Yle uses when writing about Bitcoin. The answer is negative. I was surprised by the results. This is not the fault of one media company, but a broader phenomenon. As a result of this phenomenon, few have written about how Bitcoin is related to peace. Is it surprising, then, that Bitcoin is seen as a tool of destruction by money-worshipping devils?
 
@@ -51,6 +61,8 @@ When used correctly, Bitcoin is open to everyone and does not require proof of a
 
 In my master's thesis, I showed which non-violent campaigns and movements have used bitcoin. The most interesting aspect of my research was not so much their stories, but how quickly the adoption of bitcoin progressed. In other words, bitcoin donations began as soon as the aforementioned American, Canadian, Russian, and Nigerian authorities attempted to silence civil society organisations by cutting off their cash flow.
 
+{{< center >}}—{{< /center >}}
+
 What is also fascinating about economic censorship is how it not only infringes on individuals and groups, but also on nation-states. This is a bit ironic, considering that it is the state administrations that censor the repulsive representatives of counterculture, i.e., modern-day hippies, feminists, or paranoid truck drivers. You see, states wage war against each other in an anarchic sandbox where there are no rules. This eternal conflict is called the theory of Realism in international relations.
 
 In this power game, money has a very different purpose. Usually, money can be used to buy and sell, but for them it is more of an instrument of power that can be used to blackmail other countries. When a vassal is dependent on the monetary policy of the ruler, the subject may experience anxiety about the "king's" possible freezing of assets, confiscation, sanctions, and closure of various payment channels. Money is, as it were, "weaponised" so that nation-states can engage in "economic warfare" behind the scenes.
@@ -60,6 +72,8 @@ In international politics, economic censorship such as sanctions is the first to
 Finland voluntarily adopted the euro, and we have enjoyed the simplicity and ease it has brought. We are dependent on the monetary decisions made in Frankfurt, which only the Finns Party ("persussuomalaiset") has woken up to seriously question. And yet Europe as a whole is dependent on the US dollar, for better or for worse. Recently, Europeans have also questioned their dependence on the United States in many different areas, because the current US administration threatens our sense of security and stability. Europeans are looking for alternatives, but Bitcoin is unlikely to create much certainty and optionality in the minds of Europeans at this point.
 
 Nevertheless, Bitcoin is technically an alternative for those countries that, in the worst case, have been marginalised by others. There are probably good political reasons for such isolation, such as violations of agreed-upon international rules. In theory, it could even happen that a country independently "violates" international rules because it considers them unfair and unjust. Or even that the country is not deliberately isolated, but that a superpower such as the United States isolates itself, forcing others to play the same game. This dynamic works in the same way as an arms race: it is a self-reinforcing cycle to which others respond in kind, with an eye-for-an-eye strategy. Such situations and ideas are entirely possible.
+
+{{< center >}}—{{< /center >}}
 
 As a final example of Bitcoin's peace-building nature, I would like to mention that there are only 21 million bitcoin. That is why it is considered "digital gold." There are no more and there will be no more. That's how it's written in the code, and that's that. The code hasn't changed in 16 years. Many altruistic Bitcoin enthusiasts and profit-seeking Bitcoin miners would not accept such a fundamental change to the code. It is the magic of consensus in a decentralised system in the eyes of a layman. In practice, a majority vote is required for change, and even then, the "new Bitcoin" is not a guarantee that the majority of people will believe in and use it. This is why many other cryptocurrencies and "new Bitcoins" have failed to deliver on their value promises, because people do not believe in them. After all, money is based on people's belief that this something has value.
 
@@ -76,5 +90,7 @@ Ultimately, all digital payment methods, whether "digital euro" or Bitcoin, can 
 From this perspective, the question can be divided into two parts. Either the technology has built-in features that institutions cannot easily access, as is the case with Monero, which has been declared illegal under the law, or the technology itself is more neutral, but a legal framework is built on top of it, as is the case with Bitcoin. This is largely a question of property rights and legislation, not just money.
 
 We are involved in a game where we build laws and structures designed to prevent the abuse of power. Trust is created by these structures, not by a single form of money. However, with major crises, massive money printing, and the resulting problems, the role of states is constantly growing. This often means less privacy, more censorship, and social consequences that extend to families and personal behaviour patterns. In this environment, Bitcoin appears to many not only as an economic alternative but also as a means of defending personal freedom. That is what inner peace is all about.
+
+{{< center >}}—{{< /center >}}
 
 In summary, Bitcoin is linked to positive and negative peace in many ways. First, peacebuilders can receive donations in Bitcoin to defend human rights in unstable environments where economic censorship is expected. Uncensored donations around the world are a great help. In theory, states themselves can now better protect themselves under economic censorship. Bitcoin is for ordinary people as well as for nation-states. Secondly, Bitcoin does not bow to political pressure, so more bitcoin cannot be magically created out of thin air to serve the war campaigns of violent regimes. Bitcoin provides inner peace and mental balance, knowing that money will not lose its value and cannot be censored. Not anymore.
