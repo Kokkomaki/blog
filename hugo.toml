@@ -56,5 +56,3 @@ theme = "theme-folder"
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
-
-
