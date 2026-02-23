@@ -5,7 +5,7 @@ date = "2026-02-23T11:00:00+02:00"
 
 Before the 10-day retreat in August 2025, something had already cracked open. A month earlier, I was meditating alone in my room at home. After about half an hour I said certain words — three times. I don't know why three times. Only later did I notice that in Gethsemane, Jesus also turned to God three times before his death. 
 
-hen I said those words, something happened that I still can't fully comprehend: time jumped forward. I had been meditating for half an hour, and then suddenly it was an hour later. I know my body. I know what an hour feels like from the inside — I have seen it again and again, it is one of those things I can trust completely. This wasn't tiredness, wasn't distraction. Something threw me forward in time. I sat there stunned, unable to believe what had just happened. I laughed like a hyena. 
+Then I said those words, something happened that I still can't fully comprehend: time jumped forward. I had been meditating for half an hour, and then suddenly it was an hour later. I know my body. I know what an hour feels like from the inside — I have seen it again and again, it is one of those things I can trust completely. This wasn't tiredness, wasn't distraction. Something threw me forward in time. I sat there stunned, unable to believe what had just happened. I laughed like a hyena. 
 
 And afterward, I felt a patience and a tolerance I hadn't had before — something quieter and wider than usual. Something had loosened. I understood then that those three words, almost like a prayer, spoken three times, carried something holy. I understood it through my body before I understood it in my mind. So when I went to the retreat, I said them again. And that's when I saw.
 
