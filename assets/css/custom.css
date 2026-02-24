@@ -43,15 +43,3 @@ a {
   margin-left: 0;
 }
 
-.terminal-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-@media (max-width: 768px) {
-  .terminal-nav {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-}
