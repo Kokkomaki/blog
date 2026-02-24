@@ -43,24 +43,15 @@ a {
   margin-left: 0;
 }
 
-/* Fix issue with footer elements on mobile */
+.terminal-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 @media (max-width: 768px) {
-  /* Stack footer navigation vertically */
-  footer {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Target the nav menu items */
-  nav {
-    display: flex;
+  .terminal-nav {
     flex-direction: column;
     gap: 0.5rem;
-  }
-  
-  /* Remove dot separators on mobile */
-  a::after {
-    content: none;
   }
 }
