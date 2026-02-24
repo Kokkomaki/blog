@@ -46,16 +46,21 @@ a {
 /* Fix issue with footer elements on mobile */
 
 @media (max-width: 768px) {
-  /* Adjust the selector to match your actual nav class */
-  nav, [role="navigation"] {
+  /* Stack footer navigation vertically */
+  footer {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
   }
   
-  /* If your nav items have separators, hide the dots on mobile */
-  nav a::after,
-  [role="navigation"] a::after {
+  /* Target the nav menu items */
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  /* Remove dot separators on mobile */
+  a::after {
     content: none;
   }
 }
