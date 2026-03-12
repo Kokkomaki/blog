@@ -2,28 +2,53 @@
   {{ .Content }}
 
   <!-- Recent posts list -->
-  <section class="home-posts time-list">
+  {{ $posts := where .Site.RegularPages "Type" "posts" }}
+  {{ $total := len $posts }}
+  <section class="home-posts num-list">
     <ul>
-      {{ range first 5 (where .Site.RegularPages "Type" "posts") }}
+      {{ range $i, $p := first 5 $posts }}
       <li>
-        <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
-        <div>
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        </div>
+        <span class="post-num">{{ sub $total $i }}.</span>
+        <div><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></div>
       </li>
       {{ end }}
     </ul>
 
+    {{ if gt $total 5 }}
+    <div class="posts-extra">
+      <div>
+        <ul>
+          {{ range $i, $p := after 5 $posts }}
+          <li>
+            <span class="post-num">{{ sub $total (add $i 5) }}.</span>
+            <div><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></div>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+    {{ end }}
+
     <div class="load-more">
-      <a href="/posts/" class="button">→</a>
+      <button class="expand-btn" id="expand-posts" aria-expanded="false">v</button>
     </div>
   </section>
 
-
-<!-- Navigation (About / Now / etc.) -->
-<div class="terminal-nav" style="display: flex; justify-content: space-between; align-items: center;">
+  <div class="terminal-nav">
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
-    {{ partial "webring.html" . }}
   </div>
 
-  {{ end }}
+  <script>
+    const btn = document.getElementById('expand-posts');
+    const extra = document.querySelector('.posts-extra');
+    if (btn && extra) {
+      btn.addEventListener('click', function() {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        btn.textContent = expanded ? 'v' : '^';
+        extra.classList.toggle('open', !expanded);
+      });
+    }
+  </script>
+
+{{ end }}

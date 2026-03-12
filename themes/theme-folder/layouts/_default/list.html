@@ -1,14 +1,21 @@
 {{ define "main" }}
     <h1>{{ .Title }}</h1>
     {{ .Content }}
-    <div class="time-list">
+    {{ $pages := .Pages }}
+    {{ $total := len $pages }}
+    <div class="num-list">
         <ul>
-            {{ range .Pages }}
+            {{ range $i, $p := $pages }}
             <li>
-                <span>{{- partial "date" .Date -}}</span>
-                <div><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></div>
+                <span class="post-num">{{ sub $total $i }}.</span>
+                <div><a href="{{ $p.RelPermalink }}">{{ $p.LinkTitle }}</a></div>
             </li>
             {{ end }}
         </ul>
+    </div>
+    <div class="terminal-nav">
+      <div class="back-nav">
+        <a href="../" class="back-link">../</a>
+      </div>
     </div>
 {{ end }}

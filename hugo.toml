@@ -27,19 +27,12 @@ theme = "theme-folder"
     endLevel = 4
     ordered = true
 
-[menus]
-  [[menus.main]]
-    name = "Posts"
-    url = "/posts/"
-    weight = 10
-  [[menus.main]]
-    name = "About"
-    url = "/about/"
-    weight = 20
-  [[menus.main]]
-    name = "Now"
-    url = "/now/"
-    weight = 30
+[menu]
+  [[menu.main]]
+    name = "Info"
+    url = "/info/"
+    weight = 1
+    identifier = "info"
 
 #[permalinks]
 #  posts = "/:year/:month/:day/:slug/"

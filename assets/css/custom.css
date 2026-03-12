@@ -43,3 +43,111 @@ a {
   margin-left: 0;
 }
 
+/* Expand animation for homepage post list */
+.posts-extra {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.posts-extra.open {
+  grid-template-rows: 1fr;
+}
+
+.posts-extra > div {
+  overflow: hidden;
+}
+
+/* Expand button styling — matches link aesthetic */
+.expand-btn {
+  background: none;
+  border: none;
+  border-bottom: 1px dotted;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-text-primary);
+  margin-top: var(--spacing-lg);
+  display: inline-block;
+}
+
+.expand-btn:hover {
+  border-bottom: 1px solid;
+}
+
+/* Numbered post list */
+.num-list ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+.num-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--gap-base);
+  align-items: baseline;
+  padding: var(--spacing-xs) 0;
+}
+
+.post-num {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* Resume page */
+.resume h1,
+.resume h2,
+.resume h3,
+.resume h4,
+.resume h5 {
+  margin: 0;
+  font-weight: normal;
+}
+
+.resume h1::before,
+.resume h2::before,
+.resume h3::before,
+.resume h4::before,
+.resume h5::before {
+  content: "";
+}
+
+.resume p {
+  margin: var(--spacing-sm) 0;
+}
+
+.resume hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--spacing-lg) 0;
+}
+
+.resume ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+.resume ul li::before {
+  content: "– ";
+  color: var(--color-text-muted);
+}
+
+/* Info page navigation */
+.info-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.info-nav a {
+  border-bottom: none;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.info-nav a:hover {
+  color: var(--color-text-primary);
+}
+

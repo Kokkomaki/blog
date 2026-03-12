@@ -15,7 +15,7 @@
   {{ end }}
 
   {{ .Content }}
-  {{ partial "date.html" .Date}}
+  {{ if not .Date.IsZero }}{{ partial "date.html" .Date}}{{ end }}
 
   {{ if not .IsHome }}
     <div class="terminal-nav">
