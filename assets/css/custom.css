@@ -85,8 +85,8 @@ a {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--gap-base);
-  align-items: baseline;
-  padding: var(--spacing-xs) 0;
+  align-items: start;
+  padding: var(--spacing-sm) 0;
 }
 
 .post-num {
