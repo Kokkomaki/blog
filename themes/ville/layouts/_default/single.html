@@ -1,5 +1,6 @@
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
+  {{ if eq .Section "posts" }}<p class="reading-time">{{ .ReadingTime }} min read</p>{{ end }}
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 
   {{/* Table of Contents */}}

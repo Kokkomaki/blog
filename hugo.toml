@@ -1,7 +1,7 @@
 baseURL = 'https://www.kokkomaki.com/'
 languageCode = 'en-us'
 title = 'Ville Kokkomäki'
-theme = "theme-folder"
+theme = "ville"
 
 [params]
   author = "Ville Kokkomäki"

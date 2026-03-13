@@ -43,6 +43,35 @@ a {
   margin-left: 0;
 }
 
+/* Header layout: breadcrumb left, toggle right */
+body > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body > header .path-nav {
+  width: auto;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0 0 0 var(--gap-base);
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  color: var(--color-text-primary);
+}
+
 /* Expand animation for homepage post list */
 .posts-extra {
   display: grid;
@@ -73,6 +102,13 @@ a {
 
 .expand-btn:hover {
   border-bottom: 1px solid;
+}
+
+/* Reading time */
+.reading-time {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  margin-top: calc(var(--spacing-base) * -0.5);
 }
 
 /* Numbered post list */
