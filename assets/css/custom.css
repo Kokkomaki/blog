@@ -135,6 +135,7 @@ body > header .path-nav {
 .num-list li > div {
   min-width: 0;
   padding-right: 2em;
+  overflow-wrap: anywhere;
 }
 
 .post-num {
