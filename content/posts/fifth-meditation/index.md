@@ -29,7 +29,7 @@ I was at my end. Who would take care of my heart? Who would want me? I guess no-
 
 The spikes and tentacles are now gone. Now it feels like mild pressure if I am not aware of him but otherwise he manifests as a fuzzy hole. If I don't pay attention to him, he throws a tantrum. Therefore I make sure I keep myself aware so he doesn't get out of hand. 
 
-When I am at my rock bottom, I feel like I want to violently scratch him off my chest like an Alien about to burst outside of my rib cages. But he won't bulge. He covertly bends my shoulders inward in an attempt to cover my chest. He doesn't want to be seen. 
+When I am at my rock bottom, I feel like I want to violently scratch him off my chest like an Alien about to burst inside of my rib cage. But he won't bulge. He covertly bends my shoulders inward in an attempt to cover my chest. He doesn't want to be seen. 
 
 I don't know exactly how long the pain has been there. It seems I've been numbing him for years. I've been shoving off anxiety, loneliness, depression, sadness, grief - the whole shabang - into that one little place in my heart.  
 
