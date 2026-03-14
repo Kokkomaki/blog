@@ -17,11 +17,59 @@
   <header>
     {{ partial "header.html" . }}
   </header>
-  <main>
+  <main data-pagefind-body>
     {{ block "main" . }}{{ end }}
   </main>
   <footer>
     {{ partial "footer.html" . }}
   </footer>
+
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-box">
+      <div id="pagefind-search"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var toggle = document.getElementById('search-toggle');
+      var overlay = document.getElementById('search-overlay');
+      var initialized = false;
+
+      function openSearch() {
+        overlay.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+        if (!initialized && typeof PagefindUI !== 'undefined') {
+          new PagefindUI({ element: '#pagefind-search', showImages: false, resetStyles: false });
+          initialized = true;
+        }
+        setTimeout(function() {
+          var input = overlay.querySelector('input');
+          if (input) input.focus();
+        }, 50);
+      }
+
+      function closeSearch() {
+        overlay.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      if (toggle) toggle.addEventListener('click', openSearch);
+
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) closeSearch();
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeSearch();
+        if (e.key === '/' && !overlay.classList.contains('is-open') &&
+            document.activeElement.tagName !== 'INPUT' &&
+            document.activeElement.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          openSearch();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

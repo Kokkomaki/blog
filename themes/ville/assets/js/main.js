@@ -9,13 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
-  btn.textContent = isDarkMode() ? '●' : '○';
+  btn.textContent = isDarkMode() ? 'Dark' : 'Light';
 
   btn.addEventListener('click', function() {
     var dark = isDarkMode();
     var newTheme = dark ? 'light' : 'dark';
     document.documentElement.dataset.theme = newTheme;
     localStorage.setItem('theme', newTheme);
-    btn.textContent = dark ? '○' : '●';
+    btn.textContent = dark ? 'Light' : 'Dark';
   });
 });

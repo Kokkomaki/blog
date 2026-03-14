@@ -58,29 +58,14 @@ a {
   border-bottom-color: var(--color-text-muted);
 }
 
-/* Header layout: breadcrumb left, toggle right */
-body > header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-body > header .path-nav {
-  width: auto;
-  flex: 1;
-  min-width: 0;
-}
-
 /* Theme toggle */
 .theme-toggle {
   background: none;
   border: none;
-  padding: 0 0 0 var(--gap-base);
+  padding: 0;
   cursor: pointer;
   font: inherit;
   color: var(--color-text-muted);
-  font-size: var(--font-size-small);
-  flex-shrink: 0;
 }
 
 .theme-toggle:hover {
@@ -106,17 +91,16 @@ body > header .path-nav {
 .expand-btn {
   background: none;
   border: none;
-  border-bottom: 1px dotted;
   padding: 0;
   cursor: pointer;
   font: inherit;
-  color: var(--color-text-primary);
+  color: var(--color-text-muted);
   margin-top: var(--spacing-lg);
   display: inline-block;
 }
 
 .expand-btn:hover {
-  border-bottom: 1px solid;
+  color: var(--color-text-primary);
 }
 
 /* Reading time */
@@ -201,6 +185,78 @@ body > header .path-nav {
 .resume ul li::before {
   content: "– ";
   color: var(--color-text-muted);
+}
+
+/* Search toggle button */
+.search-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-text-muted);
+}
+
+.search-toggle:hover {
+  color: var(--color-text-primary);
+}
+
+/* Bottom nav — Info / ../ · Search · Light/Dark */
+.bottom-nav {
+  display: flex;
+  gap: 2em;
+}
+
+.bottom-nav a {
+  border-bottom: none;
+  color: var(--color-text-muted);
+}
+
+.bottom-nav a:hover {
+  color: var(--color-text-primary);
+}
+
+/* Search overlay */
+.search-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: hsl(var(--bg-h) var(--bg-s) var(--bg-l) / 0.97);
+  z-index: 100;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8vh;
+  overflow-y: auto;
+}
+
+.search-overlay.is-open {
+  display: flex;
+}
+
+.search-box {
+  width: min(64ch, calc(100% - 4em));
+}
+
+/* Pagefind UI overrides — match blog theme */
+.pagefind-ui {
+  --pagefind-ui-scale: 0.85;
+  --pagefind-ui-primary: var(--color-text-primary);
+  --pagefind-ui-text: var(--color-text-primary);
+  --pagefind-ui-background: var(--color-bg-primary);
+  --pagefind-ui-border: var(--color-border);
+  --pagefind-ui-tag: var(--color-bg-secondary);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 0px;
+  --pagefind-ui-image-border-radius: 0px;
+  --pagefind-ui-font: var(--font-family-mono);
+}
+
+.pagefind-ui .pagefind-ui__search-input {
+  font-family: var(--font-family-mono);
+}
+
+.pagefind-ui .pagefind-ui__result-title a {
+  border-bottom: none;
 }
 
 /* Info page navigation */

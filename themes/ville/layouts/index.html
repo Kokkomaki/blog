@@ -59,8 +59,12 @@
     </div>
   </section>
 
-  <div class="terminal-nav">
-    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+  <div class="terminal-nav bottom-nav">
+    {{- range site.Menus.main }}
+    <a href="{{ .URL }}">{{ .Name }}</a>
+    {{- end }}
+    <button class="search-toggle" id="search-toggle" aria-label="Search" title="Search (/)">Search</button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">○</button>
   </div>
 
   <script>

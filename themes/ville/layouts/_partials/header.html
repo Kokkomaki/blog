@@ -3,7 +3,6 @@
     {{ template "breadcrumbnav" (dict "p1" . "p2" .) }}
   </ol>
 </nav>
-<button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">○</button>
 
 {{ define "breadcrumbnav" }}
   {{ if .p1.Parent }}

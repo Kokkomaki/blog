@@ -1,18 +1,16 @@
 +++
 title = "Correlation is not Causation"
-date = "2026-03-17T00:00:00+02:00"
+date = "2026-03-21T00:00:00+02:00"
 draft = false
 +++
 
-I think correlation is witty. In my bachelor studies I studied a lot of advanced statistics and theory. Professors and teachers tried to nail the slogan 'correlation is not causation' to our brain. 
+I couldn't think of a better title, I am sorry. It's quite cliche, certainly. Anyway, I think correlation is witty. In my bachelor studies I studied a lot of advanced statistics and theory. Professors and teachers tried to nail the slogan 'correlation is not causation' to our brain. 
 
-Granted, correlation is one of the best things we have. Correlation gives even a little direction when all else is dark and unknown. However, it is not at all a reliable indicator of anything *by itself*. So when I hear something is correlated, I cringe. Almost immediately I grow distrusting.
+Granted, correlation is one of the best things we have. Correlation gives even just faint direction when all else is dark and unknown. However, it is not at all a reliable indicator of anything *by itself*. So when I hear something is correlated, I cringe. Almost immediately I grow distrusting.
 
 {{< center >}}—{{< /center >}}
 
 Therefore, if "A & B are correlated" with r = 0.3 we could say:
-
-**Multiple explanations possible:** 
 
 * A causes B (direct causation)
 * B causes A (reverse causation)
@@ -48,3 +46,5 @@ Therefore, if "A & B are correlated" with r = 0.3 we could say:
    diff. measurement)
 ```
 &nbsp;
+
+So, it's no so clear as to what correlation implies here. In everyday language, when someone says that two things are associated with each other or that something is caused by something (when in reality we are merely implying a correlation, alas folk language can be confusing), means very little. 
