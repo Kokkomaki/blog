@@ -6,12 +6,8 @@ theme = "ville"
 [params]
   author = "Ville Kokkomäki"
   email = "ville.kokkomaki@protonmail.com"
-  webringSlug = "kokkomaki"
 
 [markup]
-  defaultMarkdownHandler = "goldmark"
-  # By default, Goldmark trims unsafe outputs which might prevent some shortcodes from rendering.
-  # It is recommended to set markup.goldmark.renderer.unsafe=true if you encounter problems.
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true  # Enable user to embed HTML snippets in Markdown content.
@@ -34,11 +30,7 @@ theme = "ville"
     weight = 1
     identifier = "info"
 
-#[permalinks]
-#  posts = "/:year/:month/:day/:slug/"
 
-[build]
-  writeStats = true
 
 [frontmatter]
   date = ['date', 'publishDate', 'lastmod']
