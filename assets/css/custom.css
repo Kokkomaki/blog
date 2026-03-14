@@ -39,9 +39,17 @@ main {
     width: calc(100% - 2em);
     padding: 0.5em 1em;
   }
-  
+
   main {
     overflow-x: hidden;
+  }
+
+  .num-list li {
+    padding: 0.5em 0;
+  }
+
+  .num-list li > div {
+    padding-right: 0;
   }
 }
 
