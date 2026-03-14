@@ -2,10 +2,8 @@
   <div class="resume">
     {{ .Content }}
   </div>
-
-  <div class="terminal-nav">
-    <div class="back-nav">
-      <a href="../" class="back-link">../</a>
-    </div>
+  <div class="terminal-nav bottom-nav">
+    <a href="../" class="back-link">../</a>
+    {{ partial "bottom-actions.html" . }}
   </div>
 {{ end }}

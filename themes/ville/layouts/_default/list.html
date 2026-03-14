@@ -1,33 +1,32 @@
 {{ define "main" }}
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
-    {{ $pages := .Pages }}
-    {{ $total := len $pages }}
-    <div class="num-list">
-        <ul>
-            {{ range $i, $p := $pages }}
-            {{ $nextIdx := add $i 1 }}
-            {{ $showYear := false }}
-            {{ if ge $nextIdx $total }}
-              {{ $showYear = true }}
-            {{ else }}
-              {{ $next := index $pages $nextIdx }}
-              {{ if ne $next.Date.Year $p.Date.Year }}
-                {{ $showYear = true }}
-              {{ end }}
-            {{ end }}
-            <li>
-                <span class="post-num">{{ sub $total $i }}.</span>
-                <div><a href="{{ $p.RelPermalink }}">{{ $p.LinkTitle }}</a></div>
-                <span class="post-date">{{ $p.Date.Format "2 Jan" }}</span>
-                <span class="post-year">{{ if $showYear }}'{{ $p.Date.Format "06" }}{{ end }}</span>
-            </li>
-            {{ end }}
-        </ul>
-    </div>
-    <div class="terminal-nav bottom-nav">
-      <a href="../" class="back-link">../</a>
-      <button class="search-toggle" id="search-toggle" aria-label="Search" title="Search (/)">Search</button>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">○</button>
-    </div>
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  {{ $pages := .Pages }}
+  {{ $total := len $pages }}
+  <div class="num-list">
+    <ul>
+      {{ range $i, $p := $pages }}
+      {{ $nextIdx := add $i 1 }}
+      {{ $showYear := false }}
+      {{ if ge $nextIdx $total }}
+        {{ $showYear = true }}
+      {{ else }}
+        {{ $next := index $pages $nextIdx }}
+        {{ if ne $next.Date.Year $p.Date.Year }}
+          {{ $showYear = true }}
+        {{ end }}
+      {{ end }}
+      <li>
+        <span class="post-num">{{ sub $total $i }}.</span>
+        <div><a href="{{ $p.RelPermalink }}">{{ $p.LinkTitle }}</a></div>
+        <span class="post-date">{{ $p.Date.Format "2 Jan" }}</span>
+        <span class="post-year">{{ if $showYear }}'{{ $p.Date.Format "06" }}{{ end }}</span>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+  <div class="terminal-nav bottom-nav">
+    <a href="../" class="back-link">../</a>
+    {{ partial "bottom-actions.html" . }}
+  </div>
 {{ end }}

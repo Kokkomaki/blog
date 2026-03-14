@@ -1,7 +1,6 @@
 {{ define "main" }}
   {{ .Content }}
 
-  <!-- Recent posts list -->
   {{ $posts := where .Site.RegularPages "Type" "posts" }}
   {{ $total := len $posts }}
   <section class="home-posts num-list">
@@ -63,8 +62,7 @@
     {{- range site.Menus.main }}
     <a href="{{ .URL }}">{{ .Name }}</a>
     {{- end }}
-    <button class="search-toggle" id="search-toggle" aria-label="Search" title="Search (/)">Search</button>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">○</button>
+    {{ partial "bottom-actions.html" . }}
   </div>
 
   <script>
