@@ -3,7 +3,14 @@
 <head>
   {{ partial "head.html" . }}
   <script>
-    if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
+    (function() {
+      var stored = localStorage.getItem('theme');
+      if (stored) {
+        document.documentElement.dataset.theme = stored;
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
   </script>
 </head>
 <body>

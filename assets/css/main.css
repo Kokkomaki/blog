@@ -39,8 +39,13 @@
     var(--bg-h) var(--bg-s) clamp(20%, calc(90% - var(--bg-l)), 85%)
   );
 
+  /* Date text: intermediate between muted and primary */
+  --color-text-date: hsl(
+    var(--bg-h) var(--bg-s) clamp(20%, calc(92% - var(--bg-l)), 83%)
+  );
+
   /* Layout */
-  --container-width: 64ch;
+  --container-width: 72ch;
   --pre-border-radius: 0.75rem;
   --inline-border-radius: 0.375rem;
   --gap-base: 1em;
@@ -53,6 +58,19 @@
 [data-theme="dark"] {
   --bg-l: 8%;
   --bg-s: 0%;
+}
+
+[data-theme="light"] {
+  --bg-h: 44;
+  --bg-s: 50%;
+  --bg-l: 95%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-l: 8%;
+    --bg-s: 0%;
+  }
 }
 
 /* Common component styles */

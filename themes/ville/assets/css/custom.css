@@ -1,6 +1,6 @@
 time {
-  color: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) - 35%));
-  opacity: 0.6;
+  color: var(--color-text-muted);
+  opacity: 0.8;
 }
 /* You can add custom style here */
 
@@ -11,4 +11,33 @@ img {
   box-shadow: none !important;
   background: none !important;
 }
-/* You can add custom style here */
+
+/* Numbered post list */
+.num-list ul {
+  list-style: none;
+  margin-left: 0;
+}
+
+.num-list li {
+  display: grid;
+  grid-template-columns: 3ch 10ch 1fr;
+  gap: 0.5em;
+  align-items: baseline;
+  padding: 0.15em 0;
+}
+
+.post-num {
+  color: var(--color-text-muted);
+  text-align: right;
+}
+
+.post-date {
+  color: var(--color-text-date);
+}
+
+@media (max-width: 600px) {
+  .num-list li {
+    grid-template-columns: 2ch 9ch 1fr;
+    gap: 0.3em;
+  }
+}

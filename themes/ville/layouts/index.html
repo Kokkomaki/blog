@@ -7,9 +7,21 @@
   <section class="home-posts num-list">
     <ul>
       {{ range $i, $p := first 5 $posts }}
+      {{ $nextIdx := add $i 1 }}
+      {{ $showYear := false }}
+      {{ if ge $nextIdx $total }}
+        {{ $showYear = true }}
+      {{ else }}
+        {{ $next := index $posts $nextIdx }}
+        {{ if ne $next.Date.Year $p.Date.Year }}
+          {{ $showYear = true }}
+        {{ end }}
+      {{ end }}
       <li>
         <span class="post-num">{{ sub $total $i }}.</span>
         <div><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></div>
+        <span class="post-date">{{ $p.Date.Format "2 Jan" }}</span>
+        <span class="post-year">{{ if $showYear }}'{{ $p.Date.Format "06" }}{{ end }}</span>
       </li>
       {{ end }}
     </ul>
@@ -19,9 +31,22 @@
       <div>
         <ul>
           {{ range $i, $p := after 5 $posts }}
+          {{ $realIdx := add $i 5 }}
+          {{ $nextIdx := add $realIdx 1 }}
+          {{ $showYear := false }}
+          {{ if ge $nextIdx $total }}
+            {{ $showYear = true }}
+          {{ else }}
+            {{ $next := index $posts $nextIdx }}
+            {{ if ne $next.Date.Year $p.Date.Year }}
+              {{ $showYear = true }}
+            {{ end }}
+          {{ end }}
           <li>
             <span class="post-num">{{ sub $total (add $i 5) }}.</span>
             <div><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></div>
+            <span class="post-date">{{ $p.Date.Format "2 Jan" }}</span>
+            <span class="post-year">{{ if $showYear }}'{{ $p.Date.Format "06" }}{{ end }}</span>
           </li>
           {{ end }}
         </ul>
