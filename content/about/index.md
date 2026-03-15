@@ -20,4 +20,4 @@ If you wish to get notified when new posts arrive, I have [a RSS feed](https://k
 
 **How to contact me?**
 
-You can send me email to ville.kokkomaki (at) protonmail (dot) com
+You can send me email to ville.kokkomaki@protonmail.com
