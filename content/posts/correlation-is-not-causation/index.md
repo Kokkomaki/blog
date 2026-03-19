@@ -23,6 +23,7 @@ Therefore, if "A & B are correlated" with r = 0.3 we could say:
 
 &nbsp;
 
+**Fig 1. Multiple explanations**
 ```goat
 1. Direct                      2. Reverse                     3. Bidirectional
 
@@ -47,4 +48,9 @@ Therefore, if "A & B are correlated" with r = 0.3 we could say:
 ```
 &nbsp;
 
-So, it's no so clear as to what correlation implies here. In everyday language, when someone says that two things are associated with each other or that something is caused by something (when in reality we are merely implying a correlation, alas folk language can be confusing), means very little. 
+**Fig 2. Even more explanations for correlation**
+![correlation](/images/correlation.png)
+
+{{< center >}}—{{< /center >}}
+
+So, it's no so clear as to what correlation could imply unless we look at the plot. In everyday language, when someone says that two things are associated with each other or that something is caused by something (when in reality we are merely implying a correlation, alas folk language can be confusing), means very little. Even if the correlation pattern looks "normal", there can be so many unaccounted explanations. 

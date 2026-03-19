@@ -6,6 +6,7 @@ theme = "ville"
 [params]
   author = "Ville Kokkomäki"
   email = "ville.kokkomaki@protonmail.com"
+  paywallApiBase = "https://paywall.kokkomaki.com"
 
 [markup]
   [markup.goldmark]
