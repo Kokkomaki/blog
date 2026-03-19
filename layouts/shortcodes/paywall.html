@@ -1,0 +1,352 @@
+{{ $apiBase := site.Params.paywallApiBase }}
+{{ $slug := .Page.Slug | default (.Page.File.ContentBaseName) }}
+{{ $sats := .Get "sats" | default "21" }}
+
+<!-- gate: content + overlay pinned to bottom of gradient -->
+<div class="pw-gate" id="pw-gate-{{ $slug }}">
+  <div class="pw-blurred" id="pw-blurred-{{ $slug }}">
+    {{ .Inner | markdownify }}
+  </div>
+  <div class="pw-overlay" id="pw-overlay-{{ $slug }}">
+    <div class="pw-overlay-sticky">
+      <p class="pw-pay-label">pay to see</p>
+      <button class="pw-fab" id="pw-fab-{{ $slug }}">&#x26A1; unlock &middot; {{ $sats }} sats</button>
+    </div>
+  </div>
+</div>
+
+<!-- centered modal with backdrop blur -->
+<div class="pw-modal" id="pw-modal-{{ $slug }}" style="display:none" role="dialog">
+  <div class="pw-modal-box">
+    <p class="pw-modal-label">scan to pay &middot; {{ $sats }} sats</p>
+    <div class="pw-qr" id="pw-qr-{{ $slug }}"></div>
+    <a class="pw-copy pw-deeplink" id="pw-deeplink-{{ $slug }}" style="display:none">open in wallet</a>
+    <button class="pw-copy" id="pw-copy-{{ $slug }}">copy invoice</button>
+    <span class="pw-waiting" id="pw-waiting-{{ $slug }}"></span>
+    <button class="pw-copy pw-retry" id="pw-retry-{{ $slug }}" style="display:none">retry</button>
+    <div class="pw-paid-flash" id="pw-paid-{{ $slug }}" style="display:none">&#x2713; paid</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js" integrity="sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" integrity="sha384-948ahk4ZmxYVYOc+rxN1H2gM1EJ2Duhp7uHtZ4WSLkV4Vtx5MUqnV+l7u9B+jFv+" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js" integrity="sha384-pcBjnGbkyKeOXaoFkmJiuR9E08/6gkmus6/Strimnxtl3uk0Hx23v345pWyC/MMr" crossorigin="anonymous"></script>
+
+<script>
+(function() {
+  const slug     = {{ $slug | jsonify | safeJS }};
+  const apiBase  = {{ $apiBase | jsonify | safeJS }};
+  const sats     = {{ $sats | jsonify | safeJS }};
+  const storeKey = "paywall-unlock-" + slug;
+
+  const gate      = document.getElementById("pw-gate-" + slug);
+  const blurred   = document.getElementById("pw-blurred-" + slug);
+  const overlay   = document.getElementById("pw-overlay-" + slug);
+  const fab       = document.getElementById("pw-fab-" + slug);
+  const modal     = document.getElementById("pw-modal-" + slug);
+  const qrEl      = document.getElementById("pw-qr-" + slug);
+  const copyBtn    = document.getElementById("pw-copy-" + slug);
+  const deeplink   = document.getElementById("pw-deeplink-" + slug);
+  const isMobile   = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const waitingEl = document.getElementById("pw-waiting-" + slug);
+  const retryBtn  = document.getElementById("pw-retry-" + slug);
+  const paidFlash = document.getElementById("pw-paid-" + slug);
+
+  let pollInterval   = null;
+  let expiryTimer    = null;
+  let invoiceFetched = false;
+  let invoicePromise = null;
+  let pendingBolt11  = null;
+  let pendingHash    = null;
+
+  // Pre-fetch invoice in background so modal opens instantly
+  function loadInvoice() {
+    if (invoicePromise) return invoicePromise;
+    invoicePromise = fetch(apiBase + "/create-invoice?sats=" + encodeURIComponent(sats))
+      .then(function(r) { if (!r.ok) throw new Error('invoice ' + r.status); return r.json(); })
+      .then(function(data) {
+        if (!data.payment_request) throw new Error('no payment_request in response');
+        pendingBolt11 = data.payment_request;
+        pendingHash   = data.payment_hash;
+        // Auto-invalidate cache when invoice expires
+        const expirySecs = bolt11Expiry(data.payment_request);
+        setTimeout(function() {
+          invoicePromise = null;
+          pendingBolt11  = null;
+          pendingHash    = null;
+        }, expirySecs * 1000);
+        return data;
+      })
+      .catch(function(e) { invoicePromise = null; throw e; });
+    return invoicePromise;
+  }
+
+  function fadeOverlay() {
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+  }
+
+  function restoreOverlay() {
+    overlay.style.opacity = "1";
+    overlay.style.pointerEvents = "";
+  }
+
+  // ── Payment confirmed flash ────────────────────────────────────────────────
+  function showPaid(token) {
+    if (pollInterval) clearInterval(pollInterval);
+    if (expiryTimer)  clearInterval(expiryTimer);
+    qrEl.innerHTML = "";
+    copyBtn.style.display    = "none";
+    deeplink.style.display   = "none";
+    waitingEl.textContent    = "";
+    retryBtn.style.display   = "none";
+    paidFlash.style.display  = "";
+    setTimeout(function() { unlock(token); }, 700);
+  }
+
+  // ── Fetch and inject KV content ───────────────────────────────────────────
+  async function fetchContent(token) {
+    try {
+      const r = await fetch(apiBase + "/content/" + encodeURIComponent(slug) + "?token=" + encodeURIComponent(token));
+      const d = await r.json();
+      if (d.content) {
+        const html = DOMPurify.sanitize(marked.parse(d.content));
+        const div = document.createElement("div");
+        div.className = "pw-reveal pw-kv-content";
+        div.innerHTML = html;
+        gate.insertAdjacentElement("afterend", div);
+      }
+    } catch(e) {}
+  }
+
+  // ── Unlock ─────────────────────────────────────────────────────────────────
+  function unlock(token) {
+    if (pollInterval) clearInterval(pollInterval);
+    if (expiryTimer)  clearInterval(expiryTimer);
+    modal.style.display = "none";
+    // Fade out gradient and overlay
+    gate.classList.add("pw-unlocking");
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+    blurred.classList.remove("pw-blurred");
+    // After gradient transition, remove clipping and inject KV content
+    setTimeout(function() {
+      gate.style.maxHeight = "none";
+      gate.style.overflow  = "visible";
+      overlay.style.display = "none";
+      if (token) fetchContent(token);
+    }, 420);
+  }
+
+  // ── Polling ────────────────────────────────────────────────────────────────
+  function startPolling(hash) {
+    if (pollInterval) clearInterval(pollInterval);
+    pollInterval = setInterval(async function() {
+      try {
+        const r = await fetch(apiBase + "/check-invoice?hash=" + encodeURIComponent(hash));
+        const d = await r.json();
+        if (d.paid) { localStorage.setItem(storeKey, d.token); showPaid(d.token); }
+      } catch(e) {}
+    }, 2000);
+  }
+
+  // ── Expiry countdown ───────────────────────────────────────────────────────
+  // Decode expiry seconds from bolt11 without a library.
+  // bolt11 tags are bech32-encoded; we locate tag 0x06 (expiry) in the data.
+  function bolt11Expiry(bolt11) {
+    try {
+      const CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
+      const lower   = bolt11.toLowerCase();
+      const sepIdx  = lower.lastIndexOf("1");
+      if (sepIdx < 0) return 3600;
+      const data5   = lower.slice(sepIdx + 1, -6) // strip checksum
+        .split("").map(c => CHARSET.indexOf(c));
+
+      // Convert 5-bit groups to bytes
+      let buf = 0, bits = 0;
+      const bytes = [];
+      for (const v of data5) {
+        buf = (buf << 5) | v;
+        bits += 5;
+        if (bits >= 8) { bits -= 8; bytes.push((buf >> bits) & 0xff); }
+      }
+
+      // Skip timestamp (first 35 bits = 7 x 5-bit groups → 4 bytes + 3 bits)
+      // Walk tagged fields: each field is [type(5bit)][length(5bit*2)][data(length*5bit)]
+      let i = 7; // skip 7 five-bit groups (35 bits = timestamp)
+      while (i + 2 < data5.length) {
+        const tag = data5[i];
+        const len = data5[i+1] * 32 + data5[i+2];
+        i += 3;
+        if (tag === 6 && len > 0) { // tag 6 = expiry
+          let val = 0;
+          for (let j = 0; j < len; j++) val = (val * 32) + (data5[i + j] || 0);
+          return val;
+        }
+        i += len;
+      }
+    } catch(e) {}
+    return 3600; // default Lightning expiry
+  }
+
+  function startExpiry(bolt11, hash) {
+    if (expiryTimer) clearInterval(expiryTimer);
+    const expirySecs = bolt11Expiry(bolt11);
+    const expiresAt  = Date.now() + expirySecs * 1000;
+
+    expiryTimer = setInterval(function() {
+      const remaining = Math.floor((expiresAt - Date.now()) / 1000);
+      if (remaining <= 0) {
+        clearInterval(expiryTimer);
+        if (pollInterval) clearInterval(pollInterval);
+        invoiceFetched = false;
+        invoicePromise = null;
+        pendingBolt11  = null;
+        pendingHash    = null;
+        // Clear QR and fetch a fresh invoice
+        qrEl.innerHTML = "";
+        fetchInvoice();
+        return;
+      }
+    }, 1000);
+  }
+
+  retryBtn.addEventListener("click", function() {
+    retryBtn.style.display = "none";
+    waitingEl.textContent = "waiting for payment...";
+    fetchInvoice();
+  });
+
+
+  // ── Fetch invoice ──────────────────────────────────────────────────────────
+  async function fetchInvoice() {
+    if (invoiceFetched) return;
+    invoiceFetched = true;
+
+    try {
+      const data   = await loadInvoice();
+      const bolt11 = data.payment_request;
+      const hash   = data.payment_hash;
+
+      fab.textContent = "\u26A1 unlock \u00B7 " + sats + " sats";
+      new QRCode(qrEl, { text: bolt11, width: 180, height: 180, correctLevel: QRCode.CorrectLevel.L });
+
+      if (isMobile) {
+        deeplink.href = "lightning:" + bolt11;
+        deeplink.style.display = "";
+      }
+
+      copyBtn.onclick = function() {
+        navigator.clipboard.writeText(bolt11).then(function() {
+          copyBtn.textContent = "copied";
+          setTimeout(() => { copyBtn.textContent = "copy invoice"; }, 2000);
+        });
+      };
+
+      startPolling(hash);
+      startExpiry(bolt11, hash);
+    } catch(e) {
+      invoiceFetched = false;
+      fab.textContent = "\u26A1 unlock \u00B7 " + sats + " sats";
+      waitingEl.textContent = "could not load invoice";
+      retryBtn.style.display = "";
+      restoreOverlay();
+    }
+  }
+
+  // ── Pre-fetch invoice on load (skip if already paid) ──────────────────────
+  const saved = localStorage.getItem(storeKey);
+  if (saved) {
+    fetch(apiBase + "/verify-token?token=" + encodeURIComponent(saved))
+      .then(r => r.json())
+      .then(d => { if (d.valid) unlock(saved); })
+      .catch(() => {});
+  } else {
+    loadInvoice().catch(() => {});
+  }
+
+  // ── Test mode ─────────────────────────────────────────────────────────────
+  const testAdminToken = new URLSearchParams(window.location.search).get("test-unlock");
+  if (testAdminToken !== null) {
+    const testBtn = document.createElement("button");
+    testBtn.textContent = "[ test unlock ]";
+    testBtn.style.cssText = "display:block;margin:0.5em auto;background:none;border:1px dashed currentColor;font:inherit;font-size:0.75em;color:var(--color-text-muted);cursor:pointer;padding:0.3em 0.8em;";
+    gate.insertAdjacentElement("afterend", testBtn);
+    testBtn.addEventListener("click", async function() {
+      testBtn.remove();
+      gate.classList.add("pw-unlocking");
+      overlay.style.opacity = "0";
+      overlay.style.pointerEvents = "none";
+      blurred.classList.remove("pw-blurred");
+      setTimeout(async function() {
+        gate.style.maxHeight = "none";
+        gate.style.overflow  = "visible";
+        overlay.style.display = "none";
+        if (testAdminToken) {
+          try {
+            const r = await fetch(apiBase + "/preview/" + encodeURIComponent(slug), {
+              headers: { "Authorization": "Bearer " + testAdminToken }
+            });
+            const d = await r.json();
+            if (d.content) {
+              const html = DOMPurify.sanitize(marked.parse(d.content));
+              const div = document.createElement("div");
+              div.className = "pw-reveal pw-kv-content";
+              div.innerHTML = html;
+              gate.insertAdjacentElement("afterend", div);
+            }
+          } catch(e) {}
+        } else {
+          const savedToken = localStorage.getItem(storeKey);
+          if (savedToken) fetchContent(savedToken);
+        }
+      }, 420);
+    });
+  }
+
+  // ── WebLN ──────────────────────────────────────────────────────────────────
+  async function tryWebLN() {
+    fab.textContent = "opening wallet...";
+    try {
+      const data   = await loadInvoice();
+      const bolt11 = data.payment_request;
+      const hash   = data.payment_hash;
+
+      await window.webln.enable();
+      await window.webln.sendPayment(bolt11);
+
+      // Confirm server-side then unlock
+      const check = await fetch(apiBase + "/check-invoice?hash=" + encodeURIComponent(hash));
+      const result = await check.json();
+      if (result.paid) {
+        localStorage.setItem(storeKey, result.token);
+        showPaid(result.token);
+      } else {
+        startPolling(hash);
+        modal.style.display = "flex";
+      }
+    } catch(e) {
+      // WebLN failed or was rejected — fall back to QR modal using pre-fetched invoice
+      fab.textContent = "\u26A1 unlock \u00B7 " + sats + " sats";
+      modal.style.display = "flex";
+      fetchInvoice();
+    }
+  }
+
+  // ── Fab click: fade overlay out, show modal ────────────────────────────────
+  fab.addEventListener("click", function() {
+    fadeOverlay();
+    if (window.webln) {
+      tryWebLN();
+    } else {
+      modal.style.display = "flex";
+      fetchInvoice();
+    }
+  });
+
+  // ── Close modal on backdrop: restore overlay ───────────────────────────────
+  modal.addEventListener("click", function(e) {
+    if (e.target === modal) { modal.style.display = "none"; restoreOverlay(); }
+  });
+})();
+</script>

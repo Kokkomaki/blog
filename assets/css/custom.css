@@ -3,6 +3,176 @@ time {
   opacity: 0.8;
 }
 
+/* Lightning paywall */
+
+/* wrapper — height just enough to show content + button, minimal dead space below */
+.pw-gate {
+  position: relative;
+  max-height: 20rem;
+  min-height: 4rem;
+  overflow: hidden;
+  margin-bottom: 1.5em;
+}
+
+/* content is readable at full opacity — fade overlay handles the obscuring */
+.pw-blurred {
+  user-select: none;
+  pointer-events: none;
+}
+
+/* clean linear fade: readable at top, solid background by 80% */
+.pw-gate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    var(--color-bg-primary) 95%
+  );
+}
+
+/* fade out overlay when unlocking */
+.pw-gate.pw-unlocking::before {
+  opacity: 0;
+}
+
+/* fully unlocked — gradient already gone via pw-unlocking, nothing else needed */
+
+/* overlay pinned to bottom of gate — fades out on click via JS opacity */
+.pw-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 1.5em;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.pw-overlay-sticky {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  pointer-events: all;
+}
+
+.pw-pay-label {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+  background: var(--color-bg-primary);
+  padding: 0.15em 0.6em;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+/* revealed content fades in */
+@keyframes pw-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pw-reveal {
+  animation: pw-fade-in 0.5s ease;
+}
+
+.pw-fab {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  padding: 0.4em 1.2em;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.pw-fab:hover {
+  color: var(--color-text-primary);
+  background: var(--color-selection-bg);
+}
+
+.pw-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.pw-modal-box {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  padding: 1.6em 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8em;
+  text-align: center;
+}
+
+.pw-modal-label {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.pw-qr img {
+  display: block;
+  background: transparent !important;
+}
+
+.pw-copy {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  padding: 0.25em 1em;
+  cursor: pointer;
+}
+
+.pw-copy:hover {
+  background: var(--color-selection-bg);
+}
+
+.pw-deeplink {
+  text-decoration: none;
+  text-align: center;
+}
+
+.pw-waiting {
+  font-size: 0.75em;
+  color: var(--color-text-muted);
+}
+
+@keyframes pw-paid-in {
+  0%   { opacity: 0; transform: scale(0.8); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.pw-paid-flash {
+  font-family: var(--font-family-mono);
+  font-size: 1.4em;
+  color: var(--color-text-primary);
+  animation: pw-paid-in 0.4s ease forwards;
+  padding: 0.3em 0;
+}
+
+
 @media (min-width: 768px) {
   :root {
     --font-size-base: 1.1em;
