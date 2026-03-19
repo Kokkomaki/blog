@@ -3,7 +3,7 @@
   {{ if eq .Section "posts" }}<p class="reading-time">{{ .ReadingTime }} min read</p>{{ end }}
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 
-  {{ $hasToC := .Params.toc | default true }}
+  {{ $hasToC := .Params.toc | default false }}
   {{ $headers := findRE "<h[2-6]" .Content }}
   {{ if and $hasToC (ge (len $headers) 1) }}
     <nav class="toc">
