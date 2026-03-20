@@ -15,8 +15,11 @@ I built ~~the opacity-gradient and the UX~~, a connection to Lightning Network (
 What's amazing is that I built all this in *one, fricken'*, day. Well, so I thought, haha. Actually it took ~~four~~ six days after bugs and improvements. You know, the usual. The plot twist: I was babysitting Claude Code the Clanker, which (who?) made it for me. I gave it orders (gentle directions!) and voilà. To be honest, you don't even need to pay and read the rest of the article unless you are interested in the technical execution. Bon voyage!
 
 {{< center >}}—{{< /center >}}
-{{< paywall sats="21" >}}
+
+{{< paywall sats="15" >}}
+
 {{< /paywall >}}
+
 {{< center >}}—{{< /center >}}
 
 ## The Idea
