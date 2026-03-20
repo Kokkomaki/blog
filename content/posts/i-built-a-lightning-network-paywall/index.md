@@ -6,7 +6,7 @@ draft = false
 
 ![generic lightning](/images/lightning.jpg)
 
-*Updated. 20th, March. A shrewd hacker somehow redirected the Lightning Network invoices to their wallet, making them just a few cents richer, and me more wiser. Quite fun, actually! Not my first rodeo. It makes a great story. I also made the paywal just for a specific subsection, instead of the whole article. I suppose not everyone has a LN wallet in their computers. Enjoy!*
+***Updated. 20th, March.** A shrewd hacker somehow redirected the Lightning Network invoices to their wallet, making them just a few cents richer, and me more wiser. Quite fun, actually! Not my first rodeo. It makes a great story. I also made the paywal just for a specific subsection, instead of the whole article. I suppose not everyone has a LN wallet in their computers. Enjoy!*
 
 ~~Obviously this post was going to be paywalled with a generic lightning photo. What did you expect? A free article? You have to pay me one cent to access the article. Mwuahahah! I'll make you poor. I hope I am not being too greedy? Before you pay, you have the chance to read this teaser of what is to come.~~ The article is more or less my story on how I built the paywall. It's a proof of concept, and quite a functioning version at that, too. Actually, I am kidding. I'll just write a small section as a paywall so you can read the article. 
 
@@ -14,9 +14,10 @@ I built ~~the opacity-gradient and the UX~~, a connection to Lightning Network (
 
 What's amazing is that I built all this in *one, fricken'*, day. Well, so I thought, haha. Actually it took ~~four~~ six days after bugs and improvements. You know, the usual. The plot twist: I was babysitting Claude Code the Clanker, which (who?) made it for me. I gave it orders (gentle directions!) and voilà. To be honest, you don't even need to pay and read the rest of the article unless you are interested in the technical execution. Bon voyage!
 
+{{< center >}}—{{< /center >}}
 {{< paywall sats="21" >}}
-
 {{< /paywall >}}
+{{< center >}}—{{< /center >}}
 
 ## The Idea
 
