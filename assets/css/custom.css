@@ -33,6 +33,7 @@ time {
     transparent 40%,
     var(--color-bg-primary) 95%
   );
+  display: none;
 }
 
 /* fade out overlay when unlocking */
