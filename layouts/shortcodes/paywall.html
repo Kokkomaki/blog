@@ -143,7 +143,7 @@
     if (pollInterval) clearInterval(pollInterval);
     pollInterval = setInterval(async function() {
       try {
-        const r = await fetch(apiBase + "/check-invoice?hash=" + encodeURIComponent(hash));
+        const r = await fetch(apiBase + "/check-invoice?hash=" + encodeURIComponent(hash) + "&slug=" + encodeURIComponent(slug));
         const d = await r.json();
         if (d.paid) { localStorage.setItem(storeKey, d.token); showPaid(d.token); }
       } catch(e) {}
@@ -257,7 +257,7 @@
   // ── Pre-fetch invoice on load (skip if already paid) ──────────────────────
   const saved = localStorage.getItem(storeKey);
   if (saved) {
-    fetch(apiBase + "/verify-token?token=" + encodeURIComponent(saved))
+    fetch(apiBase + "/verify-token?token=" + encodeURIComponent(saved) + "&slug=" + encodeURIComponent(slug))
       .then(r => r.json())
       .then(d => { if (d.valid) unlock(saved); })
       .catch(() => {});
@@ -316,7 +316,7 @@
       await window.webln.sendPayment(bolt11);
 
       // Confirm server-side then unlock
-      const check = await fetch(apiBase + "/check-invoice?hash=" + encodeURIComponent(hash));
+      const check = await fetch(apiBase + "/check-invoice?hash=" + encodeURIComponent(hash) + "&slug=" + encodeURIComponent(slug));
       const result = await check.json();
       if (result.paid) {
         localStorage.setItem(storeKey, result.token);
