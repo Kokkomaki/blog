@@ -16,7 +16,7 @@ What's amazing is that I built all this in *one, fricken'*, day. Well, so I thou
 
 ## The Paywall
 
-You can try the "paywall" here. You might get nothing, you might get something. It's for fun. 
+You can try the "paywall" here.
 
 {{< paywall sats="15" >}}
 
