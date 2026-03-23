@@ -129,10 +129,9 @@
     overlay.style.opacity = "0";
     overlay.style.pointerEvents = "none";
     blurred.classList.remove("pw-blurred");
-    // After gradient transition, remove clipping and inject KV content
+    // After gradient transition, hide gate and inject GitHub content
     setTimeout(function() {
-      gate.style.maxHeight = "none";
-      gate.style.overflow  = "visible";
+      gate.style.display = "none";
       overlay.style.display = "none";
       if (token) fetchContent(token);
     }, 420);
