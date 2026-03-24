@@ -8,6 +8,8 @@ draft = false
 
 ***Updated. 20th, March.** I believe a shrewd hacker somehow redirected the Lightning Network invoices to their wallet, making them just a few cents richer, and me more wiser. Quite fun, actually! Not my first rodeo. It makes a great story. I also made the paywal just for a specific subsection, instead of the whole article. I suppose not everyone has a LN wallet in their computers. Enjoy!*
 
+***Updated. 24th, March.** Apparently Coinos has an issue with rotating tokens automatically, and it is not possible from my end to refresh them. In other words, it is not possible to pay LN invoice and unlock paywall given that their service is not working. It seems I must find another provider, but since this is a proof of concept, and I have a life, I am not going to dedicate any more time on this pet project. It was fun while it lasted.*
+
 Obviously this post was going to be ~~paywalled~~ with a generic lightning photo. What did you expect? ~~A free article? You have to pay me one cent to access the article. Mwuahahah! I'll make you poor. I hope I am not being too greedy? Before you pay, you have the chance to read this teaser of what is to come.~~ The article is more or less my story on how I built the paywall. It's a proof of concept, and ~~quite~~ a functioning version at that, too. 
 
 I built ~~the opacity-gradient and the UX~~, a connection to Lightning Network (LN) wallet via REST API, and an extension for both mobile and desktop (WebLN). These extensions make paying with LN wallets more easier, rather than just scanning the QR code. I also had to use a Deno Worker to make the paywall an actual paywall and not just a facade. Content is fetched from a private github repo.
