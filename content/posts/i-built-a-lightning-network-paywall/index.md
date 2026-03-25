@@ -6,9 +6,11 @@ draft = false
 
 ![generic lightning](/images/lightning.jpg)
 
-***Updated. 20th, March.** I believe a shrewd hacker somehow redirected the Lightning Network invoices to their wallet, making them just a few cents richer, and me more wiser. Quite fun, actually! Not my first rodeo. It makes a great story. I also made the paywal just for a specific subsection, instead of the whole article. I suppose not everyone has a LN wallet in their computers. Enjoy!*
+***Update. 20th, March.** I believe a shrewd hacker somehow redirected the Lightning Network invoices to their wallet, making them just a few cents richer, and me more wiser. Quite fun, actually! Not my first rodeo. It makes a great story. I also made the paywal just for a specific subsection, instead of the whole article. I suppose not everyone has a LN wallet in their computers. Enjoy!*
 
-***Updated. 24th, March.** Apparently Coinos has an issue with rotating tokens automatically, and it is not possible from my end to refresh them. In other words, it is not possible to pay LN invoice and unlock paywall given that their service is not working. It seems I must find another provider, but since this is a proof of concept, and I have a life, I am not going to dedicate any more time on this pet project. It was fun while it lasted.*
+***Update. 24th, March.** Apparently Coinos has an issue with rotating tokens automatically, and it is not possible from my end to refresh them. In other words, it is not possible to pay LN invoice and unlock paywall given that their service is not working. It seems I must find another provider, but since this is a proof of concept, and I have a life, I am not going to dedicate any more time on this pet project. It was fun while it lasted.*
+
+***Update. 25th, March.** I switched from Coinos to Blink. Hopefully it works now. I also edited the text a little bit. All changes available from my public github repo.*
 
 Obviously this post was going to be ~~paywalled~~ with a generic lightning photo. What did you expect? ~~A free article? You have to pay me one cent to access the article. Mwuahahah! I'll make you poor. I hope I am not being too greedy? Before you pay, you have the chance to read this teaser of what is to come.~~ The article is more or less my story on how I built the paywall. It's a proof of concept, and ~~quite~~ a functioning version at that, too. 
 
@@ -40,13 +42,13 @@ I also tried to install Cashu to the paywall, which utilises LN. Cashu abstracts
 
 ```goat
 ┌───────┐            ┌──────┐      ┌──────┐┌─────────┐┌──────┐
-│Browser│            │Worker│      │Coinos││Lightning││GitHub│
+│Browser│            │Worker│      │Blink ││Lightning││GitHub│
 └───┬───┘            └──┬───┘      └──┬───┘└────┬────┘└──┬───┘
     │                   │             │         │        │    
     │GET /create-invoice│             │         │        │    
     │──────────────────>│             │         │        │    
     │                   │             │         │        │    
-    │                   │POST /invoice│         │        │    
+    │                   │GQL lnCreate │         │        │
     │                   │────────────>│         │        │    
     │                   │             │         │        │    
     │                   │hash + bolt11│         │        │    
@@ -64,10 +66,10 @@ I also tried to install Cashu to the paywall, which utilises LN. Cashu abstracts
     │GET /check-invoice │             │         │        │    
     │──────────────────>│             │         │        │    
     │                   │             │         │        │    
-    │                   │GET /invoice │         │        │    
-    │                   │────────────>│         │        │    
-    │                   │             │         │        │    
-    │                   │received>=amt│         │        │    
+    │                   │GQL lnStatus │         │        │
+    │                   │────────────>│         │        │
+    │                   │             │         │        │
+    │                   │status = PAID│         │        │
     │                   │<────────────│         │        │    
     │                   │             │         │        │    
     │   paid + token    │             │         │        │    
@@ -85,7 +87,7 @@ I also tried to install Cashu to the paywall, which utilises LN. Cashu abstracts
     │      content      │             │         │        │    
     │<──────────────────│             │         │        │    
 ┌───┴───┐            ┌──┴───┐      ┌──┴───┐┌────┴────┐┌──┴───┐
-│Browser│            │Worker│      │Coinos││Lightning││GitHub│
+│Browser│            │Worker│      │Blink ││Lightning││GitHub│
 └───────┘            └──────┘      └──────┘└─────────┘└──────┘
 
 ```
@@ -106,11 +108,11 @@ Then the question is that where is the content, exactly? Well, the teaser conten
 
 Then, certainly we need to connect to a (hosted) Lightning Network wallet. For this I chose to use *coinos.io*. There's no particular reason why I chose them. They just happened to be enough for the shenanigans. However, I did research alternatives because of the whole IP ban. I could've stayed with Cloudflare and use other LN REST API, but there weren't many of them for this hobby use. Some required a 1% fee, other KYC, and many required a self-hosted LN node. Well, maybe (probably) I will do it again, but with a self-hosted LN node.   
 
-So, this LN wallet by Coinos has a REST API working behind the scene. And to make this all work smoothly for the user, I installed WebLN. Therefore, when `window.webln` is present, the paywall skips the QR entirely and sends the payment directly through the extension.
+So, this LN wallet by ~~Coinos~~ Blink has a ~~REST API~~ GraphQL API working behind the scene. It helps us connect to the wallet hosted by them. And to make this all work smoothly for the user, I installed WebLN. Therefore, when `window.webln` is present, the paywall skips the QR entirely and sends the payment directly through the extension.
 
 ## The Hack
 
-So apparently right after I published the article, someone redirected the LN invoice address. This meant that all the payments didn't go to my address but the hacker's. I am still not *exactly* sure what happened, but I have a hunch. I recreated the worker and rotated the secret token values. Luckily the hacker got only cents. I also made the article open for everyone. 
+So apparently right after I published the article, someone redirected the LN invoice address. This meant that all the payments didn't go to my address but the hacker's. I am still not *exactly* sure what happened, but I have a hunch. It's also possible that I messed up something. In any case, I recreated the worker and rotated the secret token values. Luckily the hacker got only cents in truth. I also made the article open for everyone, so you can read my rookie mistakes. 
 
 ## The Workflow
 
