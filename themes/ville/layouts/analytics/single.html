@@ -63,7 +63,10 @@
     var el = document.getElementById("analytics-output");
     try {
       var res = await fetch(WORKER);
-      if (!res.ok) throw new Error("HTTP " + res.status);
+      if (!res.ok) {
+        var body = await res.json().catch(function() { return {}; });
+        throw new Error("HTTP " + res.status + ": " + (body.error || "unknown"));
+      }
       var d = await res.json();
       var s = d.stats;
       var line = "─".repeat(54);
