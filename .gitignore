@@ -4,3 +4,5 @@ hugo_stats.json
 **/.DS_Store
 .hugo_build.lock
 hugo.local.toml
+CLAUDE.md
+docs/

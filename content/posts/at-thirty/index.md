@@ -12,7 +12,7 @@ Thirty life advice by a thirty-year-old, in somewhat order of importance. This i
 {{< center >}}1.{{< /center >}}
 {{< center >}}· · · ✦ · · ·{{< /center >}}
 
-**Put God first.** Not necessarily religion but definitely something greater than yourself. Seek God daily. Without this foundation, you end up worshipping money or status by default, inadvertently. You lose nothing by having faith, but risk everything without it. Seemingly and strangely ll else derives from God.
+**Put God first.** Not necessarily religion but definitely something greater than yourself. Seek God daily. Without this foundation, you end up worshipping money or status by default, inadvertently. You lose nothing by having faith, but risk everything without it. Seemingly and strangely all else derives from God.
 
 {{< center >}}2.{{< /center >}}
 {{< center >}}· ° · ° ·{{< /center >}}
