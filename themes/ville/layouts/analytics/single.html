@@ -1,10 +1,113 @@
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
-<div class="analytics-embed">
-  <iframe
-    src="https://cloud.umami.is/analytics/eu/share/7ZCwWRJ229dBiSSZ"
-    frameborder="0"
-    loading="lazy"
-  ></iframe>
-</div>
+<pre id="analytics-output">loading...</pre>
+<script>
+(function () {
+  const WORKER = "https://analytics-worker.kokkomaki.deno.net/analytics";
+
+  function fmt(n) {
+    return Number(n).toLocaleString("en-US");
+  }
+
+  function bar(value, max, width) {
+    width = width || 8;
+    if (!max) return "";
+    return "█".repeat(Math.max(1, Math.round(value / max * width)));
+  }
+
+  function pad(s, len) {
+    s = String(s);
+    return s.length >= len ? s : s + " ".repeat(len - s.length);
+  }
+
+  function rpad(s, len) {
+    s = String(s);
+    return s.length >= len ? s : " ".repeat(len - s.length) + s;
+  }
+
+  function renderRows(items, nameKey, nameWidth) {
+    nameKey   = nameKey   || "name";
+    nameWidth = nameWidth || 36;
+    if (!items || !items.length) return "  (no data)\n";
+    var max = items[0].views;
+    return items.map(function (item, i) {
+      var num   = rpad(i + 1, 2);
+      var name  = pad(item[nameKey] || "(direct)", nameWidth);
+      var b     = pad(bar(item.views, max), 8);
+      return "  " + num + "  " + name + "  " + b + "  " + fmt(item.views);
+    }).join("\n") + "\n";
+  }
+
+  function renderCols(sections) {
+    var colWidth = 24;
+    var maxRows  = Math.max.apply(null, sections.map(function (s) {
+      return s.items ? s.items.length : 0;
+    }));
+    var out = "";
+    out += sections.map(function (s) { return pad(s.title, colWidth); }).join("  ") + "\n";
+    out += sections.map(function (s) {
+      return pad("─".repeat(s.title.length), colWidth);
+    }).join("  ") + "\n";
+    for (var i = 0; i < Math.min(maxRows, 7); i++) {
+      var cols = sections.map(function (s) {
+        var item = s.items && s.items[i];
+        if (!item) return pad("", colWidth);
+        return pad("  " + pad(item.name || "(direct)", 14) + fmt(item.views), colWidth);
+      });
+      out += cols.join("  ") + "\n";
+    }
+    return out;
+  }
+
+  async function load() {
+    var el = document.getElementById("analytics-output");
+    try {
+      var res = await fetch(WORKER);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      var d = await res.json();
+      var s = d.stats;
+      var line = "─".repeat(54);
+      var out  = "";
+
+      // header
+      out += "kokkomaki.com — " + d.period;
+      if (d.activeVisitors > 0) {
+        out += "    " + d.activeVisitors +
+          " visitor" + (d.activeVisitors !== 1 ? "s" : "") + " online now";
+      }
+      out += "\n\n";
+
+      // summary
+      out += "Pageviews    Visitors      Visits    Bounce    Duration\n";
+      out += "─────────    ────────      ──────    ──────    ────────\n";
+      out += rpad(fmt(s.pageviews), 9) + "    ";
+      out += rpad(fmt(s.visitors),  8) + "      ";
+      out += rpad(fmt(s.visits),    6) + "    ";
+      out += rpad(s.bounceRate + "%", 6) + "    ";
+      out += s.avgDuration + "\n\n";
+
+      // top pages
+      out += "Top pages\n" + line + "\n";
+      out += renderRows(d.topPages, "path", 36) + "\n";
+
+      // referrers
+      out += "Top referrers\n" + line + "\n";
+      out += renderRows(d.referrers, "name", 36) + "\n";
+
+      // columns
+      out += renderCols([
+        { title: "Countries", items: d.countries },
+        { title: "Browsers",  items: d.browsers  },
+        { title: "Devices",   items: d.devices   },
+      ]);
+
+      el.textContent = out;
+    } catch (e) {
+      el.textContent = "failed to load: " + e.message;
+    }
+  }
+
+  load();
+}());
+</script>
 {{ end }}
