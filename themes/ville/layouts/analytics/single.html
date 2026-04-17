@@ -30,6 +30,26 @@
 
   function rep(str, n) { return str.repeat(n); }
 
+  var CC = {
+    AF:"Afghanistan",DZ:"Algeria",AR:"Argentina",AU:"Australia",AT:"Austria",
+    BE:"Belgium",BR:"Brazil",BG:"Bulgaria",CA:"Canada",CL:"Chile",
+    CN:"China",CO:"Colombia",HR:"Croatia",CZ:"Czechia",DK:"Denmark",
+    EG:"Egypt",EE:"Estonia",FI:"Finland",FR:"France",DE:"Germany",
+    GR:"Greece",HK:"Hong Kong",HU:"Hungary",IN:"India",ID:"Indonesia",
+    IE:"Ireland",IL:"Israel",IT:"Italy",JP:"Japan",KZ:"Kazakhstan",
+    KE:"Kenya",LV:"Latvia",LT:"Lithuania",MY:"Malaysia",MX:"Mexico",
+    NL:"Netherlands",NZ:"New Zealand",NG:"Nigeria",NO:"Norway",PK:"Pakistan",
+    PE:"Peru",PH:"Philippines",PL:"Poland",PT:"Portugal",RO:"Romania",
+    RU:"Russia",SA:"Saudi Arabia",SG:"Singapore",SK:"Slovakia",SI:"Slovenia",
+    ZA:"South Africa",KR:"South Korea",ES:"Spain",SE:"Sweden",CH:"Switzerland",
+    TW:"Taiwan",TH:"Thailand",TR:"Turkey",UA:"Ukraine",AE:"UAE",
+    GB:"United Kingdom",US:"United States",VN:"Vietnam"
+  };
+
+  function countryName(code) {
+    return CC[code] || code;
+  }
+
   function renderRows(items, nameKey, nameWidth, barWidth) {
     if (!items || !items.length) return "    (no data)\n";
     var max = items[0].views;
@@ -41,13 +61,15 @@
     }).join("\n") + "\n";
   }
 
-  function renderSection(title, items) {
+  function renderSection(title, items, isCountry) {
     if (!items || !items.length) return "";
     var max = items[0].views;
     var s   = "    " + title + "\n";
     s += "    " + rep("\u2500", title.length) + "\n";
     items.slice(0, 7).forEach(function (item) {
-      var name = trunc(item.name || "(direct)", 20);
+      var raw  = item.name || "(direct)";
+      var label = isCountry ? countryName(raw) : raw;
+      var name = trunc(label, 20);
       var b    = pad(bar(item.views, max, 6), 6);
       s += "    " + name + "  " + b + "  " + fmt(item.views) + "\n";
     });
@@ -72,7 +94,7 @@
 
     out += "    bounce  \u00b7  avg duration\n";
     out += "    \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
-    out += "    " + pad(d.stats.bounceRate + "%", 8) + "   " + d.stats.avgDuration + "\n\n";
+    out += "    " + rpad(d.stats.bounceRate + "%", 8) + "   " + d.stats.avgDuration + "\n\n";
 
     out += sep2 + "\n\n";
 
@@ -86,7 +108,7 @@
 
     out += sep2 + "\n\n";
 
-    out += renderSection("countries", d.countries);
+    out += renderSection("countries", d.countries, true);
     out += renderSection("devices",   d.devices);
     out += renderSection("browsers",  d.browsers);
 
@@ -118,7 +140,7 @@
     out += "    visits  \u00b7  bounce  \u00b7  time\n";
     out += "    \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\n";
     out += "    " + rpad(fmt(d.stats.visits), 6) + "     ";
-    out += pad(d.stats.bounceRate + "%", 8) + "   " + d.stats.avgDuration + "\n\n";
+    out += rpad(d.stats.bounceRate + "%", 8) + "   " + d.stats.avgDuration + "\n\n";
 
     out += sep2 + "\n\n";
 
@@ -132,7 +154,7 @@
 
     out += sep2 + "\n\n";
 
-    out += renderSection("countries", d.countries);
+    out += renderSection("countries", d.countries, true);
     out += renderSection("devices",   d.devices);
     out += renderSection("browsers",  d.browsers);
 
