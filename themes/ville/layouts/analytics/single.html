@@ -95,15 +95,15 @@
     out += "    >> kokkomaki.com  ::  analytics\n\n";
     out += sep1 + "\n\n";
 
-    out += "    pageviews  \u00b7  visitors  \u00b7  visits\n";
-    out += "    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\n";
-    out += "    " + center(fmt(d.stats.pageviews), 9) + "     ";
+    out += "          pageviews  \u00b7  visitors  \u00b7  visits\n";
+    out += "          \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "          " + center(fmt(d.stats.pageviews), 9) + "     ";
     out += center(fmt(d.stats.visitors), 8) + "     ";
     out += center(fmt(d.stats.visits), 6) + "\n\n";
 
-    out += "    bounce  \u00b7  avg duration\n";
-    out += "    \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
-    out += "    " + center(d.stats.bounceRate + "%", 6) + "     " + center(d.stats.avgDuration, 12) + "\n\n";
+    out += "               bounce  \u00b7  avg duration\n";
+    out += "               \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "               " + center(d.stats.bounceRate + "%", 6) + "     " + center(d.stats.avgDuration, 12) + "\n\n";
 
     out += sep2 + "\n\n";
 
@@ -141,14 +141,14 @@
     out += "    ::  analytics\n\n";
     out += sep1 + "\n\n";
 
-    out += "    pageviews  \u00b7  visitors\n";
-    out += "    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
-    out += "    " + center(fmt(d.stats.pageviews), 9) + "     ";
+    out += "        pageviews  \u00b7  visitors\n";
+    out += "        \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "        " + center(fmt(d.stats.pageviews), 9) + "     ";
     out += center(fmt(d.stats.visitors), 8) + "\n\n";
 
-    out += "    visits  \u00b7  bounce  \u00b7  time\n";
-    out += "    \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\n";
-    out += "    " + center(fmt(d.stats.visits), 6) + "     ";
+    out += "      visits  \u00b7  bounce  \u00b7  time\n";
+    out += "      \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\n";
+    out += "      " + center(fmt(d.stats.visits), 6) + "     ";
     out += center(d.stats.bounceRate + "%", 6) + "     " + d.stats.avgDuration + "\n\n";
 
     out += sep2 + "\n\n";
