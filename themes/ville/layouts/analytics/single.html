@@ -1,18 +1,22 @@
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
+<div class="period-selector">
+  <button class="period-btn active" data-days="30"  onclick="setPeriod(30)">30d</button>
+  <button class="period-btn"        data-days="60"  onclick="setPeriod(60)">60d</button>
+  <button class="period-btn"        data-days="180" onclick="setPeriod(180)">180d</button>
+  <button class="period-btn"        data-days="360" onclick="setPeriod(360)">360d</button>
+</div>
 <pre id="analytics-output">loading...</pre>
 <script>
 (function () {
-  const WORKER = "https://analytics-worker.kokkomaki.deno.net/analytics";
+  var WORKER = "https://analytics-worker.kokkomaki.deno.net/analytics";
 
-  function fmt(n) {
-    return Number(n).toLocaleString("en-US");
-  }
+  function fmt(n) { return Number(n).toLocaleString("en-US"); }
 
   function bar(value, max, width) {
     width = width || 8;
     if (!max) return "";
-    return "█".repeat(Math.max(1, Math.round(value / max * width)));
+    return "\u2588".repeat(Math.max(1, Math.round(value / max * width)));
   }
 
   function pad(s, len) {
@@ -25,92 +29,178 @@
     return s.length >= len ? s : " ".repeat(len - s.length) + s;
   }
 
-  function renderRows(items, nameKey, nameWidth) {
-    nameKey   = nameKey   || "name";
-    nameWidth = nameWidth || 36;
-    if (!items || !items.length) return "  (no data)\n";
+  function trunc(s, len) {
+    s = String(s);
+    return s.length > len ? s.slice(0, len - 1) + "\u2026" : pad(s, len);
+  }
+
+  function rep(str, n) { return str.repeat(n); }
+
+  function renderRows(items, nameKey, nameWidth, barWidth) {
+    if (!items || !items.length) return "    (no data)\n";
     var max = items[0].views;
     return items.map(function (item, i) {
-      var num   = rpad(i + 1, 2);
-      var name  = pad(item[nameKey] || "(direct)", nameWidth);
-      var b     = pad(bar(item.views, max), 8);
-      return "  " + num + "  " + name + "  " + b + "  " + fmt(item.views);
+      var num  = rpad(i + 1, 2);
+      var name = trunc(item[nameKey] || "(direct)", nameWidth);
+      var b    = pad(bar(item.views, max, barWidth), barWidth);
+      return "    " + num + "  " + name + "  " + b + "  " + fmt(item.views);
     }).join("\n") + "\n";
   }
 
-  function renderCols(sections) {
-    var colWidth = 24;
-    var maxRows  = Math.max.apply(null, sections.map(function (s) {
+  function renderDesktop(d) {
+    var sep1 = "  " + rep("-*", 26);
+    var sep2 = "  " + rep("~\u00b7", 26);
+    var sep3 = "  " + rep(".", 52);
+    var out  = "";
+
+    out += sep1 + "\n\n";
+    out += "    >> kokkomaki.com  ::  analytics\n\n";
+    out += sep1 + "\n\n";
+
+    out += "    pageviews  \u00b7  visitors  \u00b7  visits\n";
+    out += "    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "    " + rpad(fmt(d.stats.pageviews), 9) + "     ";
+    out += rpad(fmt(d.stats.visitors), 8) + "     ";
+    out += rpad(fmt(d.stats.visits), 6) + "\n\n";
+
+    out += "    bounce  \u00b7  avg duration\n";
+    out += "    \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "    " + pad(d.stats.bounceRate + "%", 8) + "   " + d.stats.avgDuration + "\n\n";
+
+    out += sep2 + "\n\n";
+
+    out += "    top pages\n";
+    out += "    " + rep("\u00b7", 9) + "\n";
+    out += renderRows(d.topPages, "path", 34, 8) + "\n";
+
+    out += "    top referrers\n";
+    out += "    " + rep("\u00b7", 13) + "\n";
+    out += renderRows(d.referrers, "name", 34, 8) + "\n";
+
+    out += sep2 + "\n\n";
+
+    var colW = 22;
+    var sections = [
+      { title: "countries", items: d.countries },
+      { title: "devices",   items: d.devices   },
+      { title: "browsers",  items: d.browsers  },
+    ];
+
+    out += sections.map(function (s) {
+      return "    " + pad(s.title, colW);
+    }).join("") + "\n";
+    out += sections.map(function (s) {
+      return "    " + pad(rep("\u2500", s.title.length), colW);
+    }).join("") + "\n";
+
+    var maxRows = Math.max.apply(null, sections.map(function (s) {
       return s.items ? s.items.length : 0;
     }));
-    var out = "";
-    out += sections.map(function (s) { return pad(s.title, colWidth); }).join("  ") + "\n";
-    out += sections.map(function (s) {
-      return pad("─".repeat(s.title.length), colWidth);
-    }).join("  ") + "\n";
     for (var i = 0; i < Math.min(maxRows, 7); i++) {
       var cols = sections.map(function (s) {
         var item = s.items && s.items[i];
-        if (!item) return pad("", colWidth);
-        return pad("  " + pad(item.name || "(direct)", 14) + fmt(item.views), colWidth);
+        if (!item) return pad("", colW);
+        var name = trunc(item.name || "(direct)", 10);
+        var b    = pad(bar(item.views, s.items[0].views, 4), 4);
+        return pad(name + "  " + b + "  " + fmt(item.views), colW);
       });
-      out += cols.join("  ") + "\n";
+      out += "    " + cols.join("    ") + "\n";
     }
+
+    out += "\n" + sep3 + "\n";
+    if (d.activeVisitors > 0) {
+      out += "    * " + d.activeVisitors + " online now *\n";
+    }
+    out += sep1 + "\n";
+
     return out;
   }
 
-  async function load() {
+  function renderMobile(d) {
+    var sep1 = "  " + rep("-*", 18);
+    var sep2 = "  " + rep("~\u00b7", 18);
+    var sep3 = "  " + rep(".", 36);
+    var out  = "";
+
+    out += sep1 + "\n\n";
+    out += "    >> kokkomaki.com\n";
+    out += "    ::  analytics\n\n";
+    out += sep1 + "\n\n";
+
+    out += "    pageviews  \u00b7  visitors\n";
+    out += "    \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "    " + rpad(fmt(d.stats.pageviews), 9) + "     ";
+    out += rpad(fmt(d.stats.visitors), 8) + "\n\n";
+
+    out += "    visits  \u00b7  bounce  \u00b7  time\n";
+    out += "    \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\n";
+    out += "    " + rpad(fmt(d.stats.visits), 6) + "     ";
+    out += pad(d.stats.bounceRate + "%", 8) + "   " + d.stats.avgDuration + "\n\n";
+
+    out += sep2 + "\n\n";
+
+    out += "    top pages\n";
+    out += "    " + rep("\u00b7", 9) + "\n";
+    out += renderRows(d.topPages, "path", 18, 6) + "\n";
+
+    out += "    top referrers\n";
+    out += "    " + rep("\u00b7", 13) + "\n";
+    out += renderRows(d.referrers, "name", 18, 6) + "\n";
+
+    out += sep2 + "\n\n";
+
+    function renderSection(title, items) {
+      if (!items || !items.length) return "";
+      var max = items[0].views;
+      var s   = "    " + title + "\n";
+      s += "    " + rep("\u2500", title.length) + "\n";
+      items.slice(0, 7).forEach(function (item) {
+        var name = trunc(item.name || "(direct)", 16);
+        var b    = pad(bar(item.views, max, 6), 6);
+        s += "    " + name + "  " + b + "  " + fmt(item.views) + "\n";
+      });
+      return s + "\n";
+    }
+
+    out += renderSection("countries", d.countries);
+    out += renderSection("devices",   d.devices);
+    out += renderSection("browsers",  d.browsers);
+
+    out += sep3 + "\n";
+    if (d.activeVisitors > 0) {
+      out += "    * " + d.activeVisitors + " online now *\n";
+    }
+    out += sep1 + "\n";
+
+    return out;
+  }
+
+  function updateButtons(days) {
+    document.querySelectorAll(".period-btn").forEach(function (btn) {
+      btn.classList.toggle("active", parseInt(btn.dataset.days) === days);
+    });
+  }
+
+  async function load(days) {
+    days = days || 30;
+    updateButtons(days);
     var el = document.getElementById("analytics-output");
+    el.textContent = "loading...";
     try {
-      var res = await fetch(WORKER);
+      var res = await fetch(WORKER + "?days=" + days);
       if (!res.ok) {
-        var body = await res.json().catch(function() { return {}; });
+        var body = await res.json().catch(function () { return {}; });
         throw new Error("HTTP " + res.status + ": " + (body.error || "unknown"));
       }
       var d = await res.json();
-      var s = d.stats;
-      var line = "─".repeat(54);
-      var out  = "";
-
-      // header
-      out += "kokkomaki.com — " + d.period;
-      if (d.activeVisitors > 0) {
-        out += "    " + d.activeVisitors +
-          " visitor" + (d.activeVisitors !== 1 ? "s" : "") + " online now";
-      }
-      out += "\n\n";
-
-      // summary
-      out += "Pageviews    Visitors      Visits    Bounce    Duration\n";
-      out += "─────────    ────────      ──────    ──────    ────────\n";
-      out += rpad(fmt(s.pageviews), 9) + "    ";
-      out += rpad(fmt(s.visitors),  8) + "      ";
-      out += rpad(fmt(s.visits),    6) + "    ";
-      out += rpad(s.bounceRate + "%", 6) + "    ";
-      out += s.avgDuration + "\n\n";
-
-      // top pages
-      out += "Top pages\n" + line + "\n";
-      out += renderRows(d.topPages, "path", 36) + "\n";
-
-      // referrers
-      out += "Top referrers\n" + line + "\n";
-      out += renderRows(d.referrers, "name", 36) + "\n";
-
-      // columns
-      out += renderCols([
-        { title: "Countries", items: d.countries },
-        { title: "Browsers",  items: d.browsers  },
-        { title: "Devices",   items: d.devices   },
-      ]);
-
-      el.textContent = out;
+      el.textContent = window.innerWidth < 560 ? renderMobile(d) : renderDesktop(d);
     } catch (e) {
       el.textContent = "failed to load: " + e.message;
     }
   }
 
-  load();
+  window.setPeriod = function (days) { load(days); };
+  load(30);
 }());
 </script>
 {{ end }}
