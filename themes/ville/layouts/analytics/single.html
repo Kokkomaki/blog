@@ -70,16 +70,18 @@
     }).join("\n") + "\n";
   }
 
-  function renderSection(title, items, isCountry) {
+  function renderSection(title, items, isCountry, nameWidth, barWidth) {
     if (!items || !items.length) return "";
+    nameWidth = nameWidth || 20;
+    barWidth  = barWidth  || 6;
     var max = items[0].views;
     var s   = "    " + title + "\n";
     s += "    " + rep("\u2500", title.length) + "\n";
     items.slice(0, 7).forEach(function (item) {
       var raw  = item.name || "(direct)";
       var label = isCountry ? countryName(raw) : raw;
-      var name = trunc(label, 20);
-      var b    = pad(bar(item.views, max, 6), 6);
+      var name = trunc(label, nameWidth);
+      var b    = pad(bar(item.views, max, barWidth), barWidth);
       s += "    " + name + "  " + b + "  " + fmt(item.views) + "\n";
     });
     return s + "\n";
@@ -131,45 +133,45 @@
   }
 
   function renderMobile(d) {
-    var sep1 = "  " + rep("-*", 18);
-    var sep2 = "  " + rep("~\u00b7", 18);
-    var sep3 = "  " + rep(".", 36);
+    var sep1 = "  " + rep("-*", 13);
+    var sep2 = "  " + rep("~\u00b7", 13);
+    var sep3 = "  " + rep(".", 26);
     var out  = "";
 
     out += sep1 + "\n\n";
-    out += "           >> kokkomaki.com\n";
-    out += "            ::  analytics\n\n";
+    out += "        >> kokkomaki.com\n";
+    out += "        ::  analytics\n\n";
     out += sep1 + "\n\n";
 
-    out += "        pageviews  \u00b7  visitors\n";
-    out += "        \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
-    out += "        " + center(fmt(d.stats.pageviews), 9) + "     ";
+    out += "     pageviews  \u00b7  visitors\n";
+    out += "     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "     " + center(fmt(d.stats.pageviews), 9) + "     ";
     out += center(fmt(d.stats.visitors), 8) + "\n\n";
 
-    out += "      visits  \u00b7  bounce  \u00b7  time\n";
-    out += "      \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\n";
-    out += "      " + center(fmt(d.stats.visits), 6) + "     ";
-    out += center(d.stats.bounceRate + "%", 6) + "     " + d.stats.avgDuration + "\n\n";
+    out += "   visits  \u00b7  bnce  \u00b7  time\n";
+    out += "   \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\n";
+    out += "   " + center(fmt(d.stats.visits), 6) + "     ";
+    out += center(d.stats.bounceRate + "%", 4) + "     " + d.stats.avgDuration + "\n\n";
 
     out += sep2 + "\n\n";
 
-    out += "              top pages\n";
-    out += "              " + rep("\u00b7", 9) + "\n";
-    out += renderRows(d.topPages, "path", 18, 6) + "\n";
+    out += "          top pages\n";
+    out += "          " + rep("\u00b7", 9) + "\n";
+    out += renderRows(d.topPages, "path", 12, 5) + "\n";
 
-    out += "            top referrers\n";
-    out += "            " + rep("\u00b7", 13) + "\n";
-    out += renderRows(d.referrers, "name", 18, 6) + "\n";
+    out += "        top referrers\n";
+    out += "        " + rep("\u00b7", 13) + "\n";
+    out += renderRows(d.referrers, "name", 12, 5) + "\n";
 
     out += sep2 + "\n\n";
 
-    out += renderSection("countries", d.countries, true);
-    out += renderSection("devices",   d.devices);
-    out += renderSection("browsers",  d.browsers);
+    out += renderSection("countries", d.countries, true,  12, 4);
+    out += renderSection("devices",   d.devices,   false, 12, 4);
+    out += renderSection("browsers",  d.browsers,  false, 12, 4);
 
     out += sep3 + "\n";
     if (d.activeVisitors > 0) {
-      out += "    * " + d.activeVisitors + " online now *\n";
+      out += "  * " + d.activeVisitors + " online now *\n";
     }
     out += sep1 + "\n";
 

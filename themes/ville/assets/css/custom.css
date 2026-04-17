@@ -138,6 +138,8 @@ img {
 #analytics-output {
   white-space: pre;
   overflow-x: auto;
+  overflow-wrap: normal;
+  word-wrap: normal;
   line-height: 1.6;
   font-size: 0.85em;
 }
