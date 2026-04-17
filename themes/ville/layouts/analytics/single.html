@@ -1,11 +1,5 @@
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
-<div class="period-selector">
-  <button class="period-btn active" data-days="30"  onclick="setPeriod(30)">30d</button>
-  <button class="period-btn"        data-days="60"  onclick="setPeriod(60)">60d</button>
-  <button class="period-btn"        data-days="180" onclick="setPeriod(180)">180d</button>
-  <button class="period-btn"        data-days="360" onclick="setPeriod(360)">360d</button>
-</div>
 <pre id="analytics-output">loading...</pre>
 <script>
 (function () {
@@ -47,6 +41,19 @@
     }).join("\n") + "\n";
   }
 
+  function renderSection(title, items) {
+    if (!items || !items.length) return "";
+    var max = items[0].views;
+    var s   = "    " + title + "\n";
+    s += "    " + rep("\u2500", title.length) + "\n";
+    items.slice(0, 7).forEach(function (item) {
+      var name = trunc(item.name || "(direct)", 20);
+      var b    = pad(bar(item.views, max, 6), 6);
+      s += "    " + name + "  " + b + "  " + fmt(item.views) + "\n";
+    });
+    return s + "\n";
+  }
+
   function renderDesktop(d) {
     var sep1 = "  " + rep("-*", 26);
     var sep2 = "  " + rep("~\u00b7", 26);
@@ -79,35 +86,11 @@
 
     out += sep2 + "\n\n";
 
-    var colW = 22;
-    var sections = [
-      { title: "countries", items: d.countries },
-      { title: "devices",   items: d.devices   },
-      { title: "browsers",  items: d.browsers  },
-    ];
+    out += renderSection("countries", d.countries);
+    out += renderSection("devices",   d.devices);
+    out += renderSection("browsers",  d.browsers);
 
-    out += sections.map(function (s) {
-      return "    " + pad(s.title, colW);
-    }).join("") + "\n";
-    out += sections.map(function (s) {
-      return "    " + pad(rep("\u2500", s.title.length), colW);
-    }).join("") + "\n";
-
-    var maxRows = Math.max.apply(null, sections.map(function (s) {
-      return s.items ? s.items.length : 0;
-    }));
-    for (var i = 0; i < Math.min(maxRows, 7); i++) {
-      var cols = sections.map(function (s) {
-        var item = s.items && s.items[i];
-        if (!item) return pad("", colW);
-        var name = trunc(item.name || "(direct)", 10);
-        var b    = pad(bar(item.views, s.items[0].views, 4), 4);
-        return pad(name + "  " + b + "  " + fmt(item.views), colW);
-      });
-      out += "    " + cols.join("    ") + "\n";
-    }
-
-    out += "\n" + sep3 + "\n";
+    out += sep3 + "\n";
     if (d.activeVisitors > 0) {
       out += "    * " + d.activeVisitors + " online now *\n";
     }
@@ -149,19 +132,6 @@
 
     out += sep2 + "\n\n";
 
-    function renderSection(title, items) {
-      if (!items || !items.length) return "";
-      var max = items[0].views;
-      var s   = "    " + title + "\n";
-      s += "    " + rep("\u2500", title.length) + "\n";
-      items.slice(0, 7).forEach(function (item) {
-        var name = trunc(item.name || "(direct)", 16);
-        var b    = pad(bar(item.views, max, 6), 6);
-        s += "    " + name + "  " + b + "  " + fmt(item.views) + "\n";
-      });
-      return s + "\n";
-    }
-
     out += renderSection("countries", d.countries);
     out += renderSection("devices",   d.devices);
     out += renderSection("browsers",  d.browsers);
@@ -175,19 +145,11 @@
     return out;
   }
 
-  function updateButtons(days) {
-    document.querySelectorAll(".period-btn").forEach(function (btn) {
-      btn.classList.toggle("active", parseInt(btn.dataset.days) === days);
-    });
-  }
-
-  async function load(days) {
-    days = days || 30;
-    updateButtons(days);
+  async function load() {
     var el = document.getElementById("analytics-output");
     el.textContent = "loading...";
     try {
-      var res = await fetch(WORKER + "?days=" + days);
+      var res = await fetch(WORKER + "?days=30");
       if (!res.ok) {
         var body = await res.json().catch(function () { return {}; });
         throw new Error("HTTP " + res.status + ": " + (body.error || "unknown"));
@@ -199,8 +161,7 @@
     }
   }
 
-  window.setPeriod = function (days) { load(days); };
-  load(30);
+  load();
 }());
 </script>
 {{ end }}

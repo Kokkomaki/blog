@@ -135,34 +135,6 @@ img {
 }
 
 /* Analytics */
-.period-selector {
-  margin-bottom: 0.5em;
-  font-family: var(--font-family-mono);
-  font-size: 0.85em;
-}
-
-.period-btn {
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  color: var(--color-text-muted);
-  padding: 0;
-  margin-right: 1.2em;
-}
-
-.period-btn:hover {
-  color: var(--color-text-primary);
-}
-
-.period-btn.active {
-  color: var(--color-text-primary);
-}
-
-.period-btn.active::before { content: "[ "; }
-.period-btn.active::after  { content: " ]"; }
-
 #analytics-output {
   white-space: pre;
   overflow-x: auto;
