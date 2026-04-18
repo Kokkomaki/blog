@@ -453,6 +453,12 @@ a {
   display: inline;
 }
 
+.nostr-comments .nc-avatar {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+
 .nostr-comments-section h2::before,
 .nostr-comments-section h3::before,
 .nostr-comments-section h4::before,
