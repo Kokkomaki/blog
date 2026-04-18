@@ -443,6 +443,14 @@ a {
 
 .nostr-comments a {
   border-bottom: none;
+  margin-left: 0;
+  display: inline;
+}
+
+.nostr-comments img {
+  width: auto;
+  max-width: 100%;
+  display: inline;
 }
 
 .nostr-comments-section h2::before,
