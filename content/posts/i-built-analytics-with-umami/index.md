@@ -1,6 +1,6 @@
 +++
 title = "I built analytics with Umami"
-date = "2026-04-18T14:00:00+02:00"
+date = "2026-04-18T00:00:00+00:00"
 +++
 
 I came across a [blog post](https://blog.orhun.dev/setting-up-this-blog/) by Orhun Parmaksız, where he lays out how he setup his blog. Kind of like how I wrote about [how I updated my blog style and infrastructure]({{< ref "posts/i-updated-my-blog-style-and-infrastructure/index.md" >}}). 
