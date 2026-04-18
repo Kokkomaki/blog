@@ -1,0 +1,23 @@
+{{- $showComments := and (eq .Section "posts") (.Params.comments | default true) }}
+{{- if $showComments }}
+<section class="nostr-comments-section">
+  <div id="nostr-comments" data-url="{{ .Permalink }}"></div>
+  {{- with resources.Get "js/nostr-comments.jsx" }}
+    {{- $opts := dict
+      "minify" (not hugo.IsDevelopment)
+      "jsx" "automatic"
+      "jsxImportSource" "react"
+      "targetPath" "js/nostr-comments.js"
+    }}
+    {{- with . | js.Build $opts }}
+      {{- if hugo.IsDevelopment }}
+        <script src="{{ .RelPermalink }}" defer></script>
+      {{- else }}
+        {{- with . | fingerprint }}
+          <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+</section>
+{{- end }}

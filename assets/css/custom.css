@@ -418,3 +418,36 @@ a {
 .info-nav a:hover {
   color: var(--color-text-primary);
 }
+
+/* Nostr Comments */
+.nostr-comments-section {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-base);
+  border-top: 1px solid var(--color-border);
+}
+
+.nostr-comments {
+  --nc-bg: var(--color-bg-secondary);
+  --nc-text: var(--color-text-primary);
+  --nc-primary: var(--color-text-primary);
+  --nc-error: #dc2626;
+  --nc-success: #16a34a;
+  --nc-radius-sm: 0px;
+  --nc-radius-md: 0px;
+  --nc-radius-lg: 0px;
+  --nc-radius-xl: 0px;
+  --nc-avatar-radius: 2px;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+}
+
+.nostr-comments a {
+  border-bottom: none;
+}
+
+.nostr-comments-section h2::before,
+.nostr-comments-section h3::before,
+.nostr-comments-section h4::before,
+.nostr-comments-section h5::before {
+  content: none;
+}

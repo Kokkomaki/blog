@@ -1,0 +1,26 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ if eq .Section "posts" }}<p class="reading-time">{{ .ReadingTime }} min read</p>{{ end }}
+  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+
+  {{ $hasToC := .Params.toc | default false }}
+  {{ $headers := findRE "<h[2-6]" .Content }}
+  {{ if and $hasToC (ge (len $headers) 1) }}
+    <nav class="toc">
+      <strong>Table of contents</strong>
+      <div class="toc-content">
+        {{ .TableOfContents }}
+      </div>
+    </nav>
+  {{ end }}
+
+  {{ .Content }}
+  {{ if not .Date.IsZero }}{{ partial "date.html" .Date }}{{ end }}
+
+  {{ partial "nostr-comments.html" . }}
+
+  <div class="terminal-nav bottom-nav">
+    <a href="../" class="back-link">../</a>
+    {{ partial "bottom-actions.html" . }}
+  </div>
+{{ end }}
