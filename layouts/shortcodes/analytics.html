@@ -79,7 +79,7 @@
     barWidth  = barWidth  || 6;
     var max = items[0].views;
     var s   = "    " + title + "\n";
-    s += "    " + rep("\u2500", title.length) + "\n";
+    s += "    " + rep("\u2500", nameWidth + 2 + barWidth) + "\n";
     items.slice(0, 7).forEach(function (item) {
       var raw   = item.name || "(direct)";
       var label = isCountry ? countryName(raw) : raw;
@@ -122,9 +122,9 @@
 
     out += sep2 + "\n\n";
 
-    out += renderSection("countries", d.countries, true);
-    out += renderSection("devices",   d.devices);
-    out += renderSection("browsers",  d.browsers);
+    out += renderSection("countries", d.countries, true,  34, 12);
+    out += renderSection("devices",   d.devices,   false, 34, 12);
+    out += renderSection("browsers",  d.browsers,  false, 34, 12);
 
     out += sep3 + "\n";
     if (d.activeVisitors > 0) {
