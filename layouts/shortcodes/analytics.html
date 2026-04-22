@@ -1,0 +1,201 @@
+<pre id="analytics-output-embed">loading...</pre>
+<script>
+(function () {
+  var WORKER = "https://analytics-worker.kokkomaki.deno.net/analytics";
+  var el = document.getElementById("analytics-output-embed");
+
+  function fmt(n) { return Number(n).toLocaleString("en-US"); }
+
+  function bar(value, max, width) {
+    width = width || 8;
+    if (!max) return "";
+    return "\u2588".repeat(Math.max(1, Math.round(value / max * width)));
+  }
+
+  function pad(s, len) {
+    s = String(s);
+    return s.length >= len ? s : s + " ".repeat(len - s.length);
+  }
+
+  function rpad(s, len) {
+    s = String(s);
+    return s.length >= len ? s : " ".repeat(len - s.length) + s;
+  }
+
+  function center(s, len) {
+    s = String(s);
+    if (s.length >= len) return s;
+    var total = len - s.length;
+    var left  = Math.floor(total / 2);
+    var right = total - left;
+    return " ".repeat(left) + s + " ".repeat(right);
+  }
+
+  function trunc(s, len) {
+    s = String(s);
+    return s.length > len ? s.slice(0, len - 1) + "\u2026" : pad(s, len);
+  }
+
+  function rep(str, n) { return str.repeat(n); }
+
+  function stripPostsPrefix(pages) {
+    return (pages || []).map(function(p) {
+      return { path: p.path.replace(/^\/posts/, ""), views: p.views };
+    });
+  }
+
+  var CC = {
+    AF:"Afghanistan",DZ:"Algeria",AR:"Argentina",AU:"Australia",AT:"Austria",
+    BE:"Belgium",BR:"Brazil",BG:"Bulgaria",CA:"Canada",CL:"Chile",
+    CN:"China",CO:"Colombia",HR:"Croatia",CZ:"Czechia",DK:"Denmark",
+    EG:"Egypt",EE:"Estonia",FI:"Finland",FR:"France",DE:"Germany",
+    GR:"Greece",HK:"Hong Kong",HU:"Hungary",IN:"India",ID:"Indonesia",
+    IE:"Ireland",IL:"Israel",IT:"Italy",JP:"Japan",KZ:"Kazakhstan",
+    KE:"Kenya",LV:"Latvia",LT:"Lithuania",MY:"Malaysia",MX:"Mexico",
+    NL:"Netherlands",NZ:"New Zealand",NG:"Nigeria",NO:"Norway",PK:"Pakistan",
+    PE:"Peru",PH:"Philippines",PL:"Poland",PT:"Portugal",RO:"Romania",
+    RU:"Russia",SA:"Saudi Arabia",SG:"Singapore",SK:"Slovakia",SI:"Slovenia",
+    ZA:"South Africa",KR:"South Korea",ES:"Spain",SE:"Sweden",CH:"Switzerland",
+    TW:"Taiwan",TH:"Thailand",TR:"Turkey",UA:"Ukraine",AE:"UAE",
+    GB:"United Kingdom",US:"United States",VN:"Vietnam"
+  };
+
+  function countryName(code) { return CC[code] || code; }
+
+  function renderRows(items, nameKey, nameWidth, barWidth) {
+    if (!items || !items.length) return "    (no data)\n";
+    var max = items[0].views;
+    return items.map(function (item, i) {
+      var num  = rpad(i + 1, 2);
+      var name = trunc(item[nameKey] || "(direct)", nameWidth);
+      var b    = pad(bar(item.views, max, barWidth), barWidth);
+      return "    " + num + "  " + name + "  " + b + "  " + fmt(item.views);
+    }).join("\n") + "\n";
+  }
+
+  function renderSection(title, items, isCountry, nameWidth, barWidth) {
+    if (!items || !items.length) return "";
+    nameWidth = nameWidth || 20;
+    barWidth  = barWidth  || 6;
+    var max = items[0].views;
+    var s   = "    " + title + "\n";
+    s += "    " + rep("\u2500", title.length) + "\n";
+    items.slice(0, 7).forEach(function (item) {
+      var raw   = item.name || "(direct)";
+      var label = isCountry ? countryName(raw) : raw;
+      var name  = trunc(label, nameWidth);
+      var b     = pad(bar(item.views, max, barWidth), barWidth);
+      s += "    " + name + "  " + b + "  " + fmt(item.views) + "\n";
+    });
+    return s + "\n";
+  }
+
+  function renderDesktop(d) {
+    var sep1 = "  " + rep("-*", 26);
+    var sep2 = "  " + rep("~\u00b7", 26);
+    var sep3 = "  " + rep(".", 52);
+    var out  = "";
+
+    out += sep1 + "\n\n";
+    out += "           >> kokkomaki.com  ::  analytics\n\n";
+    out += sep1 + "\n\n";
+
+    out += "          pageviews  \u00b7  visitors  \u00b7  visits\n";
+    out += "          \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "          " + center(fmt(d.stats.pageviews), 9) + "     ";
+    out += center(fmt(d.stats.visitors), 8) + "     ";
+    out += center(fmt(d.stats.visits), 6) + "\n\n";
+
+    out += "               bounce  \u00b7  avg duration\n";
+    out += "               \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "               " + center(d.stats.bounceRate + "%", 6) + "     " + center(d.stats.avgDuration, 12) + "\n\n";
+
+    out += sep2 + "\n\n";
+
+    out += "                      top pages\n";
+    out += "                      " + rep("\u00b7", 9) + "\n";
+    out += renderRows(stripPostsPrefix(d.topPages), "path", 34, 8) + "\n";
+
+    out += "                    top referrers\n";
+    out += "                    " + rep("\u00b7", 13) + "\n";
+    out += renderRows(d.referrers, "name", 34, 8) + "\n";
+
+    out += sep2 + "\n\n";
+
+    out += renderSection("countries", d.countries, true);
+    out += renderSection("devices",   d.devices);
+    out += renderSection("browsers",  d.browsers);
+
+    out += sep3 + "\n";
+    if (d.activeVisitors > 0) {
+      out += "    * " + d.activeVisitors + " online now *\n";
+    }
+    out += sep1 + "\n";
+
+    return out;
+  }
+
+  function renderMobile(d) {
+    var sep1 = "  " + rep("-*", 13);
+    var sep2 = "  " + rep("~\u00b7", 13);
+    var sep3 = "  " + rep(".", 26);
+    var out  = "";
+
+    out += sep1 + "\n\n";
+    out += "        >> kokkomaki.com\n";
+    out += "        ::  analytics\n\n";
+    out += sep1 + "\n\n";
+
+    out += "     pageviews  \u00b7  visitors\n";
+    out += "     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n";
+    out += "     " + center(fmt(d.stats.pageviews), 9) + "     ";
+    out += center(fmt(d.stats.visitors), 8) + "\n\n";
+
+    out += "   visits  \u00b7  bnce  \u00b7  time\n";
+    out += "   \u2500\u2500\u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500     \u2500\u2500\u2500\u2500\n";
+    out += "   " + center(fmt(d.stats.visits), 6) + "     ";
+    out += center(d.stats.bounceRate + "%", 4) + "     " + d.stats.avgDuration + "\n\n";
+
+    out += sep2 + "\n\n";
+
+    out += "          top pages\n";
+    out += "          " + rep("\u00b7", 9) + "\n";
+    out += renderRows(stripPostsPrefix(d.topPages), "path", 12, 5) + "\n";
+
+    out += "        top referrers\n";
+    out += "        " + rep("\u00b7", 13) + "\n";
+    out += renderRows(d.referrers, "name", 12, 5) + "\n";
+
+    out += sep2 + "\n\n";
+
+    out += renderSection("countries", d.countries, true,  16, 5);
+    out += renderSection("devices",   d.devices,   false, 16, 5);
+    out += renderSection("browsers",  d.browsers,  false, 16, 5);
+
+    out += sep3 + "\n";
+    if (d.activeVisitors > 0) {
+      out += "  * " + d.activeVisitors + " online now *\n";
+    }
+    out += sep1 + "\n";
+
+    return out;
+  }
+
+  async function load() {
+    el.textContent = "loading...";
+    try {
+      var res = await fetch(WORKER + "?days=30");
+      if (!res.ok) {
+        var body = await res.json().catch(function () { return {}; });
+        throw new Error("HTTP " + res.status + ": " + (body.error || "unknown"));
+      }
+      var d = await res.json();
+      el.textContent = window.innerWidth < 560 ? renderMobile(d) : renderDesktop(d);
+    } catch (e) {
+      el.textContent = "failed to load: " + e.message;
+    }
+  }
+
+  load();
+}());
+</script>
