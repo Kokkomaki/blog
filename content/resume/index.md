@@ -17,7 +17,7 @@ Social scientist and writer with a knack for Bitcoin, human rights, and vipassan
 
 **Content Writer and Editor · [Open Sats Initiative, Inc.](https://opensats.org/)  · Apr 2026 - present**
 
-OpenSats is a non-profit organisation that funds Bitcoin, Nostr, and other freedom tech developers with bitcoin. I create and edit written content there, namelyt the website, blog posts, and newsletters. 
+OpenSats is a non-profit organisation that funds Bitcoin, Nostr, and other freedom tech developers with bitcoin. I create and edit written content there, namely the website, blog posts, and newsletters. 
 
 **Independent Research and Writing** · Oct 2024 – Apr 2026
 
