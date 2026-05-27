@@ -198,12 +198,33 @@ main {
 }
 
 @media (max-width: 600px) {
+  :root {
+    --font-size-base: 0.94em;
+  }
+
   img {
-    width: calc(100% - 2em);
-    padding: 0.5em 1em !important;
+    width: 100%;
+    padding: 0 !important;
+  }
+
+  .home-page {
+    padding-right: 1.35em;
+    padding-left: 1.35em;
+  }
+
+  .posts-page {
+    padding-right: calc(var(--spacing-lg) + 0.35em);
+    padding-left: calc(var(--spacing-lg) + 0.35em);
+  }
+
+  .about-page {
+    padding-right: 2em;
+    padding-left: 2em;
   }
 
   .num-list li {
+    grid-template-columns: 2ch 1fr auto auto;
+    gap: 0.3em;
     padding: 0.5em 0;
   }
 
@@ -307,6 +328,17 @@ a {
   color: var(--color-text-muted);
   opacity: 0.6;
   white-space: nowrap;
+}
+
+/* Standalone analytics output relies on fixed-width columns. */
+#analytics-output {
+  font-family: monospace;
+  white-space: pre;
+  overflow-x: auto;
+  overflow-wrap: normal;
+  word-wrap: normal;
+  line-height: 1.6;
+  font-size: 0.85em;
 }
 
 /* Resume page */

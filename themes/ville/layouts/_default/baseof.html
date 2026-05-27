@@ -13,7 +13,7 @@
     })();
   </script>
 </head>
-<body>
+<body class="{{ if .IsHome }}home-page{{ else }}{{ or .Layout .Section .Type }}-page{{ end }}">
   <header>
     {{ partial "header.html" . }}
   </header>
