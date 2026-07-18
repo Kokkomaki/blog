@@ -5,6 +5,8 @@ date = "2023-06-20 19:04:00"
 
 [Click here to download thesis.](https://urn.fi/URN:NBN:fi-fe2023061555418)
 
+Discuss at https://news.ycombinator.com/item?id=36430596
+
 <!--more-->
 
 # Abstract

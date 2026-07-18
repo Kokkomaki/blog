@@ -2,7 +2,10 @@
   "name": "kokkomaki-blog",
   "private": true,
   "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "gray-matter": "^4.0.3",
     "nostr-comments": "^0.7.0",
+    "nostr-tools": "^2.7.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   }
