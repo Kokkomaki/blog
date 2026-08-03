@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 {{ partialCached "head/favicon.html" . }}
+{{ partial "head/opengraph.html" . }}
 {{ partialCached "head/css.html" . }}
 {{ partialCached "head/js.html" . }}
 <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
