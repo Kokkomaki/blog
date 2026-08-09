@@ -1,0 +1,343 @@
+<div class="dev" id="dev-{{ .Ordinal }}" tabindex="0">
+
+  <div class="dev-box">
+    <div class="dev-chrome">
+      <div class="dev-tl">
+        <span style="background:#ff5f56"></span>
+        <span style="background:#ffbd2e"></span>
+        <span style="background:#27c93f"></span>
+      </div>
+      <div class="dev-addr">debankd.org</div>
+    </div>
+    <div class="dev-viewport">
+      <img class="dev-img" src="" alt="" draggable="false" />
+      <div class="dev-hint">scroll · click to zoom</div>
+    </div>
+  </div>
+
+  <div class="dev-foot">
+    <div class="dev-navrow">
+      <button class="dev-btn dev-prev" aria-label="Previous version">&#8592;</button>
+      <div class="dev-dotrow"></div>
+      <button class="dev-btn dev-next" aria-label="Next version">&#8594;</button>
+    </div>
+    <p class="dev-cap"><span class="dev-vnum"></span><span class="dev-sep"> — </span><span class="dev-label"></span></p>
+  </div>
+
+</div>
+
+<style>
+/* ─── Design evolution viewer ──────────────────────────────────────── */
+.dev {
+  margin: 2em 0 1.5em;
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* allow shadow to bleed outside content column */
+  overflow: visible;
+}
+
+/* Browser chrome bar */
+.dev-box {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(128,128,128,0.2);
+  box-shadow:
+    0 32px 100px rgba(0,0,0,0.55),  /* large macOS-style halo */
+    0  8px  28px rgba(0,0,0,0.28),  /* mid-distance layer */
+    0  2px   8px rgba(0,0,0,0.16);  /* contact shadow */
+}
+
+.dev-chrome {
+  background: #252525;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+}
+
+.dev-tl { display: flex; gap: 5px; }
+.dev-tl span { display: block; width: 10px; height: 10px; border-radius: 50%; }
+
+.dev-addr {
+  background: #1a1a1a;
+  color: #777;
+  font-family: monospace;
+  font-size: 10px;
+  padding: 2px 10px;
+  border-radius: 4px;
+  flex: 1;
+  max-width: 200px;
+}
+
+/* The viewport — scrollable box.
+   Images are 1280×1600px. At ~700px container width (scale 0.547) the
+   rendered image is ~875px tall — scroll reveals content below the hero.
+   overflow is locked to hidden while zoomed (set inline by JS). */
+.dev-viewport {
+  position: relative;
+  height: 420px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  cursor: zoom-in;
+  background: #111;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+}
+
+.dev-viewport::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+.dev-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform-origin: 50% 0%;
+  transform: scale(1);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+/* Zoom hint — vanishes permanently after first use */
+.dev-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-family: monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.75);
+  background: rgba(0,0,0,0.5);
+  padding: 3px 9px;
+  border-radius: 3px;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.dev-hint.gone { opacity: 0; }
+
+/* Controls */
+.dev-foot { margin-top: 10px; }
+
+.dev-navrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.dev-btn {
+  background: none;
+  border: 1px solid var(--color-border, #ccc);
+  color: var(--color-text-muted, #888);
+  cursor: pointer;
+  padding: 2px 9px;
+  font-size: 13px;
+  border-radius: 4px;
+  line-height: 1.5;
+  font-family: inherit;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.dev-btn:hover:not(:disabled) {
+  color: var(--color-text-primary, #1a1a1a);
+  border-color: var(--color-text-muted, #888);
+}
+
+.dev-btn:disabled { opacity: 0.28; cursor: default; }
+
+.dev-dotrow {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dev-d {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border, #ccc);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background-color 0.18s, transform 0.18s;
+}
+
+.dev-d:hover { transform: scale(1.35); }
+.dev-d.on {
+  background: var(--color-text-primary, #1a1a1a);
+  transform: scale(1.2);
+}
+
+/* Caption */
+.dev-cap {
+  font-size: 0.82em;
+  color: var(--color-text-muted, #888);
+  margin: 0;
+  min-height: 1.4em;
+}
+
+.dev-vnum { font-weight: bold; }
+</style>
+
+<script>
+(function () {
+  // scroll: fraction (0–1) of rendered image height to open at.
+  // Recalculated for 2500px viewport (which inflates 100vh sections):
+  //   v3  8165px  → case table ~y3400  → 0.42
+  //   v4  6906px  → case table ~y2900  → 0.42
+  //   v5-6 4454px → same page height, case table ~y1000 → 0.22
+  //   v12-13 10017px → DEBANKED at ~y1250 (centre of 2500px hero) → 0.12
+  //   v14    9982px  → 0.13
+  //   v15-17 13594px → DEBANKED ~y1250 → 0.09
+  var VERSIONS = [
+    { v: 'v1',  img: '/images/design-evo/v1.png',
+      label: 'Cream · Playfair Display · "Money as a political weapon." · AI-generated layout' },
+    { v: 'v2',  img: '/images/design-evo/v2.png',
+      label: 'D3 spinning globe appears · same cream feel · IBM Plex Mono for UI' },
+    { v: 'v3',  img: '/images/design-evo/v3.png',  scroll: 0.42,
+      label: 'Dark flip #141414 · full-bleed title treatment · rust accent dot' },
+    { v: 'v4',  img: '/images/design-evo/v4.png',  scroll: 0.42,
+      label: 'Dark · layout tightened · box system refined' },
+    { v: 'v5',  img: '/images/design-evo/v5.png',  scroll: 0.22,
+      label: 'Cormorant Garamond replaces Playfair for hero · "Money has been turned into a political weapon."' },
+    { v: 'v6',  img: '/images/design-evo/v6.png',  scroll: 0.22,
+      label: 'Globe section refinements · overflow scroll fixes' },
+    { v: 'v7',  img: '/images/design-evo/v7.png',
+      label: 'Experiment: warm cream #f8f0cc hero on dark body · tried and discarded' },
+    { v: 'v8',  img: '/images/design-evo/v8.png',
+      label: 'Settled on cream hero on dark body · light/dark toggle · Leaflet → MapLibre GL' },
+    { v: 'v9',  img: '/images/design-evo/v9.png',
+      label: 'Rust accent shifted #c1440e → #b34d24 · cream hero continues' },
+    { v: 'v10', img: '/images/design-evo/v10.png',
+      label: 'Case table refinements · context section added' },
+    { v: 'v11', img: '/images/design-evo/v11.png',
+      label: 'Record display improvements · interstitial section' },
+    { v: 'v12', img: '/images/design-evo/v12.png', scroll: 0.12,
+      label: 'Crimson hero #CC1A1A · Anton "Debanked" · Space Grotesk body' },
+    { v: 'v13', img: '/images/design-evo/v13.png', scroll: 0.12,
+      label: 'Hero stat count animations · interstitial photos section' },
+    { v: 'v14', img: '/images/design-evo/v14.png', scroll: 0.13,
+      label: 'D3 globe removed · MapLibre toner map section · hero chart SVG' },
+    { v: 'v15', img: '/images/design-evo/v15.png', scroll: 0.09,
+      label: 'Mobile text-size fix · readability polish' },
+    { v: 'v16', img: '/images/design-evo/v16.png', scroll: 0.09,
+      label: 'Rust accent → Bitcoin orange #F7931A · thematic signal' },
+    { v: 'v17', img: '/images/design-evo/v17.png', scroll: 0.09,
+      label: 'Deeper black #111111 · warm off-white #e8e8e0 · current state' },
+  ];
+
+  var wrap = document.getElementById('dev-{{ .Ordinal }}');
+  if (!wrap) return;
+
+  var imgEl    = wrap.querySelector('.dev-img');
+  var viewport = wrap.querySelector('.dev-viewport');
+  var hint     = wrap.querySelector('.dev-hint');
+  var dotRow   = wrap.querySelector('.dev-dotrow');
+  var capVnum  = wrap.querySelector('.dev-vnum');
+  var capLabel = wrap.querySelector('.dev-label');
+  var btnPrev  = wrap.querySelector('.dev-prev');
+  var btnNext  = wrap.querySelector('.dev-next');
+
+  var cur = 0;
+  var isZoomed = false;
+  var hintUsed = false;
+
+  /* Build dot navigation */
+  VERSIONS.forEach(function (_, i) {
+    var d = document.createElement('button');
+    d.className = 'dev-d';
+    d.setAttribute('aria-label', VERSIONS[i].v);
+    d.addEventListener('click', function () { go(i); });
+    dotRow.appendChild(d);
+  });
+
+  /* Zoom: click inside the viewport box to toggle zoom centered on cursor.
+     getBoundingClientRect() accounts for current scroll position, so the
+     transform-origin lands on the right spot even when scrolled down.
+     While zoomed, overflow is locked to hidden so scroll doesn't shift
+     the zoomed image unexpectedly. */
+  viewport.addEventListener('click', function (e) {
+    if (isZoomed) {
+      resetZoom();
+    } else {
+      var rect = imgEl.getBoundingClientRect();
+      var ox = (((e.clientX - rect.left) / rect.width)  * 100).toFixed(1) + '%';
+      var oy = (((e.clientY - rect.top)  / rect.height) * 100).toFixed(1) + '%';
+      imgEl.style.transformOrigin = ox + ' ' + oy;
+      imgEl.style.transform = 'scale(2.2)';
+      /* Lock scroll while zoomed */
+      viewport.style.overflowY = 'hidden';
+      isZoomed = true;
+      viewport.style.cursor = 'zoom-out';
+      if (!hintUsed) {
+        hint.classList.add('gone');
+        hintUsed = true;
+      }
+    }
+  });
+
+  function resetZoom() {
+    imgEl.style.transformOrigin = '50% 0%';
+    imgEl.style.transform = 'scale(1)';
+    /* Restore scroll */
+    viewport.style.overflowY = 'auto';
+    isZoomed = false;
+    viewport.style.cursor = 'zoom-in';
+  }
+
+  function go(idx) {
+    cur = Math.max(0, Math.min(VERSIONS.length - 1, idx));
+    var v = VERSIONS[cur];
+
+    if (isZoomed) resetZoom();
+    viewport.scrollTop = 0;
+    imgEl.onload = null; // clear any pending handler
+
+    imgEl.src = v.img;
+    imgEl.alt = 'Design evolution ' + v.v;
+
+    /* Auto-scroll to the interesting part for dark-hero versions */
+    if (v.scroll) {
+      function applyScroll() {
+        viewport.scrollTop = Math.round(v.scroll * imgEl.offsetHeight);
+      }
+      if (imgEl.complete && imgEl.naturalHeight > 0) {
+        applyScroll();          // already cached
+      } else {
+        imgEl.onload = applyScroll;
+      }
+    }
+    capVnum.textContent  = v.v;
+    capLabel.textContent = v.label;
+
+    dotRow.querySelectorAll('.dev-d').forEach(function (d, i) {
+      d.classList.toggle('on', i === cur);
+    });
+
+    btnPrev.disabled = (cur === 0);
+    btnNext.disabled = (cur === VERSIONS.length - 1);
+
+    /* Preload neighbours */
+    [cur - 1, cur + 1].forEach(function (i) {
+      if (i >= 0 && i < VERSIONS.length) {
+        var pre = new Image();
+        pre.src = VERSIONS[i].img;
+      }
+    });
+  }
+
+  btnPrev.addEventListener('click', function () { go(cur - 1); });
+  btnNext.addEventListener('click', function () { go(cur + 1); });
+
+  wrap.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')                 { e.preventDefault(); go(cur - 1); }
+    if (e.key === 'ArrowRight')                { e.preventDefault(); go(cur + 1); }
+    if (e.key === 'Escape' && isZoomed)        { e.preventDefault(); resetZoom(); }
+  });
+
+  go(0);
+}());
+</script>

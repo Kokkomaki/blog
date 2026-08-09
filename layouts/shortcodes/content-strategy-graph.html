@@ -1,0 +1,489 @@
+<div class="csg-fullbleed">
+  <div class="csg" id="csg-{{ .Ordinal }}">
+
+    <div class="csg-toolbar">
+      <fieldset class="csg-filters">
+        <legend>Filter by entity category</legend>
+        <div class="csg-filter-list"><!-- checkboxes injected by JS --></div>
+      </fieldset>
+      <div class="csg-toolbar-actions">
+        <button type="button" class="csg-btn csg-regroup">Regroup</button>
+        <button type="button" class="csg-btn csg-table-toggle" aria-expanded="false" aria-controls="csg-table-{{ .Ordinal }}">View as table</button>
+      </div>
+    </div>
+
+    <div class="csg-canvas-wrap" role="img" aria-label="Network graph of Bitcoin entities and the content strategies they use. A table view of the same data is available via the button above.">
+      <div class="csg-canvas"></div>
+      <p class="csg-legend"></p>
+    </div>
+
+    <div class="csg-table-view" id="csg-table-{{ .Ordinal }}" hidden>
+      <table class="csg-table">
+        <caption>Every entity in this graph and the strategies it's evidenced to use</caption>
+        <thead>
+          <tr><th scope="col">Entity</th><th scope="col">Category</th><th scope="col">Region</th><th scope="col">Strategies used</th></tr>
+        </thead>
+        <tbody><!-- rows injected by JS --></tbody>
+      </table>
+    </div>
+
+    <div class="csg-dialog-backdrop" hidden>
+      <div class="csg-dialog" role="dialog" aria-modal="true" tabindex="-1">
+        <button type="button" class="csg-dialog-close" aria-label="Close">&times;</button>
+        <div class="csg-dialog-content"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+/* ─── Content strategy graph ──────────────────────────────────────── */
+.csg-fullbleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  max-width: 1400px;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+@media (max-width: 900px) {
+  .csg-fullbleed { width: 100%; left: 0; right: 0; margin-left: 0; margin-right: 0; }
+}
+
+.csg {
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 8px;
+  padding: 1em 1.25em 1.25em;
+  font-family: var(--font-family-mono), monospace;
+}
+
+.csg-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1em;
+  margin-bottom: 0.75em;
+}
+
+.csg-filters { border: none; margin: 0; padding: 0; min-width: 0; flex: 1 1 auto; }
+.csg-filters legend { font-size: 0.8em; color: var(--color-text-muted, #888); padding: 0 0 0.4em; }
+.csg-filter-list { display: flex; flex-wrap: wrap; gap: 0.15em 1em; }
+.csg-filter-item { display: flex; align-items: center; gap: 0.35em; font-size: 0.82em; }
+.csg-filter-item input { margin: 0; }
+.csg-filter-item label { cursor: pointer; }
+
+.csg-toolbar-actions { display: flex; gap: 0.5em; flex-shrink: 0; }
+
+.csg-btn {
+  background: none;
+  border: 1px solid var(--color-border, #ccc);
+  color: var(--color-text-muted, #888);
+  cursor: pointer;
+  padding: 0.3em 0.9em;
+  font-size: 0.82em;
+  font-family: inherit;
+  border-radius: 4px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.csg-btn:hover, .csg-btn:focus-visible { color: var(--color-text-primary, #1a1a1a); border-color: var(--color-text-muted, #888); }
+.csg-btn[aria-expanded="true"] { color: var(--color-text-primary, #1a1a1a); border-color: var(--color-text-primary, #1a1a1a); }
+
+.csg-canvas-wrap { position: relative; }
+.csg-canvas { height: 640px; background: var(--color-bg-secondary, #f6f6f6); border-radius: 6px; overflow: hidden; }
+@media (max-width: 600px) { .csg-canvas { height: 460px; } }
+
+.csg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 1.1em;
+  font-size: 0.75em;
+  color: var(--color-text-muted, #888);
+  margin: 0.6em 0 0;
+}
+.csg-legend-item { display: inline-flex; align-items: center; gap: 0.4em; }
+.csg-legend-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex-shrink: 0; }
+
+.csg-table-view { margin-top: 1em; }
+.csg-table { width: 100%; border-collapse: collapse; font-size: 0.82em; }
+.csg-table th, .csg-table td { text-align: left; padding: 0.5em 0.75em; border-bottom: 1px solid var(--color-border, #ddd); vertical-align: top; }
+.csg-table caption { text-align: left; font-size: 0.85em; color: var(--color-text-muted, #888); margin-bottom: 0.5em; }
+
+.csg-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 1.5em;
+}
+.csg-dialog-backdrop[hidden] { display: none; }
+.csg-dialog {
+  background: var(--color-bg-primary, #fff);
+  border: 1px solid var(--color-border, #ccc);
+  border-radius: 8px;
+  padding: 1.5em;
+  max-width: 480px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+.csg-dialog-close {
+  position: absolute;
+  top: 0.6em;
+  right: 0.6em;
+  background: none;
+  border: none;
+  font-size: 1.3em;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text-muted, #888);
+  padding: 0.2em 0.4em;
+}
+.csg-dialog-close:hover, .csg-dialog-close:focus-visible { color: var(--color-text-primary, #1a1a1a); }
+
+.csg-card-title { font-size: 1.1em; font-weight: bold; margin: 0 0 0.2em; padding-right: 1.5em; }
+.csg-card-sub { font-size: 0.85em; color: var(--color-text-muted, #888); margin: 0 0 0.9em; }
+.csg-card-notes { font-size: 0.9em; margin: 0 0 0.9em; }
+.csg-badge-row { display: flex; flex-wrap: wrap; gap: 0.4em; margin: 0 0 0.9em; }
+.csg-badge { font-size: 0.72em; border: 1px solid var(--color-border, #ccc); border-radius: 3px; padding: 0.15em 0.5em; color: var(--color-text-muted, #888); }
+.csg-card-links { display: flex; flex-direction: column; gap: 0.3em; margin: 0 0 0.9em; font-size: 0.85em; }
+.csg-card-list { margin: 0; padding-left: 1.2em; font-size: 0.85em; }
+.csg-card-list li { margin-bottom: 0.5em; }
+.csg-card-section-title { font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-text-muted, #888); margin: 0 0 0.4em; }
+</style>
+
+<script src="/js/vendor/force-graph.min.js"></script>
+<script>
+(function () {
+  var root = document.getElementById('csg-{{ .Ordinal }}');
+  if (!root) return;
+
+  var CATEGORY_COLOR = {
+    'A': '#2a78d6', // Owned Content & Publishing
+    'B': '#eda100', // Video, Audio & Visual
+    'C': '#008300', // DevRel & Open Source
+    'D': '#e34948', // Community, Events & Grassroots (+ G)
+    'G': '#e34948', // Physical, Merch & Tangible (+ D)
+    'E': '#e87ba4', // Earned Media & Influence (+ F)
+    'F': '#e87ba4', // Paid & Performance (+ E)
+    'H': '#eb6834', // Product-Led & Crypto-Native (+ I)
+    'I': '#eb6834'  // Interactive & Tools-as-Content (+ H)
+  };
+  var CATEGORY_NAME = {
+    'A': 'Owned content & publishing', 'B': 'Video, audio & visual', 'C': 'DevRel & open source',
+    'D': 'Community, events & physical', 'G': 'Community, events & physical',
+    'E': 'Earned & paid media', 'F': 'Earned & paid media',
+    'H': 'Product-led & interactive tools', 'I': 'Product-led & interactive tools'
+  };
+  var ENTITY_COLOR = '#898781';
+  var REDUCED_MOTION = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function strategyLetter(category) {
+    return (category || '').charAt(0);
+  }
+
+  function topLevelCategory(entityCategory) {
+    return (entityCategory || 'Uncategorised').split('/')[0].trim();
+  }
+
+  function el(tag, props, children) {
+    var node = document.createElement(tag);
+    if (props) {
+      Object.keys(props).forEach(function (k) {
+        if (k === 'class') node.className = props[k];
+        else if (k === 'text') node.textContent = props[k];
+        else node.setAttribute(k, props[k]);
+      });
+    }
+    (children || []).forEach(function (c) { if (c) node.appendChild(c); });
+    return node;
+  }
+
+  fetch('/data/content-strategy-graph.json')
+    .then(function (r) { return r.json(); })
+    .then(init)
+    .catch(function (err) {
+      root.querySelector('.csg-canvas').textContent = 'Could not load graph data.';
+      console.error('content-strategy-graph:', err);
+    });
+
+  function init(data) {
+    var entityNodes = data.entities.map(function (e) {
+      return Object.assign({}, e, { id: e.id, type: 'entity', topCategory: topLevelCategory(e.category) });
+    });
+    var strategyNodes = data.strategies.map(function (s) {
+      return Object.assign({}, s, { id: s.id, type: 'strategy', letter: strategyLetter(s.category) });
+    });
+    var nodes = entityNodes.concat(strategyNodes);
+    var nodeById = {};
+    nodes.forEach(function (n) { nodeById[n.id] = n; });
+
+    var links = data.edges.map(function (e) {
+      return Object.assign({}, e, { source: e.entity_id, target: e.strategy_id });
+    });
+
+    // strategy_id -> [{entity, edge}] for popups + table view
+    var strategyUsage = {};
+    data.edges.forEach(function (e) {
+      (strategyUsage[e.strategy_id] = strategyUsage[e.strategy_id] || []).push(e);
+    });
+    // entity_id -> [strategy] for popups + table view
+    var entityStrategies = {};
+    data.edges.forEach(function (e) {
+      (entityStrategies[e.entity_id] = entityStrategies[e.entity_id] || []).push(nodeById[e.strategy_id]);
+    });
+
+    var activeTopCategories = new Set(entityNodes.map(function (n) { return n.topCategory; }));
+
+    buildFilters(activeTopCategories);
+    buildLegend();
+    buildTableView(entityNodes, entityStrategies);
+    var graph = buildGraph(nodes, links);
+    wireDialogs(graph, entityStrategies, strategyUsage);
+    wireToolbar(graph, entityNodes, links);
+  }
+
+  function buildLegend() {
+    var seen = {};
+    var wrap = root.querySelector('.csg-legend');
+    Object.keys(CATEGORY_NAME).forEach(function (letter) {
+      var name = CATEGORY_NAME[letter];
+      if (seen[name]) return;
+      seen[name] = true;
+      var swatch = el('span', { class: 'csg-legend-swatch' });
+      swatch.style.background = CATEGORY_COLOR[letter];
+      wrap.appendChild(el('span', { class: 'csg-legend-item' }, [swatch, el('span', { text: name })]));
+    });
+    var entitySwatch = el('span', { class: 'csg-legend-swatch' });
+    entitySwatch.style.background = ENTITY_COLOR;
+    entitySwatch.style.borderRadius = '50%';
+    wrap.appendChild(el('span', { class: 'csg-legend-item' }, [entitySwatch, el('span', { text: 'Entity (circle = org, square = strategy)' })]));
+  }
+
+  function buildFilters(categories) {
+    var list = root.querySelector('.csg-filter-list');
+    Array.from(categories).sort().forEach(function (cat, i) {
+      var inputId = root.id + '-filter-' + i;
+      var input = el('input', { type: 'checkbox', id: inputId, checked: 'checked' });
+      input.checked = true;
+      input.dataset.category = cat;
+      var item = el('div', { class: 'csg-filter-item' }, [input, el('label', { for: inputId, text: cat })]);
+      list.appendChild(item);
+    });
+  }
+
+  function buildTableView(entityNodes, entityStrategies) {
+    var tbody = root.querySelector('.csg-table tbody');
+    entityNodes.forEach(function (e) {
+      var strategyNames = (entityStrategies[e.id] || []).map(function (s) { return s.name; }).join(', ') || '—';
+      tbody.appendChild(el('tr', null, [
+        el('td', { text: e.name }),
+        el('td', { text: e.category || '' }),
+        el('td', { text: e.region || '' }),
+        el('td', { text: strategyNames }),
+      ]));
+    });
+  }
+
+  function nodeColor(n) {
+    return n.type === 'entity' ? ENTITY_COLOR : (CATEGORY_COLOR[n.letter] || '#999');
+  }
+
+  function buildGraph(nodes, links) {
+    var container = root.querySelector('.csg-canvas');
+    var graph = ForceGraph()(container)
+      .graphData({ nodes: nodes, links: links })
+      .nodeId('id')
+      .nodeLabel(function (n) { return n.name; })
+      .nodeRelSize(4)
+      .nodeVal(function (n) { return n.type === 'entity' ? 3 : 2; })
+      .linkColor(function () { return 'rgba(137,135,129,0.35)'; })
+      .linkWidth(1)
+      .nodeCanvasObject(function (n, ctx, globalScale) {
+        var r = (n.type === 'entity' ? 5 : 3.6);
+        var alpha = n.__dimmed ? 0.15 : 1;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = nodeColor(n);
+        ctx.beginPath();
+        if (n.type === 'entity') {
+          ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
+        } else {
+          ctx.rect(n.x - r, n.y - r, r * 2, r * 2);
+        }
+        ctx.fill();
+        if (alpha > 0.5) {
+          ctx.font = 'bold ' + (11 / globalScale) + 'px sans-serif';
+          ctx.fillStyle = 'rgba(40,40,38,0.95)';
+          ctx.textAlign = 'center';
+          ctx.fillText(n.name, n.x, n.y + r + 9 / globalScale);
+        }
+        ctx.globalAlpha = 1;
+      })
+      .nodePointerAreaPaint(function (n, color, ctx) {
+        var r = (n.type === 'entity' ? 5 : 3.6) + 3;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
+        ctx.fill();
+      })
+      .linkCanvasObjectMode(function () { return undefined; })
+      .onNodeClick(function (n) { graph.__onNodeClick(n); })
+      .cooldownTicks(REDUCED_MOTION ? 0 : 200)
+      .warmupTicks(REDUCED_MOTION ? 60 : 0);
+
+    var hasAutoFit = false;
+    graph.onEngineStop(function () {
+      if (hasAutoFit) return;
+      hasAutoFit = true;
+      graph.zoomToFit(400, 60);
+    });
+
+    return graph;
+  }
+
+  function applyFilter(graph, entityNodes, links, checkedCategories) {
+    var dimmedEntityIds = new Set();
+    entityNodes.forEach(function (n) {
+      n.__dimmed = !checkedCategories.has(n.topCategory);
+      if (n.__dimmed) dimmedEntityIds.add(n.id);
+    });
+    // A strategy dims only if every entity using it is dimmed (or it has no edges at all).
+    var strategyHasVisibleUser = {};
+    links.forEach(function (l) {
+      var sourceId = typeof l.source === 'object' ? l.source.id : l.source;
+      var targetId = typeof l.target === 'object' ? l.target.id : l.target;
+      if (!dimmedEntityIds.has(sourceId)) strategyHasVisibleUser[targetId] = true;
+    });
+    graph.graphData().nodes.forEach(function (n) {
+      if (n.type === 'strategy') n.__dimmed = !strategyHasVisibleUser[n.id];
+    });
+    graph.graphData().links.forEach(function (l) {
+      var sourceId = typeof l.source === 'object' ? l.source.id : l.source;
+      l.__dimmed = dimmedEntityIds.has(sourceId);
+    });
+    graph.linkColor(function (l) { return l.__dimmed ? 'rgba(137,135,129,0.08)' : 'rgba(137,135,129,0.35)'; });
+  }
+
+  function wireToolbar(graph, entityNodes, links) {
+    var checkboxes = Array.prototype.slice.call(root.querySelectorAll('.csg-filter-item input'));
+
+    function currentChecked() {
+      var set = new Set();
+      checkboxes.forEach(function (cb) { if (cb.checked) set.add(cb.dataset.category); });
+      return set;
+    }
+
+    checkboxes.forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        applyFilter(graph, entityNodes, links, currentChecked());
+      });
+    });
+
+    root.querySelector('.csg-regroup').addEventListener('click', function () {
+      graph.d3ReheatSimulation();
+    });
+
+    var tableToggle = root.querySelector('.csg-table-toggle');
+    var tableView = root.querySelector('.csg-table-view');
+    tableToggle.addEventListener('click', function () {
+      var expanded = tableToggle.getAttribute('aria-expanded') === 'true';
+      tableToggle.setAttribute('aria-expanded', String(!expanded));
+      tableView.hidden = expanded;
+      tableToggle.textContent = expanded ? 'View as table' : 'Hide table';
+    });
+  }
+
+  function wireDialogs(graph, entityStrategies, strategyUsage) {
+    var backdrop = root.querySelector('.csg-dialog-backdrop');
+    var dialog = root.querySelector('.csg-dialog');
+    var content = root.querySelector('.csg-dialog-content');
+    var closeBtn = root.querySelector('.csg-dialog-close');
+    var lastFocused = null;
+
+    function openDialog(children) {
+      content.innerHTML = '';
+      children.forEach(function (c) { content.appendChild(c); });
+      lastFocused = document.activeElement;
+      backdrop.hidden = false;
+      dialog.focus();
+      document.addEventListener('keydown', onKeydown);
+    }
+
+    function closeDialog() {
+      backdrop.hidden = true;
+      document.removeEventListener('keydown', onKeydown);
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    function onKeydown(e) {
+      if (e.key === 'Escape') closeDialog();
+    }
+
+    closeBtn.addEventListener('click', closeDialog);
+    backdrop.addEventListener('click', function (e) { if (e.target === backdrop) closeDialog(); });
+
+    function entityCard(n) {
+      var linkRow = el('div', { class: 'csg-card-links' });
+      if (n.website) linkRow.appendChild(el('a', { href: n.website, target: '_blank', rel: 'noopener', text: 'Website →' }));
+      if (n.github_org) linkRow.appendChild(el('a', { href: 'https://github.com/' + n.github_org, target: '_blank', rel: 'noopener', text: 'GitHub →' }));
+
+      var strategies = entityStrategies[n.id] || [];
+      var list = el('ul', { class: 'csg-card-list' }, strategies.map(function (s) {
+        return el('li', { text: s.name });
+      }));
+      if (!strategies.length) list = el('p', { class: 'csg-card-notes', text: 'No evidenced strategies yet — this entity is queued for research.' });
+
+      return [
+        el('p', { class: 'csg-card-title', text: n.name }),
+        el('p', { class: 'csg-card-sub', text: [n.category, n.sub_focus, [n.region, n.country].filter(Boolean).join(', ')].filter(Boolean).join(' · ') }),
+        n.notes ? el('p', { class: 'csg-card-notes', text: n.notes }) : null,
+        linkRow,
+        el('p', { class: 'csg-card-section-title', text: 'Evidenced strategies' }),
+        list,
+      ];
+    }
+
+    function strategyCard(n) {
+      var badges = el('div', { class: 'csg-badge-row' }, [
+        el('span', { class: 'csg-badge', text: 'Effort: ' + (n.effort || '?') }),
+        el('span', { class: 'csg-badge', text: 'Cost: ' + (n.cost || '?') }),
+        el('span', { class: 'csg-badge', text: n.category || '' }),
+      ]);
+      var uses = strategyUsage[n.id] || [];
+      var list = el('ul', { class: 'csg-card-list' }, uses.map(function (u) {
+        return el('li', null, [
+          el('a', { href: u.evidence_url, target: '_blank', rel: 'noopener', text: (nodeNameOf(u.entity_id) || u.entity_id) + ' — ' + u.evidence_note })
+        ]);
+      }));
+      if (!uses.length) list = el('p', { class: 'csg-card-notes', text: 'Not yet observed in this dataset — a gap, not necessarily an absence in practice.' });
+
+      return [
+        el('p', { class: 'csg-card-title', text: n.name }),
+        el('p', { class: 'csg-card-sub', text: n.format || '' }),
+        n.description ? el('p', { class: 'csg-card-notes', text: n.description }) : null,
+        badges,
+        n.bitcoin_fit_notes ? el('p', { class: 'csg-card-notes', text: n.bitcoin_fit_notes }) : null,
+        el('p', { class: 'csg-card-section-title', text: 'Entities using this' }),
+        list,
+      ];
+    }
+
+    function nodeNameOf(id) {
+      var found = graph.graphData().nodes.find(function (n) { return n.id === id; });
+      return found ? found.name : null;
+    }
+
+    graph.__onNodeClick = function (n) {
+      openDialog(n.type === 'entity' ? entityCard(n) : strategyCard(n));
+    };
+  }
+}());
+</script>

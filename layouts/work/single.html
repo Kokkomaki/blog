@@ -1,0 +1,68 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  {{ $work := site.Data.work }}
+  {{ $liveSites := where $work "section" "live_sites" }}
+  {{ $writing := where $work "section" "opensats_writing" }}
+  {{ $research := where $work "section" "research_ai" }}
+  {{ $thesis := where $research "featured" true }}
+  {{ $notable := where $research "featured" "!=" true }}
+
+  <h2>Projects</h2>
+  <div class="work-grid work-chrome-grid">
+    {{ range $liveSites }}
+      <a class="work-chrome-card" href="{{ .url }}" target="_blank" rel="noopener">
+        <div class="work-chrome-bar">
+          <span class="work-chrome-dots"><span></span><span></span><span></span></span>
+          <span class="work-chrome-addr">{{ .name }}</span>
+        </div>
+        <div class="work-chrome-viewport">
+          <img src="{{ .screenshot }}" alt="Screenshot of {{ .name }}" loading="lazy">
+        </div>
+      </a>
+    {{ end }}
+  </div>
+
+  <h2>OpenSats Writing</h2>
+  <ul class="work-bullets">
+    {{ range $writing }}
+      {{ $isPreview := eq .status "preview" }}
+      {{ $d := time.AsTime .date }}
+      <li>
+        <div class="work-row">
+          <a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a>{{ if $isPreview }} <span class="work-tag">preview</span>{{ end }}
+          <span class="work-date">{{ $d.Format "2 Jan 2006" }}</span>
+        </div>
+      </li>
+    {{ end }}
+  </ul>
+
+  <h2>Research &amp; AI</h2>
+
+  {{ with index $thesis 0 }}
+    <blockquote class="work-thesis">
+      <p><a href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a></p>
+      <p class="work-thesis-desc">{{ .description }}</p>
+    </blockquote>
+  {{ end }}
+
+  <ul class="work-bullets">
+    {{ range $notable }}
+      {{ $p := site.GetPage (printf "/posts/%s" .post) }}
+      {{ if $p }}
+      <li>
+        <div class="work-row">
+          <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+          <span class="work-date">{{ $p.Date.Format "2 Jan 2006" }}</span>
+        </div>
+      </li>
+      {{ end }}
+    {{ end }}
+  </ul>
+
+  <div class="terminal-nav bottom-nav">
+    <a href="../" class="back-link">../</a>
+    {{ partial "bottom-actions.html" . }}
+  </div>
+{{ end }}

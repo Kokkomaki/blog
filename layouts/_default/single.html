@@ -23,4 +23,109 @@
     <a href="../" class="back-link">../</a>
     {{ partial "bottom-actions.html" . }}
   </div>
+
+  <script>
+  /* Sidenote engine -- moves Hugo footnotes into the left margin */
+  (function () {
+    var SIDENOTE_W   = 170; /* px wide -- matches CSS */
+    var GAP          = 90;  /* base px gap between left edge of content and nearest sidenote edge */
+    var X_AMPLITUDE  = 30;  /* px of subtle x variation either side of the base position */
+    var NOTE_SPACING = 10;  /* minimum px gap between stacked sidenotes */
+
+    function debounce(fn, ms) {
+      var t;
+      return function () { clearTimeout(t); t = setTimeout(fn, ms); };
+    }
+
+    /* Organic, non-alternating x offset for note index i.
+       sin(i * 2.7) gives values that don't fall into an obvious left-right-left pattern:
+       i=0 → 0, i=1 → +8, i=2 → −14, i=3 → +18, i=4 → −11, i=5 → +14 … */
+    function xVariation(i) {
+      return Math.round(Math.sin(i * 2.7) * X_AMPLITUDE);
+    }
+
+    function initSidenotes() {
+      /* remove any sidenotes placed on a previous run */
+      document.querySelectorAll('.sidenote').forEach(function (n) { n.remove(); });
+
+      var main        = document.querySelector('main');
+      var footnotesEl = document.querySelector('section.footnotes, div.footnotes');
+      if (!main || !footnotesEl) return;
+
+      var fnLinks = document.querySelectorAll('a.footnote-ref');
+      if (!fnLinks.length) { footnotesEl.style.display = ''; return; }
+
+      var mainRect = main.getBoundingClientRect();
+      /* need room for the widest possible note (base gap + sidenote width + amplitude) */
+      var hasLeft = mainRect.left >= SIDENOTE_W + GAP + X_AMPLITUDE;
+
+      /* not enough left-margin space -- show normal bottom footnotes */
+      if (!hasLeft) { footnotesEl.style.display = ''; return; }
+
+      footnotesEl.style.display = 'none';
+      document.body.style.position = 'relative';
+
+      var bodyRect  = document.body.getBoundingClientRect();
+      var baseLeft  = mainRect.left - bodyRect.left - GAP - SIDENOTE_W;
+
+      /* --- first pass: create and place each sidenote at its ideal position --- */
+      var placed = [];
+
+      fnLinks.forEach(function (link, i) {
+        var fnId = link.getAttribute('href').replace(/^#/, '');
+        var fnEl = document.getElementById(fnId);
+        if (!fnEl) return;
+
+        var fnP = fnEl.querySelector('p');
+        if (!fnP) return;
+
+        var clone = fnP.cloneNode(true);
+        var br = clone.querySelector('a.footnote-backref');
+        if (br) br.remove();
+        var content = clone.innerHTML.trim();
+
+        var sup      = link.parentElement;
+        var supRect  = sup.getBoundingClientRect();
+        var idealTop = supRect.top - bodyRect.top;
+
+        /* positive variation → note shifts right (closer to content)
+           negative variation → note shifts left (further from content) */
+        var noteLeft = baseLeft + xVariation(i);
+
+        var aside = document.createElement('aside');
+        aside.className = 'sidenote';
+        aside.innerHTML =
+          '<span class="sidenote-number">' + (i + 1) + '.</span> ' + content;
+
+        aside.style.top   = idealTop + 'px';
+        aside.style.width = SIDENOTE_W + 'px';
+        aside.style.left  = noteLeft + 'px';
+
+        document.body.appendChild(aside);
+        placed.push(aside);
+      });
+
+      /* --- second pass: push overlapping notes downward --- */
+      var prevBottom = -Infinity;
+      placed.forEach(function (aside) {
+        var top = parseFloat(aside.style.top);
+        if (top < prevBottom + NOTE_SPACING) {
+          top = prevBottom + NOTE_SPACING;
+          aside.style.top = top + 'px';
+        }
+        prevBottom = top + aside.offsetHeight;
+      });
+    }
+
+    /* run after images + fonts settle so vertical positions are accurate */
+    window.addEventListener('load', function () { setTimeout(initSidenotes, 30); });
+    window.addEventListener('resize', debounce(initSidenotes, 150));
+
+    /* prevent footnote-ref clicks jumping to the now-hidden section */
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('a.footnote-ref');
+      if (t && document.querySelector('.sidenote')) e.preventDefault();
+    });
+  })();
+  </script>
 {{ end }}

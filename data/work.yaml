@@ -1,0 +1,56 @@
+# Data for the /work/ page (layouts/work/single.html).
+# section: live_sites | opensats_writing | research_ai
+# status:  live | preview
+#
+# research_ai entries can point at an internal post via `post: <slug under content/posts/>`
+# instead of name/url/date — the template resolves title/date/permalink from the post itself.
+
+- section: live_sites
+  name: "debankd.org"
+  url: "https://debankd.org"
+  screenshot: "/images/work/debankd.png"
+  status: live
+
+- section: opensats_writing
+  name: "Rajarshi Maitra Found a Point of Light in the Dark Cave, Quit His Job, and Built Bitshala"
+  url: "https://opensats.org/blog/developer-spotlight-rajarshi-maitra"
+  date: "2026-07-01"
+  status: live
+
+- section: opensats_writing
+  name: "Cody Tseng Is Building a Social App That Follows Your Heart, Not an Algorithm"
+  url: "https://opensats.org/blog/developer-spotlight-codytseng-jumblesocial"
+  date: "2026-06-02"
+  status: live
+
+- section: opensats_writing
+  name: "Made in Africa: Kurt and the Open-Source Bitcoin Miner That Anyone Can Make"
+  url: "https://opensats.org/blog/developer-spotlight-kurt-unger"
+  date: "2026-05-22"
+  status: live
+
+- section: opensats_writing
+  name: "Developer Spotlight: nym21, Bitcoin Research Kit"
+  url: "https://github.com/OpenSats/website/pull/884"
+  date: "2026-07-02"
+  status: preview
+
+- section: research_ai
+  name: "Bitcoin as a Nonviolent Tool Against State Financial Censorship"
+  url: "https://www.doria.fi/handle/10024/187407"
+  description: "Master's thesis, MA Peace, Mediation and Conflict Research, Åbo Akademi University — first global academic dataset of 93 state financial censorship events (1981–2023). Shared by Alex Gladstein (Human Rights Foundation). Covered in Forbes."
+  date: "2023"
+  status: live
+  featured: true
+
+- section: research_ai
+  post: "how-yle-portrays-bitcoin-in-news-articles"
+  status: live
+
+- section: research_ai
+  post: "i-built-a-lightning-network-paywall"
+  status: live
+
+- section: research_ai
+  post: "i-built-analytics-with-umami"
+  status: live

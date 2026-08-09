@@ -1,0 +1,35 @@
+{{/* ─── fade.html ──────────────────────────────────────────────────────
+     Fade a comma-separated list of words from full opacity down to a
+     faint floor, left to right — a sentence trailing off into silence.
+
+     Usage (inline, mid-sentence):
+       … the only honest thing I could tell you was that it had been
+       {{< fade >}}vivid, enormous, tender, … , gone{{< /fade >}}.
+
+     Params:
+       min     opacity floor for the LAST word, 0–1. Default 0.05.
+       layout  "inline" (default) or "stack" (one word per line).
+
+     How it works: opacity ramps linearly from 1.0 on the first word to
+     `min` on the last. The words stay real text — selectable, searchable,
+     and read in full by screen readers — so the fade is purely visual.
+     Colour is inherited from the surrounding text, so the words fade
+     toward the page background in both the light and dark themes.
+
+     The core effect needs no CSS at all (opacity is set inline). The
+     optional hover-to-reveal + transition live in the theme's custom.css.
+   ─────────────────────────────────────────────────────────────────── */}}
+{{- $min := 0.05 -}}
+{{- with .Get "min" }}{{ $min = float . }}{{ end -}}
+{{- $stack := eq (.Get "layout" | default "inline") "stack" -}}
+{{- $words := split (trim .Inner " \r\n") "," -}}
+{{- $n := len $words -}}
+<span class="fade-seq{{ if $stack }} fade-seq--stack{{ end }}">
+{{- range $i, $w := $words -}}
+{{- $word := trim $w " \r\n" -}}
+{{- $op := 1.0 -}}
+{{- if gt $n 1 -}}{{- $op = sub 1.0 (mul (div (float $i) (float (sub $n 1))) (sub 1.0 $min)) -}}{{- end -}}
+{{- $notlast := lt $i (sub $n 1) -}}
+<span class="fade-word" style="opacity:{{ printf "%.4f" $op }}">{{ $word }}{{ if and (not $stack) $notlast }},{{ end }}</span>{{ if and (not $stack) $notlast }} {{ end }}
+{{- end -}}
+</span>
