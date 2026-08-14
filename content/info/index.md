@@ -7,4 +7,5 @@ title = "Info"
   <a href="/now/">now/</a>
   <a href="/resume/">resume/</a>
   <a href="/analytics/">analytics/</a>
+  <a href="/ai/">ai/</a>
 </nav>
