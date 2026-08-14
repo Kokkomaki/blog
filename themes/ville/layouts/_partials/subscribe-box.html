@@ -8,52 +8,6 @@
   {{- end }}
 {{- end }}
 
-<div class="subscribe-win95">
-  <div class="win95-titlebar">
-    <img class="win95-titleicon" alt="" src="data:image/gif;base64,R0lGODlhFgAUAIEAAAAAAP///wAAAAAAgCH/C05FVFNDQVBFMi4wAwEAAAAh+QQJcAAAACwAAAAAFgAUAAAIWAABCBxIsKDBgwgTKlzIsKHDhxAjSjwoYIDFixgzDhBAUECAjyBDigzAcaDHkSg/lhR4MuXIlQBaugwJU+ZMlR1viqypk2bOnjhNAg3KUoDRo0iTGp1YMCAAIfkECRYAAAAsAgAFABIADgCBAAAA///9AAAAAACACEcAAQgEIKDggIMFCw5cCODggAAQHQpg2HCAAIgYMToUKMBiwo8gOxbMSLJkgJEmU6JMWXIly4wuX0KMKZPmS5sscaoMyRNkQAAh+QQJFgAAACwCAAEAEgASAIL///wAAAAAAAAAAICWlpYAAAAAAAAAAAAIYwADCAwgoKCAAQYLDlxIEACAAQ8dAhDAcKCAhwQyDoBIsWKAjRIlIvSIMGTIARVRXszIksDEjQNRNjTpsKPKhDhzGqTJU2LBnj1/AqUpdGjIokZrXkzqcynTiU6ZIk2qs2rCgAAh+QQJRgAAACwCAAAAEgATAIL///sAAAAAAAAAAICWlpYAAAAAAAAAAAAIaAADCAwgAACAAQcNAhAwsCHBgwQiDiCw0OFAAQgVJmRoMUBGjQc5WkQYsSTFAR0HFARpEKNDlCtZMkQpkGZMkBxhCtjJs6dPniyDKtwpVCjRojJvIm2pdOnRpUObIn0KdaHUoj+z/gwIACH5BAkWAAAALAIAAQASABIAgv///AAAAAAAAAAAgJaWlgAAAAAAAAAAAAhjAAMIDCCgoIABBgsOXEgQAIABDx0CEMBwoICHBDIOgEixYoCNEiUi9IgwZMgBFVFezMiSwMSNA1E2NOmwo8qEOHMapMlTYsGePX8CpSl0aMiiRmteTOpzKdOJTpkiTaqzasKAACH5BAkWAAAALAIABQASAA4AgQAAAP///QAAAAAAgAhHAAEIBCCg4ICDBQsOXAjg4IAAEB0KYNhwgACIGDE6FCjAYsKPIDsWzEiyZICRJlOiTFlyJcuMLl9CjCmT5kubLHGqDMkTZEAAOw==">
-    <span class="win95-title">Subscribe.exe</span>
-    <div class="win95-winbtns">
-      <button type="button" class="win95-winbtn" tabindex="-1" aria-hidden="true">_</button>
-      <button type="button" class="win95-winbtn" tabindex="-1" aria-hidden="true">&#9633;</button>
-      <button type="button" class="win95-winbtn" tabindex="-1" aria-hidden="true">&#10005;</button>
-    </div>
-  </div>
-  <section>
-    <h2>Subscribe</h2>
-    <div class="win95-form">
-      <p>
-        <label for="subscribe-email">E-mail</label>
-        <input id="subscribe-email" type="email" placeholder="E-mail" disabled>
-      </p>
-      <p>
-        <label for="subscribe-name">Name (optional)</label>
-        <input id="subscribe-name" type="text" placeholder="Name (optional)" disabled>
-      </p>
-      <ul class="lists">
-        <li>
-          <input id="subscribe-list-newsletter" type="checkbox" checked disabled>
-          <label for="subscribe-list-newsletter">Newsletter</label>
-        </li>
-        <li>
-          <input id="subscribe-list-posts" type="checkbox" checked disabled>
-          <label for="subscribe-list-posts">Blog posts</label>
-        </li>
-      </ul>
-      <div class="win95-captcha">
-        <input type="checkbox" disabled aria-hidden="true" tabindex="-1">
-        <span class="win95-captcha-label">I'm not a robot</span>
-        <span class="win95-captcha-icon" aria-hidden="true">&#8635;</span>
-        <span class="win95-captcha-footer">Protected by ALTCHA</span>
-      </div>
-      <p>
-        <a class="win95-submit" href="https://newsletter.kokkomaki.com/subscription/form" target="_blank" rel="noopener">Subscribe</a>
-      </p>
-    </div>
-  </section>
-  <footer>
-    <img alt="" src="data:image/gif;base64,R0lGODlhFAAUAIIAAAAAAAAAAEBAQP//8MDAwJaWlgAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJWgAAACwAAAAAFAAUAAAIeAABCBxIsKDBgwgNBljIsCHDgwEECHDoUIBCiQEIMCTAUaPEghEnalzY0eNEgiEzbuyYEiVGigwxupRIs2bNADNt6jw5ECZMngIXDhhKtOiAiDh7BijAtKnTAkhRBjBKNapSqkatBvVZMWnQnTu9AuAKM6HZs2gDAgAh+QQJCQAAACwDAAIADQAQAIIAAAAAAABAQED///CWlpbAwMAAAAAAAAAITwADCBxIMAAAAAEECCgoUCFChQQLFEi4kGLEiRAtDpSoMWPBjApDigQ5cmRDhgMrLhzAsuWAhCcJyJxJACZMly1trsT5UiXKkxRLhvzJMCAAIfkECQkAAAAsBgACAAcAEACCAAAAAAAAQEBA///wlpaWAAAAAAAAAAAACCoAAwgUCADAwIEGDypcyHChgIcPBUKM2DDAgIsHCWg8eHEAR4wVJwpoGBAAIfkECQkAAAAsCAACAAQAEACBAAAAAAAAQEBAAAAACB8AAwAYGKAggIIIEyoUGEAAQ4cHITZ8SDFixYkHDQYEACH5BAkJAAAALAYAAgAHABAAggAAAAAAAEBAQP//8JaWlgAAAAAAAAAAAAgqAAMIFAgAwMCBBg8qXMhwoYCHDwVCjNgwwICLBwloPHhxAEeMFScKaBgQACH5BAkJAAAALAMAAgANABAAggAAAAAAAEBAQP//8JaWlsDAwAAAAAAAAAhPAAMIHEgwAAAAAQQIKChQIUKFBAsUSLiQYsSJEC0OlKgxY8GMCkOKBDlyZEOGAysuHMCy5YCEJwnInEkAJkyXLW2uxPlSJcqTFEuG/MkwIAAh+QQJCQAAACwCAAIAEAAQAIIAAAAAAABAQED///DAwMCWlpYAAAAAAAAIXQADCBxIcCCAgwEECChYUABChQEIDCRAUaJCAAkXShRY0eLCjBEnVgRJkqFAiBkVqlyp8iTLlyhNMvwYYIDNmzgHJBxYoKfPnwV2CsxJVGhNojiNyiT4ESbMpTIDAgA7">
-    <span>Self-hosted and powered by <a href="https://listmonk.app" target="_blank" rel="noreferrer">listmonk</a></span>
-  </footer>
-</div>
+<iframe class="subscribe-win95-frame" src="https://subscribe.kokkomaki.com/subscription/form" title="Subscribe" loading="lazy" height="560"></iframe>
 
 <p class="win95-rss"><a href="/index.xml">or subscribe via RSS</a></p>
