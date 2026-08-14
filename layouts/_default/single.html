@@ -17,11 +17,11 @@
   {{ .Content }}
   {{ if not .Date.IsZero }}{{ partial "date.html" .Date }}{{ end }}
 
-  {{ partial "nostr-comments.html" . }}
-
   {{ $showSubscribe := eq .Section "posts" }}
   {{ if isset .Params "subscribe" }}{{ $showSubscribe = .Params.subscribe }}{{ end }}
   {{ if $showSubscribe }}{{ partial "subscribe-box.html" . }}{{ end }}
+
+  {{ partial "nostr-comments.html" . }}
 
   <div class="terminal-nav bottom-nav">
     <a href="../" class="back-link">../</a>

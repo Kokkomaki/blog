@@ -24,8 +24,7 @@
   --win95-link: #0000ee;
 
   width: 100%;
-  max-width: 280px;
-  margin: var(--spacing-lg) auto;
+  margin: var(--spacing-lg) 0;
   background: var(--win95-face);
   padding: 2px;
   font-family: "MS Sans Serif", Tahoma, Verdana, sans-serif;
