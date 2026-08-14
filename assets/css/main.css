@@ -54,6 +54,7 @@
   --color-bg-secondary: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) - 2%));
   --color-border: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) - 6%));
   --color-selection-bg: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) - 13%));
+  --color-dot: hsl(var(--bg-h) var(--bg-s) 0% / 7%);
 
   /* Text colors with WCAG-friendly contrast */
   /* Primary: ensures near-black on light bg and near-white on dark bg */
@@ -90,18 +91,21 @@
 [data-theme="dark"] {
   --bg-l: 8%;
   --bg-s: 0%;
+  --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
 }
 
 [data-theme="light"] {
   --bg-h: 44;
   --bg-s: 50%;
   --bg-l: 95%;
+  --color-dot: hsl(var(--bg-h) var(--bg-s) 0% / 7%);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg-l: 8%;
     --bg-s: 0%;
+    --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
   }
 }
 
@@ -160,7 +164,11 @@ html {
 
 body {
   font: var(--font-size-base) / var(--spacing-base) var(--font-family-mono);
-  background: var(--color-bg-primary);
+  background-color: var(--color-bg-primary);
+  background-image: radial-gradient(circle, var(--color-dot) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0;
+  background-attachment: fixed;
   min-height: 100%;
   display: grid;
   grid-template-rows: auto 1fr auto;
