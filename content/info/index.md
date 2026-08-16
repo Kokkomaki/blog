@@ -8,4 +8,5 @@ title = "Info"
   <a href="/resume/">resume/</a>
   <a href="/analytics/">analytics/</a>
   <a href="/ai/">ai/</a>
+  <a href="/guestbook/">guestbook/</a>
 </nav>

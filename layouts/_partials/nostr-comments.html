@@ -1,4 +1,4 @@
-{{- $showComments := and (eq .Section "posts") (.Params.comments | default true) }}
+{{- $showComments := .Params.comments | default (eq .Section "posts") }}
 {{- if $showComments }}
 <section class="nostr-comments-section">
   <div id="nostr-comments" data-url="{{ .Permalink }}"></div>

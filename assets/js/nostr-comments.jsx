@@ -20,7 +20,18 @@ function CommentsWrapper({ url }) {
     return () => obs.disconnect();
   }, []);
 
-  return createElement(NostrComments, { url, theme, locale: "en", pow: 18 });
+  return createElement(NostrComments, {
+    url,
+    theme,
+    locale: "en",
+    pow: 18,
+    relays: [
+      "wss://relay.kokkomaki.com",
+      "wss://relay.damus.io",
+      "wss://nos.lol",
+      "wss://nostr.mom",
+    ],
+  });
 }
 
 const el = document.getElementById("nostr-comments");
