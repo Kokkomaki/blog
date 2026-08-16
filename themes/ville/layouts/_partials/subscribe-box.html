@@ -8,14 +8,6 @@
   {{- end }}
 {{- end }}
 
-<iframe class="subscribe-win95-frame" data-src="https://subscribe.kokkomaki.com/subscription/form" title="Subscribe" loading="lazy" height="560"></iframe>
-<script>
-  (function () {
-    var frame = document.currentScript.previousElementSibling;
-    var theme = document.documentElement.dataset.theme;
-    var dark = theme === 'dark' || (theme !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    frame.src = frame.dataset.src + '?bg=' + (dark ? 'dark' : 'light');
-  })();
-</script>
+<iframe class="subscribe-win95-frame" src="https://subscribe.kokkomaki.com/subscription/form" title="Subscribe" loading="lazy" height="560"></iframe>
 
 <p class="win95-rss"><a href="/index.xml">or subscribe via RSS</a></p>

@@ -17,10 +17,5 @@ document.addEventListener('DOMContentLoaded', function() {
     document.documentElement.dataset.theme = newTheme;
     localStorage.setItem('theme', newTheme);
     btn.textContent = dark ? 'Light' : 'Dark';
-
-    var subscribeFrame = document.querySelector('.subscribe-win95-frame');
-    if (subscribeFrame && subscribeFrame.dataset.src) {
-      subscribeFrame.src = subscribeFrame.dataset.src + '?bg=' + newTheme;
-    }
   });
 });
