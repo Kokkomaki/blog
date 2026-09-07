@@ -254,36 +254,6 @@ a {
   color: var(--color-text-primary);
 }
 
-/* Expand animation for homepage post list */
-.posts-extra {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease;
-}
-
-.posts-extra.open {
-  grid-template-rows: 1fr;
-}
-
-.posts-extra > div {
-  overflow: hidden;
-}
-
-.expand-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font: inherit;
-  color: var(--color-text-muted);
-  margin-top: var(--spacing-lg);
-  display: inline-block;
-}
-
-.expand-btn:hover {
-  color: var(--color-text-primary);
-}
-
 /* Reading time */
 .reading-time {
   color: var(--color-text-muted);
@@ -377,38 +347,6 @@ a {
 .resume ul li::before {
   content: "– ";
   color: var(--color-text-muted);
-}
-
-/* Bottom nav — ../ · Info · Search · Light/Dark */
-.bottom-nav {
-  display: flex;
-  gap: 2em;
-}
-
-.bottom-nav a {
-  border-bottom: none;
-  color: var(--color-text-muted);
-}
-
-.bottom-nav a:hover {
-  color: var(--color-text-primary);
-}
-
-/* Homepage bottom-nav: Info/Search/theme on the left, socials on the right,
-   both edges lining up with the num-list's left text and right date column.
-   The num-list row reserves a trailing 4ch + gap for the (often-empty)
-   post-year column, so the visible date text ends that much short of the
-   container edge — pull the right group in by the same amount to match it. */
-.bottom-nav-split {
-  justify-content: space-between;
-  align-items: center;
-  padding-right: calc(4ch + 0.5em);
-}
-
-.bottom-nav-left {
-  display: flex;
-  align-items: center;
-  gap: 2em;
 }
 
 /* Search overlay */
@@ -513,6 +451,58 @@ a {
 .nostr-comments-section h4::before,
 .nostr-comments-section h5::before {
   content: none;
+}
+
+/* Empty state -- redundant with the empty comment box right above it.
+   !important: the library's own base rule for .nc-list carries a
+   `:not([data-headless=true])` prefix, which outweighs a plain two-class
+   selector on specificity alone. */
+.nostr-comments .nc-list--empty {
+  display: none !important;
+}
+
+/* Login modal options. The library gives each option the same "nc-login-
+   option" class with no per-option modifier (except "--bunker"), so these
+   are targeted by their fixed DOM order: 1 extension, 2 bunker,
+   3 create-account, 4 import. */
+
+/* "Import Existing Key" -- not offered; keeps the login flow to
+   extension/bunker/temp-account only. */
+.nostr-comments .nc-login-options > .nc-login-option:nth-child(4) {
+  display: none;
+}
+
+/* "Create Account" -- easiest path for a first-time commenter, so it leads
+   the list and gets a friendly, vibrant accent instead of the muted tan
+   the other two options share. Overriding --nc-primary/--nc-primary-light
+   locally re-colors its icon circle too, since the option's own markup
+   reads those custom properties. */
+.nostr-comments .nc-login-options > .nc-login-option:nth-child(3) {
+  order: -1;
+  --nc-primary: #2f7de1;
+  --nc-primary-light: #dbeafe;
+  border-color: var(--nc-primary);
+  background: #eaf3ff;
+}
+
+[data-theme="dark"] .nostr-comments .nc-login-options > .nc-login-option:nth-child(3) {
+  --nc-primary: #6fa8f0;
+  --nc-primary-light: rgba(111, 168, 240, 0.18);
+  background: rgba(111, 168, 240, 0.08);
+}
+
+/* Extension / bunker -- still available, just de-emphasized next to the
+   highlighted create-account option. */
+.nostr-comments .nc-login-options > .nc-login-option:nth-child(1),
+.nostr-comments .nc-login-options > .nc-login-option:nth-child(2) {
+  opacity: 0.6;
+  --nc-primary: var(--color-text-muted);
+  --nc-primary-light: var(--color-bg-secondary);
+}
+
+.nostr-comments .nc-login-options > .nc-login-option:nth-child(1):hover,
+.nostr-comments .nc-login-options > .nc-login-option:nth-child(2):hover {
+  opacity: 0.85;
 }
 
 /* =====================================================
@@ -775,4 +765,67 @@ body.work-page {
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
   mask-position: center;
+}
+
+/* =====================================================
+   Homepage hero — face, name, tagline, one-line bio
+   ===================================================== */
+.hero {
+  margin-bottom: var(--spacing-lg);
+}
+
+.hero-face {
+  width: 120px;
+  max-width: 120px;
+  height: 120px;
+  border-radius: 50% !important;
+  display: block;
+  margin: 0 0 var(--spacing-sm);
+}
+
+.hero-name {
+  margin: 0 0 var(--spacing-xs);
+}
+
+.hero-name::before {
+  content: none;
+}
+
+.hero-tagline {
+  color: var(--color-text-muted);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.hero-bio {
+  max-width: 60ch;
+  margin: 0 0 var(--spacing-sm);
+}
+
+.hero .social-links {
+  margin-top: var(--spacing-sm);
+}
+
+/* Homepage section snippets — Posts, Guestbook. Headings here are UI
+   labels, not document structure, so they skip the sitewide numbered-
+   heading counter the same way .nostr-comments-section does. */
+.home-posts h2::before,
+.home-guestbook h2::before {
+  content: none;
+}
+
+.home-guestbook {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-base);
+  border-top: 1px solid var(--color-border);
+}
+
+.view-all-link {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  color: var(--color-text-muted);
+  border-bottom: none;
+}
+
+.view-all-link:hover {
+  color: var(--color-text-primary);
 }
