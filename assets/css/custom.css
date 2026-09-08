@@ -212,28 +212,6 @@ body.nav-hide-content .site-nav .theme-toggle {
   visibility: hidden;
 }
 
-/* Brief glitch-block burst that plays over the page for a handful of
-   frames right as the content fades, instead of a plain smooth fade. */
-.nav-glitch {
-  /* top/left/width/height are set per-burst in JS, scoped to wherever
-     the actual content is on that page -- not a fixed full-viewport box. */
-  position: fixed;
-  z-index: 5;
-  pointer-events: none;
-  opacity: 0;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-family-mono);
-  font-size: 10px;
-  line-height: 1.1;
-  white-space: pre;
-  color: var(--color-text-muted);
-}
-
-.nav-glitch.active {
-  opacity: 0.5;
-}
 
 @media (max-width: 600px) {
   :root {
