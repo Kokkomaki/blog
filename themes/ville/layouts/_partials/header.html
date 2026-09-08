@@ -117,7 +117,7 @@
      under React's own DOM management, risks corrupting them on their
      next re-render. */
   var GLITCH_CHARS = "░▒▓█⣀⣄⣤⣦⣶⣷⣿";
-  var DISSOLVE_STEPS = 4, DISSOLVE_STEP_MS = 150; /* 4 * 150ms = 0.6s total */
+  var DISSOLVE_STEPS = 4, DISSOLVE_STEP_MS = 135; /* 4 * 135ms = 0.54s total, 10% faster than 0.6s */
 
   function textNodesIn(roots) {
     var nodes = [];
@@ -140,7 +140,20 @@
     return nodes;
   }
 
-  function dissolveTick(nodes, step, onDone) {
+  /* transitionId guards every tick chain below: setOpen() bumps it on
+     every call and hands each chain its value at the moment it started.
+     If a newer call bumps it again before an older chain finishes (a
+     fast click while the previous transition is still animating), the
+     older chain sees its id no longer matches and simply stops --
+     rather than running to completion and applying its now-stale final
+     state (panel/main-hidden) on top of whatever the newer click
+     already decided. That mismatch is what caused the stuck-on-"exit"
+     reports: two overlapping open/close chains fighting over the same
+     end state. */
+  var transitionId = 0;
+
+  function dissolveTick(nodes, icons, step, onDone, myId) {
+    if (myId !== transitionId) { return; }
     var progress = (step + 1) / DISSOLVE_STEPS; /* 0.25, 0.5, 0.75, 1.0 */
     nodes.forEach(function (node) {
       var orig = node.__origText, out = "";
@@ -154,8 +167,40 @@
       }
       node.textContent = out;
     });
+    /* Icons are images, not text -- can't scramble character by
+       character -- so instead of a smooth fade they get an instant
+       snap each step, with increasing odds of being off, which reads
+       as a flicker/glitch rather than a fade. No CSS transition at all
+       here on purpose -- steps this abrupt, not eased. */
+    icons.forEach(function (icon) { icon.style.opacity = Math.random() < progress ? "0" : "1"; });
     step++;
-    if (step < DISSOLVE_STEPS) { setTimeout(function () { dissolveTick(nodes, step, onDone); }, DISSOLVE_STEP_MS); }
+    if (step < DISSOLVE_STEPS) { setTimeout(function () { dissolveTick(nodes, icons, step, onDone, myId); }, DISSOLVE_STEP_MS); }
+    else if (onDone) { onDone(); }
+  }
+
+  /* Mirror of dissolveTick -- same mechanics, run backwards: each step
+     an increasing share of characters resolve to their real value
+     instead of an increasing share vanishing. Used on close, so
+     clicking "exit" gets the same kind of animation clicking the word
+     to open it does, instead of the old instant snap-back. */
+  function materializeTick(nodes, icons, step, onDone, myId) {
+    if (myId !== transitionId) { return; }
+    var progress = (step + 1) / DISSOLVE_STEPS;
+    nodes.forEach(function (node) {
+      var orig = node.__origText, out = "";
+      for (var i = 0; i < orig.length; i++) {
+        var ch = orig[i];
+        if (ch === " " || ch === "\n" || ch === "\t") { out += ch; continue; }
+        var r = Math.random();
+        if (r < progress) { out += ch; }
+        else if (r < progress + 0.25) { out += GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]; }
+        else { /* still vanished */ }
+      }
+      node.textContent = out;
+    });
+    icons.forEach(function (icon) { icon.style.opacity = Math.random() < progress ? "1" : "0"; });
+    step++;
+    if (step < DISSOLVE_STEPS) { setTimeout(function () { materializeTick(nodes, icons, step, onDone, myId); }, DISSOLVE_STEP_MS); }
     else if (onDone) { onDone(); }
   }
 
@@ -202,19 +247,27 @@
        destination -- the word is settled, not endlessly cycling away
        from where you actually are. It still re-scrambles in place every
        few seconds, purely so the control keeps reading as clickable
-       rather than looking like static text. */
+       rather than looking like static text -- but only while the panel
+       is closed, otherwise this was clobbering "exit" back to the real
+       destination out from under an open panel every 3 seconds. */
     setWord(CURRENT);
-    setInterval(function () { setWord(CURRENT); }, 3000);
+    setInterval(function () { if (!open) { setWord(CURRENT); } }, 3000);
   } else {
     /* Homepage (and any unmatched page) has no fixed "current section",
        so the word keeps cycling through every destination -- unless
-       something on the page (e.g. the post-list expander) freezes it. */
+       something on the page (e.g. the post-list expander) freezes it.
+       Ticks on its own fixed timer rather than chaining off the
+       scramble's completion Promise -- if the panel opens (calling
+       setWord("exit")) while a cycle word is still mid-animation, that
+       animation gets cancelled and its Promise never resolves, which
+       silently killed this whole loop forever. A plain timer can't
+       stall that way. */
     var i = 0;
-    (function next() {
-      if (open || frozen) { setTimeout(next, 300); return; }
-      setWord(WORDS[i % WORDS.length]).then(function () { setTimeout(next, 1600); });
-      i++;
-    })();
+    function cycleTick() {
+      if (!open && !frozen) { setWord(WORDS[i % WORDS.length]); i++; }
+      setTimeout(cycleTick, open || frozen ? 300 : 1600);
+    }
+    cycleTick();
   }
 
   /* Public hook so other components on the page (e.g. the homepage's
@@ -249,6 +302,8 @@
   function setOpen(next) {
     open = next;
     trigger.setAttribute("aria-expanded", String(open));
+    var myId = ++transitionId;
+    var icons = Array.prototype.slice.call(document.querySelectorAll(".social-links a"));
     if (open) {
       /* Watch the real content dissolve first, then snap the panel/
          main-hidden state in once it's actually gone -- not the other
@@ -257,13 +312,16 @@
       dissolvedNodes.forEach(function (node) {
         if (node.__origText === undefined) { node.__origText = node.textContent; }
       });
-      dissolveTick(dissolvedNodes, 0, finishOpen);
+      dissolveTick(dissolvedNodes, icons, 0, function () {
+        if (myId !== transitionId) { return; }
+        finishOpen();
+      }, myId);
     } else {
+      /* Same animation in reverse for "exit" -- materializeTick, not an
+         instant restore. */
       document.body.classList.remove("nav-hide-content");
       panel.classList.remove("open");
-      dissolvedNodes.forEach(function (node) {
-        if (node.__origText !== undefined) { node.textContent = node.__origText; }
-      });
+      materializeTick(dissolvedNodes, icons, 0, null, myId);
       if (CURRENT) {
         /* Matched pages have no idle cycle to fall back on -- put the
            real destination back immediately instead of leaving "exit"

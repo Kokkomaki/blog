@@ -742,6 +742,10 @@ body.work-page {
   margin-left: 0;
   border-bottom: none;
   color: #705f2f;
+  /* No transition here on purpose -- the dissolve/materialize burst in
+     header.html snaps icon opacity directly, per step, for a flicker
+     rather than a smooth fade. A CSS transition would fight that (and
+     would also slow down normal hover). */
 }
 
 /* Dark theme: match the surrounding text instead of the light-theme tan */
