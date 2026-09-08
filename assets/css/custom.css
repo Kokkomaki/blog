@@ -810,15 +810,8 @@ body.work-page {
 /* Homepage section snippets — Posts, Guestbook. Headings here are UI
    labels, not document structure, so they skip the sitewide numbered-
    heading counter the same way .nostr-comments-section does. */
-.home-posts h2::before,
-.home-guestbook h2::before {
+.home-posts h2::before {
   content: none;
-}
-
-.home-guestbook {
-  margin-top: var(--spacing-lg);
-  padding-top: var(--spacing-base);
-  border-top: 1px solid var(--color-border);
 }
 
 .view-all-link {
