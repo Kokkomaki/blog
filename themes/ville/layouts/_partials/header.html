@@ -82,7 +82,17 @@
   var wordEl = document.getElementById("nav-word");
   var trigger = document.getElementById("nav-trigger");
   var panel = document.getElementById("nav-panel");
+  var nav = document.querySelector(".site-nav");
   if (!wordEl || !trigger || !panel) { return; }
+
+  /* Line the panel's left edge up with the word's left edge -- "Ville
+     Kokkomaki /" has no fixed width, so this has to be measured rather
+     than assumed. */
+  function alignPanel() {
+    panel.style.marginLeft = (trigger.getBoundingClientRect().left - nav.getBoundingClientRect().left) + "px";
+  }
+  alignPanel();
+  window.addEventListener("resize", alignPanel);
 
   var fx = new Scramble(wordEl);
   var open = false;
