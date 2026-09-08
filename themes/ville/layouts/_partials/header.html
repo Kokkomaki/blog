@@ -1,12 +1,12 @@
 {{ $destinations := slice
-  (dict "word" "posts" "url" "/posts/")
-  (dict "word" "work" "url" "/work/")
-  (dict "word" "guestbook" "url" "/guestbook/")
-  (dict "word" "about" "url" "/about/")
-  (dict "word" "now" "url" "/now/")
-  (dict "word" "resume" "url" "/resume/")
-  (dict "word" "analytics" "url" "/analytics/")
-  (dict "word" "ai declaration" "url" "/ai/")
+  (dict "word" "posts" "url" "/posts/" "color" "var(--nav-c1)")
+  (dict "word" "work" "url" "/work/" "color" "var(--nav-c2)")
+  (dict "word" "guestbook" "url" "/guestbook/" "color" "var(--nav-c3)")
+  (dict "word" "about" "url" "/about/" "color" "var(--nav-c4)")
+  (dict "word" "now" "url" "/now/" "color" "var(--nav-c5)")
+  (dict "word" "resume" "url" "/resume/" "color" "var(--nav-c6)")
+  (dict "word" "analytics" "url" "/analytics/" "color" "var(--nav-c7)")
+  (dict "word" "ai declaration" "url" "/ai/" "color" "var(--nav-c8)")
 }}
 {{ $currentWord := "" }}
 {{ range $destinations }}
@@ -17,19 +17,22 @@
 
 <nav class="site-nav" aria-label="Main navigation">
   <a href="/" class="site-nav-name">Ville Kokkomäki</a><span class="site-nav-slash">/</span>
-  <button class="site-nav-trigger" id="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-panel">
-    <span class="site-nav-word" id="nav-word"></span>
-  </button>
+  <span class="site-nav-trigger-wrap">
+    <button class="site-nav-trigger" id="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-panel">
+      <span class="site-nav-word" id="nav-word"></span>
+    </button>
+    <div class="site-nav-panel" id="nav-panel"><div class="site-nav-panel-inner">
+      <div class="site-nav-links">
+        {{ range $destinations }}
+        {{ if ne .word $currentWord }}
+        <a href="{{ .url }}" style="color: {{ .color | safeCSS }}">{{ .word }}</a>
+        {{ end }}
+        {{ end }}
+      </div>
+    </div></div>
+  </span>
   {{ partial "bottom-actions.html" . }}
 </nav>
-
-<div class="site-nav-panel" id="nav-panel"><div>
-  <div class="site-nav-links">
-    {{ range $destinations }}
-    <a href="{{ .url }}">{{ .word }}</a>
-    {{ end }}
-  </div>
-</div></div>
 
 <script>
 (function () {

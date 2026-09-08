@@ -433,26 +433,45 @@ h5 > code {
   margin-left: auto;
 }
 
+/* The panel hangs directly under the word, centered on it -- like the
+   options fan out from that specific point, not from the page. */
+.site-nav-trigger-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
 .site-nav-panel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s ease;
+  max-width: calc(100vw - 2 * var(--spacing-lg));
 }
 
 .site-nav-panel.open {
   grid-template-rows: 1fr;
 }
 
-.site-nav-panel > div {
+.site-nav-panel-inner {
   overflow: hidden;
 }
 
 .site-nav-links {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5em 2em;
-  padding: var(--spacing-sm) 0 var(--spacing-base);
+  margin-top: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-size-small);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--pre-border-radius);
+  box-shadow: 0 1px 2px 0 var(--color-border);
 }
 
 .site-nav-links a {
@@ -466,21 +485,6 @@ h5 > code {
 
 .site-nav-links a:hover {
   opacity: 1;
-}
-
-.site-nav-links a:nth-child(1) { color: var(--nav-c1); }
-.site-nav-links a:nth-child(2) { color: var(--nav-c2); }
-.site-nav-links a:nth-child(3) { color: var(--nav-c3); }
-.site-nav-links a:nth-child(4) { color: var(--nav-c4); }
-.site-nav-links a:nth-child(5) { color: var(--nav-c5); }
-.site-nav-links a:nth-child(6) { color: var(--nav-c6); }
-.site-nav-links a:nth-child(7) { color: var(--nav-c7); }
-.site-nav-links a:nth-child(8) { color: var(--nav-c8); }
-
-@media (max-width: 600px) {
-  .site-nav-links {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Image styles */
