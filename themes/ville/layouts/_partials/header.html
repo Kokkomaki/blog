@@ -3,15 +3,15 @@
   (dict "word" "ai" "url" "/ai/" "color" "var(--nav-c8)")
   (dict "word" "analytics" "url" "/analytics/" "color" "var(--nav-c7)")
   (dict "word" "guestbook" "url" "/guestbook/" "color" "var(--nav-c3)")
+  (dict "word" "newsletter" "url" "https://subscribe.kokkomaki.com/subscription/form" "color" "var(--nav-c2)")
   (dict "word" "now" "url" "/now/" "color" "var(--nav-c5)")
-  (dict "word" "onlyfans" "url" "/onlyfans/" "color" "var(--nav-c9)")
+  (dict "word" "onlyfans" "url" "" "color" "var(--nav-c9)" "morph" true)
   (dict "word" "posts" "url" "/posts/" "color" "var(--nav-c1)")
   (dict "word" "resume" "url" "/resume/" "color" "var(--nav-c6)")
-  (dict "word" "work" "url" "/work/" "color" "var(--nav-c2)")
 }}
 {{ $currentWord := "" }}
 {{ range $destinations }}
-  {{ if hasPrefix $.RelPermalink .url }}
+  {{ if and (not .morph) (hasPrefix $.RelPermalink .url) }}
     {{ $currentWord = .word }}
   {{ end }}
 {{ end }}
@@ -27,7 +27,11 @@
 <div class="site-nav-panel" id="nav-panel"><div class="site-nav-panel-inner">
   <div class="site-nav-links">
     {{ range $destinations }}
-    <a href="{{ .url }}" data-word="{{ .word }}" style="color: {{ .color | safeCSS }}">{{ .word }}</a>
+    {{ if .morph }}
+    <a href="#" class="nav-morph" data-word="{{ .word }}" style="color: {{ .color | safeCSS }}">{{ .word }}</a>
+    {{ else }}
+    <a href="{{ .url }}" data-word="{{ .word }}" style="color: {{ .color | safeCSS }}"{{ if hasPrefix .url "http" }} target="_blank" rel="noopener"{{ end }}>{{ .word }}</a>
+    {{ end }}
     {{ end }}
   </div>
 </div></div>
@@ -109,6 +113,22 @@
   if (!wordEl || !trigger || !panel) { return; }
 
   var links = document.querySelector(".site-nav-links");
+
+  /* onlyfans never navigates -- clicking it cycles its own displayed text
+     through a short bit in place (same Scramble effect the trigger word
+     uses), looping back to "onlyfans" at the end, so the joke replays on
+     every visit instead of only working once. */
+  var MORPH_WORDS = ["onlyfans", "nice try", "stop it", "i mean it", "ok you're persistent", "fine, it's just me", "hi mom", "there's no content", "i have a wife", "go outside"];
+  document.querySelectorAll(".nav-morph").forEach(function (el) {
+    var morphFx = new Scramble(el);
+    var idx = 0;
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      idx = (idx + 1) % MORPH_WORDS.length;
+      el.style.color = "var(--nav-c" + (idx % 9 + 1) + ")";
+      morphFx.setText(MORPH_WORDS[idx]);
+    });
+  });
 
   /* Dissolves the real page text in place -- character by character,
      with an increasing share of each string vanishing or becoming a
