@@ -85,11 +85,26 @@
   var nav = document.querySelector(".site-nav");
   if (!wordEl || !trigger || !panel) { return; }
 
+  var links = document.querySelector(".site-nav-links");
+
   /* Line the panel's left edge up with the word's left edge -- "Ville
      Kokkomaki /" has no fixed width, so this has to be measured rather
-     than assumed. */
+     than assumed. Also force the gap above the first link to match the
+     gap between links exactly: .site-nav mixes a bold link, a plain
+     button and a scrambling word on one baseline-aligned row, and their
+     differing box metrics make the row's natural bottom edge land in a
+     different place than plain CSS spacing would predict -- so measure
+     the actual gap and correct it directly instead of reasoning about
+     which box is taller. */
   function alignPanel() {
-    panel.style.marginLeft = (trigger.getBoundingClientRect().left - nav.getBoundingClientRect().left) + "px";
+    panel.style.marginTop = "0px";
+    var triggerRect = trigger.getBoundingClientRect();
+    panel.style.marginLeft = (triggerRect.left - nav.getBoundingClientRect().left) + "px";
+    if (links) {
+      var gapPx = parseFloat(getComputedStyle(links).rowGap) || 0;
+      var naturalGap = panel.getBoundingClientRect().top - triggerRect.bottom;
+      panel.style.marginTop = (gapPx - naturalGap) + "px";
+    }
   }
   alignPanel();
   window.addEventListener("resize", alignPanel);
