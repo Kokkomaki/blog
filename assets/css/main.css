@@ -77,18 +77,18 @@
     var(--bg-h) var(--bg-s) clamp(20%, calc(92% - var(--bg-l)), 83%)
   );
 
-  /* Nav reveal-panel rainbow -- one hue per destination. Dark/saturated
-     stops for light mode, light/saturated stops for dark mode, each
-     independently checked at >=4.5:1 against the page background
-     (see the theme overrides below). */
-  --nav-c1: #590C0C;
-  --nav-c2: #59330C;
-  --nav-c3: #59520C;
-  --nav-c4: #0C5919;
-  --nav-c5: #0C5946;
-  --nav-c6: #0C3259;
-  --nav-c7: #2C0C59;
-  --nav-c8: #590C33;
+  /* Nav reveal-panel rainbow -- one hue per destination, full saturation
+     for visible "pop." Dark stops for light mode, light stops for dark
+     mode, each independently checked at >=4.5:1 against the page
+     background (see the theme overrides below). */
+  --nav-c1: #4C0000;
+  --nav-c2: #4C2600;
+  --nav-c3: #4C4600;
+  --nav-c4: #004C0D;
+  --nav-c5: #004C39;
+  --nav-c6: #00264C;
+  --nav-c7: #20004C;
+  --nav-c8: #4C0026;
 
   /* Layout */
   --container-width: 72ch;
@@ -105,14 +105,14 @@
   --bg-l: 8%;
   --bg-s: 0%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
-  --nav-c1: #F5BCBC;
-  --nav-c2: #F5D8BC;
-  --nav-c3: #F5F0BC;
-  --nav-c4: #BCF5C5;
-  --nav-c5: #BCF5E7;
-  --nav-c6: #BCD8F5;
-  --nav-c7: #D3BCF5;
-  --nav-c8: #F5BCD8;
+  --nav-c1: #FFCCCC;
+  --nav-c2: #FFE6CC;
+  --nav-c3: #FFFBCC;
+  --nav-c4: #CCFFD5;
+  --nav-c5: #CCFFF2;
+  --nav-c6: #CCE5FF;
+  --nav-c7: #E1CCFF;
+  --nav-c8: #FFCCE6;
 }
 
 [data-theme="light"] {
@@ -120,14 +120,14 @@
   --bg-s: 50%;
   --bg-l: 95%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 0% / 7%);
-  --nav-c1: #590C0C;
-  --nav-c2: #59330C;
-  --nav-c3: #59520C;
-  --nav-c4: #0C5919;
-  --nav-c5: #0C5946;
-  --nav-c6: #0C3259;
-  --nav-c7: #2C0C59;
-  --nav-c8: #590C33;
+  --nav-c1: #4C0000;
+  --nav-c2: #4C2600;
+  --nav-c3: #4C4600;
+  --nav-c4: #004C0D;
+  --nav-c5: #004C39;
+  --nav-c6: #00264C;
+  --nav-c7: #20004C;
+  --nav-c8: #4C0026;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -135,14 +135,14 @@
     --bg-l: 8%;
     --bg-s: 0%;
     --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
-    --nav-c1: #F5BCBC;
-    --nav-c2: #F5D8BC;
-    --nav-c3: #F5F0BC;
-    --nav-c4: #BCF5C5;
-    --nav-c5: #BCF5E7;
-    --nav-c6: #BCD8F5;
-    --nav-c7: #D3BCF5;
-    --nav-c8: #F5BCD8;
+    --nav-c1: #FFCCCC;
+    --nav-c2: #FFE6CC;
+    --nav-c3: #FFFBCC;
+    --nav-c4: #CCFFD5;
+    --nav-c5: #CCFFF2;
+    --nav-c6: #CCE5FF;
+    --nav-c7: #E1CCFF;
+    --nav-c8: #FFCCE6;
   }
 }
 
@@ -347,61 +347,6 @@ h5 > code {
   font-size: var(--font-size-small);
   color: var(--color-text-muted);
   padding: 0 3px;
-}
-
-/* Path navigation styles */
-.path-nav {
-  font-family: var(--font-family-mono);
-  padding: var(--spacing-base) 0;
-  white-space: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  width: 100%;
-}
-
-.path-nav::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-.path-nav ol {
-  display: flex;
-  flex-wrap: nowrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.path-nav li {
-  display: flex;
-  align-items: center;
-  color: var(--color-text-muted);
-  flex-shrink: 0;
-  max-width: 200px; /* Limit maximum width on small screens */
-}
-
-.path-nav li.current {
-  max-width: none; /* Allow full width for current page */
-}
-
-.path-nav li a {
-  text-decoration: none;
-  border-bottom: none;
-  padding: 0 0.25em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--color-text-muted);
-}
-
-.path-nav li.current a {
-  color: var(--color-text-primary);
-  font-weight: bold;
-}
-
-.path-nav a:hover {
-  text-decoration: underline;
 }
 
 .back-nav {
@@ -621,20 +566,6 @@ blockquote > :last-child {
 
 .toc .toc-content ol li {
   list-style-type: disc !important;
-}
-
-@media (max-width: 600px) {
-  .path-nav li {
-    max-width: 100px; /* More aggressive truncation on mobile */
-  }
-
-  .path-nav li:first-child {
-    max-width: none; /* Don't truncate site title */
-  }
-
-  .path-nav li.current {
-    max-width: 150px; /* Allow slightly more width for current page on mobile */
-  }
 }
 
 @media (max-device-width: 600px) {

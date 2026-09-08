@@ -1,3 +1,20 @@
+{{ $destinations := slice
+  (dict "word" "posts" "label" "Posts" "url" "/posts/")
+  (dict "word" "work" "label" "Work" "url" "/work/")
+  (dict "word" "guestbook" "label" "Guestbook" "url" "/guestbook/")
+  (dict "word" "about" "label" "About" "url" "/about/")
+  (dict "word" "now" "label" "Now" "url" "/now/")
+  (dict "word" "resume" "label" "Resume" "url" "/resume/")
+  (dict "word" "analytics" "label" "Analytics" "url" "/analytics/")
+  (dict "word" "ai declaration" "label" "AI declaration" "url" "/ai/")
+}}
+{{ $currentWord := "" }}
+{{ range $destinations }}
+  {{ if hasPrefix $.RelPermalink .url }}
+    {{ $currentWord = .word }}
+  {{ end }}
+{{ end }}
+
 <nav class="site-nav" aria-label="Main navigation">
   <button class="site-nav-trigger" id="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-panel">
     <span class="site-nav-name">Ville Kokkomäki</span><span class="site-nav-slash">/</span><span class="site-nav-word" id="nav-word"></span>
@@ -7,20 +24,16 @@
 
 <div class="site-nav-panel" id="nav-panel"><div>
   <div class="site-nav-links">
-    <a href="/posts/">Posts</a>
-    <a href="/work/">Work</a>
-    <a href="/guestbook/">Guestbook</a>
-    <a href="/about/">About</a>
-    <a href="/now/">Now</a>
-    <a href="/resume/">Resume</a>
-    <a href="/analytics/">Analytics</a>
-    <a href="/ai/">AI declaration</a>
+    {{ range $destinations }}
+    <a href="{{ .url }}">{{ .label }}</a>
+    {{ end }}
   </div>
 </div></div>
 
 <script>
 (function () {
-  var WORDS = ["posts", "work", "guestbook", "about", "now", "resume", "analytics", "ai declaration"];
+  var WORDS = [{{ range $destinations }}{{ .word | jsonify | safeJS }}, {{ end }}];
+  var CURRENT = {{ $currentWord | jsonify | safeJS }};
   var CHARS = "!<>-_\\/[]{}=+*^?#";
 
   function Scramble(el) {
@@ -69,14 +82,23 @@
   if (!wordEl || !trigger || !panel) { return; }
 
   var fx = new Scramble(wordEl);
-  var i = 0;
   var open = false;
 
-  (function next() {
-    if (open) { setTimeout(next, 300); return; }
-    fx.setText(WORDS[i % WORDS.length]).then(function () { setTimeout(next, 1600); });
-    i++;
-  })();
+  if (CURRENT) {
+    /* On a page that belongs to one of the destinations, show that
+       destination -- the word is settled, not endlessly cycling away
+       from where you actually are. */
+    fx.setText(CURRENT);
+  } else {
+    /* Homepage (and any unmatched page) has no fixed "current section",
+       so the word keeps cycling through every destination. */
+    var i = 0;
+    (function next() {
+      if (open) { setTimeout(next, 300); return; }
+      fx.setText(WORDS[i % WORDS.length]).then(function () { setTimeout(next, 1600); });
+      i++;
+    })();
+  }
 
   function setOpen(next) {
     open = next;
@@ -103,28 +125,3 @@
   });
 })();
 </script>
-
-<nav class="path-nav">
-  <ol>
-    {{ template "breadcrumbnav" (dict "p1" . "p2" .) }}
-  </ol>
-</nav>
-
-{{ define "breadcrumbnav" }}
-  {{ if .p1.Parent }}
-    {{ template "breadcrumbnav" (dict "p1" .p1.Parent "p2" .p2 ) }}
-  {{ else if not .p1.IsHome }}
-    {{ template "breadcrumbnav" (dict "p1" .p1.Site.Home "p2" .p2 ) }}
-  {{ end }}
-
-  <li{{ if eq .p1 .p2 }} class="current"{{ end }}>
-    <a href="{{ .p1.RelPermalink }}">
-      {{ if .p1.IsHome }}
-        {{ .p1.Site.Title }}
-      {{ else }}
-        {{ .p1.Title }}
-      {{ end }}
-    </a>
-    {{ if ne .p1 .p2 }}/{{ end }}
-  </li>
-{{ end }}
