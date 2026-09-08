@@ -195,20 +195,15 @@ img {
 main {
   width: 100%;
   /* overflow-x: hidden removed — it was clipping box-shadows on shortcode components */
-  transition: opacity 0.9s ease, visibility 0.9s ease;
 }
 
-/* Experiment: hide the rest of the page while the nav panel is open,
-   so opening it is the only thing on screen instead of competing with
-   whatever's underneath. */
+/* Hide the rest of the page while the nav panel is open, so opening it
+   is the only thing on screen. Deliberately no transition here -- this
+   snaps instantly, timed to land under the glitch burst's first frame,
+   rather than easing on its own alongside it. */
 body.nav-hide-content main {
   opacity: 0;
   visibility: hidden;
-}
-
-.site-nav .search-toggle,
-.site-nav .theme-toggle {
-  transition: opacity 0.9s ease, visibility 0.9s ease;
 }
 
 body.nav-hide-content .site-nav .search-toggle,

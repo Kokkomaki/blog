@@ -444,7 +444,8 @@ h5 > code {
 .site-nav-panel {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s ease;
+  /* No transition -- opens instantly, timed to land under the glitch
+     burst's first frame rather than easing open on its own. */
 }
 
 .site-nav-panel.open {

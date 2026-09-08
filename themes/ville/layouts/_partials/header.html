@@ -114,26 +114,42 @@
      100ms, too fast to read as distinct frames at all. setTimeout with
      an explicit step gives each frame real, visible screen time. */
   var GLITCH_CHARS = "░▒▓█⣀⣄⣤⣦⣶⣷⣿";
-  function glitchBurst() {
+  /* Density per frame, heaviest first -- the glitch is meant to obscure
+     the old view hardest right as the state actually flips underneath
+     it, then taper off and reveal the new view as it clears. */
+  var GLITCH_DENSITY = [0.35, 0.20, 0.10, 0.04];
+  function glitchBurst(onStateChange) {
     /* Queried at call time, not script-load time -- #nav-glitch lives
        after </footer> in the document, but this script runs the moment
        the browser reaches <header>, long before that element has been
        parsed yet. */
     var glitchEl = document.getElementById("nav-glitch");
-    if (!glitchEl) return;
-    var cols = Math.ceil(window.innerWidth / 9);
-    var rows = Math.ceil(window.innerHeight / 12);
+    if (!glitchEl) { if (onStateChange) onStateChange(); return; }
+    /* Deliberately over-provisioned (width / 5px is narrower than any
+       real character in this font at this size) rather than measured
+       exactly -- overflow:hidden clips the harmless excess, whereas
+       under-provisioning (the previous width/9 guess) left a visible
+       uncovered gap down the right side, past wherever the guess ran
+       out of columns. */
+    var cols = Math.ceil(window.innerWidth / 5);
+    var rows = Math.ceil(window.innerHeight / 10);
     glitchEl.classList.add("active");
-    var frame = 0, totalFrames = 4, stepMs = 250; /* 4 frames * 250ms = 1s total */
+    var frame = 0, totalFrames = GLITCH_DENSITY.length, stepMs = 150; /* 4 * 150ms = 0.6s total */
     (function tick() {
+      var density = GLITCH_DENSITY[frame];
       var out = "";
       for (var r = 0; r < rows; r++) {
         for (var c = 0; c < cols; c++) {
-          out += Math.random() < 0.22 ? GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)] : " ";
+          out += Math.random() < density ? GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)] : " ";
         }
         out += "\n";
       }
       glitchEl.textContent = out;
+      /* The actual show/hide state change happens right as the heaviest
+         (first) frame lands, snapped instantly underneath the glitch --
+         not eased in afterwards, so nothing "fades" on its own alongside
+         the glitch texture. */
+      if (frame === 0 && onStateChange) { onStateChange(); }
       frame++;
       if (frame < totalFrames) { setTimeout(tick, stepMs); }
       else { glitchEl.classList.remove("active"); glitchEl.textContent = ""; }
@@ -209,39 +225,39 @@
   function setOpen(next) {
     open = next;
     trigger.setAttribute("aria-expanded", String(open));
-    panel.classList.toggle("open", open);
-    document.body.classList.toggle("nav-hide-content", open);
-    glitchBurst();
-    if (open) {
-      /* The word you clicked becomes the exit control (scrambled into
-         "exit", color reset to plain/neutral) instead of just re-opening
-         -- and rather than disappearing, it moves to the front of the
-         list, so it's still exactly one click away instead of vanishing
-         the way the excluded-current-word approach used to make it. */
-      var currentText = wordEl.textContent;
-      setWord("exit");
-      var currentLink = null;
-      panel.querySelectorAll(".site-nav-links a").forEach(function (a) {
-        if (a.dataset.word === currentText) { currentLink = a; }
-      });
-      if (currentLink && currentLink.parentElement) {
-        currentLink.parentElement.insertBefore(currentLink, currentLink.parentElement.firstChild);
+    /* Everything visible -- panel open/closed, main content shown/
+       hidden, the word becoming "exit" -- snaps instantly, timed to
+       land under the glitch's heaviest (first) frame, rather than
+       easing in on its own. Two animations racing each other (a smooth
+       fade/expand alongside the glitch) is exactly what didn't work
+       last time. */
+    glitchBurst(function () {
+      panel.classList.toggle("open", open);
+      document.body.classList.toggle("nav-hide-content", open);
+      if (open) {
+        /* The word you clicked becomes the exit control (scrambled into
+           "exit", color reset to plain/neutral) instead of just
+           re-opening -- and rather than disappearing, it moves to the
+           front of the list, so it's still exactly one click away
+           instead of vanishing the way the excluded-current-word
+           approach used to make it. */
+        var currentText = wordEl.textContent;
+        setWord("exit");
+        var currentLink = null;
+        panel.querySelectorAll(".site-nav-links a").forEach(function (a) {
+          if (a.dataset.word === currentText) { currentLink = a; }
+        });
+        if (currentLink && currentLink.parentElement) {
+          currentLink.parentElement.insertBefore(currentLink, currentLink.parentElement.firstChild);
+        }
+      } else if (CURRENT) {
+        /* Matched pages have no idle cycle to fall back on -- put the
+           real destination back immediately instead of leaving "exit"
+           up there. The homepage's idle loop already re-checks every
+           300ms while paused, so it recovers on its own. */
+        setWord(CURRENT);
       }
-      /* Every visible link scrambles in place -- same text before and
-         after, never emptied. Wiping a link's text (the old approach)
-         shrinks its clickable area to ~0 width for a moment, which is
-         what actually broke clicking through to a destination; a
-         same-to-same scramble never collapses the hitbox. */
-      panel.querySelectorAll(".site-nav-links a").forEach(function (a, idx) {
-        setTimeout(function () { new Scramble(a).setText(a.textContent); }, idx * 45);
-      });
-    } else if (CURRENT) {
-      /* Matched pages have no idle cycle to fall back on -- put the
-         real destination back immediately instead of leaving "exit" up
-         there. The homepage's idle loop already re-checks every 300ms
-         while paused, so it recovers on its own. */
-      setWord(CURRENT);
-    }
+    });
   }
 
   trigger.addEventListener("click", function () { setOpen(!open); });
