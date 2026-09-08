@@ -90,6 +90,7 @@
   --nav-c6: #004C99;
   --nav-c7: #400099;
   --nav-c8: #99004D;
+  --nav-c9: #997300;
 
   /* Layout */
   --container-width: 72ch;
@@ -114,6 +115,7 @@
   --nav-c6: #CCE5FF;
   --nav-c7: #E1CCFF;
   --nav-c8: #FFCCE6;
+  --nav-c9: #FFF2CC;
 }
 
 [data-theme="light"] {
@@ -129,6 +131,7 @@
   --nav-c6: #004C99;
   --nav-c7: #400099;
   --nav-c8: #99004D;
+  --nav-c9: #997300;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -144,6 +147,7 @@
     --nav-c6: #CCE5FF;
     --nav-c7: #E1CCFF;
     --nav-c8: #FFCCE6;
+    --nav-c9: #FFF2CC;
   }
 }
 
@@ -389,7 +393,7 @@ h5 > code {
   flex-wrap: wrap;
   align-items: baseline;
   gap: 1.5em;
-  padding-bottom: var(--spacing-sm);
+  padding-bottom: 0.5em;
 }
 
 .site-nav-trigger {

@@ -17,7 +17,7 @@
   <header>
     {{ partial "header.html" . }}
   </header>
-  <main data-pagefind-body>
+  <main{{ if not .Params.hidden }} data-pagefind-body{{ end }}>
     {{ block "main" . }}{{ end }}
   </main>
   <footer>

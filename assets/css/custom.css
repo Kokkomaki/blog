@@ -195,6 +195,15 @@ img {
 main {
   width: 100%;
   /* overflow-x: hidden removed — it was clipping box-shadows on shortcode components */
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Experiment: hide the rest of the page while the nav panel is open,
+   so opening it is the only thing on screen instead of competing with
+   whatever's underneath. */
+body.nav-hide-content main {
+  opacity: 0;
+  visibility: hidden;
 }
 
 @media (max-width: 600px) {

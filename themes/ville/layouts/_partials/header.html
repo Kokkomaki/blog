@@ -27,7 +27,7 @@
   <div class="site-nav-links">
     {{ range $destinations }}
     {{ if ne .word $currentWord }}
-    <a href="{{ .url }}" style="color: {{ .color | safeCSS }}">{{ .word }}</a>
+    <a href="{{ .url }}" data-word="{{ .word }}" style="color: {{ .color | safeCSS }}">{{ .word }}</a>
     {{ end }}
     {{ end }}
   </div>
@@ -37,7 +37,29 @@
 (function () {
   var WORDS = [{{ range $destinations }}{{ .word | jsonify | safeJS }}, {{ end }}];
   var CURRENT = {{ $currentWord | jsonify | safeJS }};
+  var WORD_COLORS = { {{ range $destinations }}{{ .word | jsonify | safeJS }}: {{ .color | jsonify | safeJS }}, {{ end }} };
   var CHARS = "!<>-_\\/[]{}=+*^?#";
+
+  /* Easter egg: a 9th destination that only exists ~10% of the time.
+     Has to be a client-side roll, not server-side -- this page is built
+     once and served identically to everyone, so "sometimes" only means
+     anything if each visitor's own browser decides. When it hits, it
+     joins the idle cycle (so the word itself says "easter egg" at some
+     point) and gets added to the reveal panel, same as any other
+     destination -- nothing else about it is special-cased. */
+  if (Math.random() < 0.1) {
+    WORDS.push("easter egg");
+    WORD_COLORS["easter egg"] = "var(--nav-c9)";
+    var linksEl = document.querySelector(".site-nav-links");
+    if (linksEl) {
+      var egg = document.createElement("a");
+      egg.href = "/secret/";
+      egg.textContent = "easter egg";
+      egg.dataset.word = "easter egg";
+      egg.style.color = "var(--nav-c9)";
+      linksEl.appendChild(egg);
+    }
+  }
 
   function Scramble(el) {
     this.el = el;
@@ -117,14 +139,22 @@
   var open = false;
   var frozen = false;
 
+  /* Sets the trigger word's text AND colors it to match that
+     destination's panel entry -- once it's settled on a real
+     destination, it should read as clickable, not as plain text. */
+  function setWord(text) {
+    wordEl.style.color = WORD_COLORS[text] || "";
+    return fx.setText(text);
+  }
+
   if (CURRENT) {
     /* On a page that belongs to one of the destinations, show that
        destination -- the word is settled, not endlessly cycling away
        from where you actually are. It still re-scrambles in place every
        few seconds, purely so the control keeps reading as clickable
        rather than looking like static text. */
-    fx.setText(CURRENT);
-    setInterval(function () { fx.setText(CURRENT); }, 3000);
+    setWord(CURRENT);
+    setInterval(function () { setWord(CURRENT); }, 3000);
   } else {
     /* Homepage (and any unmatched page) has no fixed "current section",
        so the word keeps cycling through every destination -- unless
@@ -132,7 +162,7 @@
     var i = 0;
     (function next() {
       if (open || frozen) { setTimeout(next, 300); return; }
-      fx.setText(WORDS[i % WORDS.length]).then(function () { setTimeout(next, 1600); });
+      setWord(WORDS[i % WORDS.length]).then(function () { setTimeout(next, 1600); });
       i++;
     })();
   }
@@ -141,7 +171,7 @@
      post-list expander) can pin the word to a specific destination
      without fighting the idle cycle, then hand control back. */
   window.siteNav = {
-    freeze: function (word) { frozen = true; fx.setText(word); },
+    freeze: function (word) { frozen = true; setWord(word); },
     resume: function () { frozen = false; }
   };
 
@@ -149,8 +179,20 @@
     open = next;
     trigger.setAttribute("aria-expanded", String(open));
     panel.classList.toggle("open", open);
+    document.body.classList.toggle("nav-hide-content", open);
     if (open) {
+      /* Matched pages (e.g. /resume/) already omit their own destination
+         server-side. On the homepage the word can settle on any of them,
+         so whichever one it's currently showing needs to be hidden here
+         instead -- otherwise it'd appear both as the trigger word and as
+         a panel entry a moment later. */
+      var currentText = wordEl.textContent;
       panel.querySelectorAll(".site-nav-links a").forEach(function (a, idx) {
+        if (a.dataset.word === currentText) {
+          a.style.display = "none";
+          return;
+        }
+        a.style.display = "";
         var linkFx = new Scramble(a);
         var target = a.textContent;
         a.textContent = "";
