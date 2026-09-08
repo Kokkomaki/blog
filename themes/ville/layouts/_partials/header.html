@@ -1,12 +1,12 @@
 {{ $destinations := slice
-  (dict "word" "posts" "url" "/posts/" "color" "var(--nav-c1)")
-  (dict "word" "work" "url" "/work/" "color" "var(--nav-c2)")
-  (dict "word" "guestbook" "url" "/guestbook/" "color" "var(--nav-c3)")
   (dict "word" "about" "url" "/about/" "color" "var(--nav-c4)")
-  (dict "word" "now" "url" "/now/" "color" "var(--nav-c5)")
-  (dict "word" "resume" "url" "/resume/" "color" "var(--nav-c6)")
+  (dict "word" "ai" "url" "/ai/" "color" "var(--nav-c8)")
   (dict "word" "analytics" "url" "/analytics/" "color" "var(--nav-c7)")
-  (dict "word" "ai declaration" "url" "/ai/" "color" "var(--nav-c8)")
+  (dict "word" "guestbook" "url" "/guestbook/" "color" "var(--nav-c3)")
+  (dict "word" "now" "url" "/now/" "color" "var(--nav-c5)")
+  (dict "word" "posts" "url" "/posts/" "color" "var(--nav-c1)")
+  (dict "word" "resume" "url" "/resume/" "color" "var(--nav-c6)")
+  (dict "word" "work" "url" "/work/" "color" "var(--nav-c2)")
 }}
 {{ $currentWord := "" }}
 {{ range $destinations }}
@@ -19,6 +19,7 @@
   <a href="/" class="site-nav-name">Ville Kokkomäki</a><span class="site-nav-slash">/</span>
   <button class="site-nav-trigger" id="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-panel">
     <span class="site-nav-word" id="nav-word"></span>
+    <span class="site-nav-caret" id="nav-caret" aria-hidden="true">v</span>
   </button>
   {{ partial "bottom-actions.html" . }}
 </nav>
@@ -104,6 +105,7 @@
   var wordEl = document.getElementById("nav-word");
   var trigger = document.getElementById("nav-trigger");
   var panel = document.getElementById("nav-panel");
+  var caret = document.getElementById("nav-caret");
   var nav = document.querySelector(".site-nav");
   if (!wordEl || !trigger || !panel) { return; }
 
@@ -180,6 +182,7 @@
     trigger.setAttribute("aria-expanded", String(open));
     panel.classList.toggle("open", open);
     document.body.classList.toggle("nav-hide-content", open);
+    if (caret) { caret.textContent = open ? "^" : "v"; }
     if (open) {
       /* Matched pages (e.g. /resume/) already omit their own destination
          server-side. On the homepage the word can settle on any of them,
