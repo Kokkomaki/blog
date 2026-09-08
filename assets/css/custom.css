@@ -799,6 +799,16 @@ body.work-page {
   margin: 0 0 var(--spacing-sm);
 }
 
+.hero-tagline-break {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .hero-tagline-break {
+    display: inline;
+  }
+}
+
 .hero .social-links {
   margin-top: var(--spacing-sm);
 }
