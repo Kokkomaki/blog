@@ -783,13 +783,32 @@ body.work-page {
   margin-top: var(--spacing-sm);
 }
 
-.view-all-link {
-  display: inline-block;
-  margin-top: var(--spacing-sm);
-  color: var(--color-text-muted);
-  border-bottom: none;
+/* Expand animation for homepage post list */
+.posts-extra {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
 }
 
-.view-all-link:hover {
+.posts-extra.open {
+  grid-template-rows: 1fr;
+}
+
+.posts-extra > div {
+  overflow: hidden;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-lg);
+  display: inline-block;
+}
+
+.expand-btn:hover {
   color: var(--color-text-primary);
 }

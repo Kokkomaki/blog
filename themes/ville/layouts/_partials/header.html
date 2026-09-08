@@ -1,12 +1,12 @@
 {{ $destinations := slice
-  (dict "word" "posts" "label" "Posts" "url" "/posts/")
-  (dict "word" "work" "label" "Work" "url" "/work/")
-  (dict "word" "guestbook" "label" "Guestbook" "url" "/guestbook/")
-  (dict "word" "about" "label" "About" "url" "/about/")
-  (dict "word" "now" "label" "Now" "url" "/now/")
-  (dict "word" "resume" "label" "Resume" "url" "/resume/")
-  (dict "word" "analytics" "label" "Analytics" "url" "/analytics/")
-  (dict "word" "ai declaration" "label" "AI declaration" "url" "/ai/")
+  (dict "word" "posts" "url" "/posts/")
+  (dict "word" "work" "url" "/work/")
+  (dict "word" "guestbook" "url" "/guestbook/")
+  (dict "word" "about" "url" "/about/")
+  (dict "word" "now" "url" "/now/")
+  (dict "word" "resume" "url" "/resume/")
+  (dict "word" "analytics" "url" "/analytics/")
+  (dict "word" "ai declaration" "url" "/ai/")
 }}
 {{ $currentWord := "" }}
 {{ range $destinations }}
@@ -26,7 +26,7 @@
 <div class="site-nav-panel" id="nav-panel"><div>
   <div class="site-nav-links">
     {{ range $destinations }}
-    <a href="{{ .url }}">{{ .label }}</a>
+    <a href="{{ .url }}">{{ .word }}</a>
     {{ end }}
   </div>
 </div></div>
@@ -84,6 +84,7 @@
 
   var fx = new Scramble(wordEl);
   var open = false;
+  var frozen = false;
 
   if (CURRENT) {
     /* On a page that belongs to one of the destinations, show that
@@ -92,14 +93,23 @@
     fx.setText(CURRENT);
   } else {
     /* Homepage (and any unmatched page) has no fixed "current section",
-       so the word keeps cycling through every destination. */
+       so the word keeps cycling through every destination -- unless
+       something on the page (e.g. the post-list expander) freezes it. */
     var i = 0;
     (function next() {
-      if (open) { setTimeout(next, 300); return; }
+      if (open || frozen) { setTimeout(next, 300); return; }
       fx.setText(WORDS[i % WORDS.length]).then(function () { setTimeout(next, 1600); });
       i++;
     })();
   }
+
+  /* Public hook so other components on the page (e.g. the homepage's
+     post-list expander) can pin the word to a specific destination
+     without fighting the idle cycle, then hand control back. */
+  window.siteNav = {
+    freeze: function (word) { frozen = true; fx.setText(word); },
+    resume: function () { frozen = false; }
+  };
 
   function setOpen(next) {
     open = next;
