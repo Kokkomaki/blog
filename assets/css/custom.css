@@ -776,11 +776,18 @@ body.work-page {
 
 .hero-face {
   width: 120px;
-  max-width: 120px;
   height: 120px;
-  border-radius: 50% !important;
   display: block;
   margin: 0 0 var(--spacing-sm);
+  background-color: currentColor;
+  -webkit-mask-image: url(/images/face-outline.png);
+  mask-image: url(/images/face-outline.png);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
 .hero-name {
@@ -793,11 +800,6 @@ body.work-page {
 
 .hero-tagline {
   color: var(--color-text-muted);
-  margin: 0 0 var(--spacing-sm);
-}
-
-.hero-bio {
-  max-width: 60ch;
   margin: 0 0 var(--spacing-sm);
 }
 

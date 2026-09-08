@@ -1,9 +1,8 @@
 {{ define "main" }}
   <section class="hero">
-    <img class="hero-face" src="/images/face.png" alt="Hand-drawn self-portrait" width="120" height="120">
+    <div class="hero-face" role="img" aria-label="Hand-drawn self-portrait"></div>
     <h1 class="hero-name">Ville Kokkomäki</h1>
     <p class="hero-tagline">Writer, vibecoder &amp; vipassana-meditator</p>
-    <p class="hero-bio">Some days I'm writing about Bitcoin, some days I'm sitting in silence for an hour, and some days I'm vibecoding something nobody asked for — it's less a career than a set of habits I can't seem to quit.</p>
     <nav class="social-links" aria-label="Social links">
       <a href="https://snort.social/p/npub10apyf3uh7tw80hm8ycqqz8m55zfmn0tzk9wylvxg9jv2vk73sr0q6mvrxt" target="_blank" rel="noopener" aria-label="Nostr" title="Nostr">
         <span class="social-icon-nostr"></span>
@@ -45,14 +44,45 @@
     </ul>
 
     {{ if gt $total 5 }}
-    <a class="view-all-link" href="/posts/">View all posts →</a>
+    <a class="view-all-link" href="/posts/">&gt;</a>
     {{ end }}
   </section>
 
   <section class="home-guestbook">
     <h2>Guestbook</h2>
-    <p>Sign it — it's interactive, not just another page.</p>
-    <a class="view-all-link" href="/guestbook/">Open the guestbook →</a>
+
+    {{- with resources.Get "css/guestbook-corkboard.css" }}
+      {{- if hugo.IsDevelopment }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}">
+      {{- else }}
+        {{- with . | minify | fingerprint }}
+          <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{ $gbPage := site.GetPage "/guestbook/" }}
+    <div class="gb-board">
+      <div id="guestbook-board" data-url="{{ $gbPage.Permalink }}" data-dev="{{ hugo.IsDevelopment }}"></div>
+    </div>
+
+    {{- with resources.Get "js/guestbook.jsx" }}
+      {{- $opts := dict
+        "minify" (not hugo.IsDevelopment)
+        "jsx" "automatic"
+        "jsxImportSource" "react"
+        "targetPath" "js/guestbook.js"
+      }}
+      {{- with . | js.Build $opts }}
+        {{- if hugo.IsDevelopment }}
+          <script src="{{ .RelPermalink }}" defer></script>
+        {{- else }}
+          {{- with . | fingerprint }}
+            <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
   </section>
 
 {{ end }}
