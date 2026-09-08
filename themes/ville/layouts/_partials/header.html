@@ -17,22 +17,21 @@
 
 <nav class="site-nav" aria-label="Main navigation">
   <a href="/" class="site-nav-name">Ville Kokkomäki</a><span class="site-nav-slash">/</span>
-  <span class="site-nav-trigger-wrap">
-    <button class="site-nav-trigger" id="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-panel">
-      <span class="site-nav-word" id="nav-word"></span>
-    </button>
-    <div class="site-nav-panel" id="nav-panel"><div class="site-nav-panel-inner">
-      <div class="site-nav-links">
-        {{ range $destinations }}
-        {{ if ne .word $currentWord }}
-        <a href="{{ .url }}" style="color: {{ .color | safeCSS }}">{{ .word }}</a>
-        {{ end }}
-        {{ end }}
-      </div>
-    </div></div>
-  </span>
+  <button class="site-nav-trigger" id="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-panel">
+    <span class="site-nav-word" id="nav-word"></span>
+  </button>
   {{ partial "bottom-actions.html" . }}
 </nav>
+
+<div class="site-nav-panel" id="nav-panel"><div class="site-nav-panel-inner">
+  <div class="site-nav-links">
+    {{ range $destinations }}
+    {{ if ne .word $currentWord }}
+    <a href="{{ .url }}" style="color: {{ .color | safeCSS }}">{{ .word }}</a>
+    {{ end }}
+    {{ end }}
+  </div>
+</div></div>
 
 <script>
 (function () {

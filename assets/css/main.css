@@ -433,23 +433,14 @@ h5 > code {
   margin-left: auto;
 }
 
-/* The panel hangs directly under the word, centered on it -- like the
-   options fan out from that specific point, not from the page. */
-.site-nav-trigger-wrap {
-  position: relative;
-  display: inline-flex;
-}
-
+/* Normal document flow, not a floating overlay -- opening it pushes
+   whatever's below it down the page, same as the rest of the site's
+   expand/collapse patterns (see .posts-extra). The card itself is
+   centered in the content column. */
 .site-nav-panel {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.3s ease;
-  max-width: calc(100vw - 2 * var(--spacing-lg));
 }
 
 .site-nav-panel.open {
@@ -461,7 +452,9 @@ h5 > code {
 }
 
 .site-nav-links {
-  margin-top: var(--spacing-sm);
+  margin: var(--spacing-sm) auto 0;
+  width: fit-content;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
