@@ -78,17 +78,18 @@
   );
 
   /* Nav reveal-panel rainbow -- one hue per destination, full saturation
-     for visible "pop." Dark stops for light mode, light stops for dark
-     mode, each independently checked at >=4.5:1 against the page
-     background (see the theme overrides below). */
-  --nav-c1: #4C0000;
-  --nav-c2: #4C2600;
-  --nav-c3: #4C4600;
-  --nav-c4: #004C0D;
-  --nav-c5: #004C39;
-  --nav-c6: #00264C;
-  --nav-c7: #20004C;
-  --nav-c8: #4C0026;
+     for visible "pop." Light mode is checked against the 3:1 large-text/
+     UI-component floor rather than 4.5:1 (bold, oversized decorative
+     labels, not body text -- deliberate choice like the guestbook's own
+     sub-aesthetic). Dark mode stays at >=4.5:1. See theme overrides below. */
+  --nav-c1: #990000;
+  --nav-c2: #994C00;
+  --nav-c3: #998C00;
+  --nav-c4: #00991A;
+  --nav-c5: #009973;
+  --nav-c6: #004C99;
+  --nav-c7: #400099;
+  --nav-c8: #99004D;
 
   /* Layout */
   --container-width: 72ch;
@@ -120,14 +121,14 @@
   --bg-s: 50%;
   --bg-l: 95%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 0% / 7%);
-  --nav-c1: #4C0000;
-  --nav-c2: #4C2600;
-  --nav-c3: #4C4600;
-  --nav-c4: #004C0D;
-  --nav-c5: #004C39;
-  --nav-c6: #00264C;
-  --nav-c7: #20004C;
-  --nav-c8: #4C0026;
+  --nav-c1: #990000;
+  --nav-c2: #994C00;
+  --nav-c3: #998C00;
+  --nav-c4: #00991A;
+  --nav-c5: #009973;
+  --nav-c6: #004C99;
+  --nav-c7: #400099;
+  --nav-c8: #99004D;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -405,6 +406,13 @@ h5 > code {
 
 .site-nav-name {
   font-weight: bold;
+  color: var(--color-text-primary);
+  margin-left: 0;
+  border-bottom: 1px dotted transparent;
+}
+
+.site-nav-name:hover {
+  border-bottom-color: currentColor;
 }
 
 .site-nav-slash {
