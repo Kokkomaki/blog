@@ -195,7 +195,7 @@ img {
 main {
   width: 100%;
   /* overflow-x: hidden removed — it was clipping box-shadows on shortcode components */
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition: opacity 0.1s linear, visibility 0.1s linear;
 }
 
 /* Experiment: hide the rest of the page while the nav panel is open,
@@ -208,13 +208,35 @@ body.nav-hide-content main {
 
 .site-nav .search-toggle,
 .site-nav .theme-toggle {
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition: opacity 0.1s linear, visibility 0.1s linear;
 }
 
 body.nav-hide-content .site-nav .search-toggle,
 body.nav-hide-content .site-nav .theme-toggle {
   opacity: 0;
   visibility: hidden;
+}
+
+/* Brief glitch-block burst that plays over the page for a handful of
+   frames right as the content fades, instead of a plain smooth fade. */
+.nav-glitch {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: var(--spacing-lg);
+  font-family: var(--font-family-mono);
+  font-size: 10px;
+  line-height: 1.1;
+  white-space: pre;
+  color: var(--color-text-muted);
+}
+
+.nav-glitch.active {
+  opacity: 0.5;
 }
 
 @media (max-width: 600px) {

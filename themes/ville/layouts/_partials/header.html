@@ -26,9 +26,7 @@
 <div class="site-nav-panel" id="nav-panel"><div class="site-nav-panel-inner">
   <div class="site-nav-links">
     {{ range $destinations }}
-    {{ if ne .word $currentWord }}
     <a href="{{ .url }}" data-word="{{ .word }}" style="color: {{ .color | safeCSS }}">{{ .word }}</a>
-    {{ end }}
     {{ end }}
   </div>
 </div></div>
@@ -109,6 +107,37 @@
 
   var links = document.querySelector(".site-nav-links");
 
+  /* Fires a short burst of glitch-block noise over the page instead of
+     letting the content fade in plainly -- runs for a handful of real
+     frames (not a CSS duration), so it stays snappy regardless of
+     refresh rate. */
+  var GLITCH_CHARS = "░▒▓█⣀⣄⣤⣦⣶⣷⣿";
+  function glitchBurst() {
+    /* Queried at call time, not script-load time -- #nav-glitch lives
+       after </footer> in the document, but this script runs the moment
+       the browser reaches <header>, long before that element has been
+       parsed yet. */
+    var glitchEl = document.getElementById("nav-glitch");
+    if (!glitchEl) return;
+    var cols = Math.ceil(window.innerWidth / 9);
+    var rows = Math.ceil(window.innerHeight / 12);
+    glitchEl.classList.add("active");
+    var frame = 0, totalFrames = 6;
+    (function tick() {
+      var out = "";
+      for (var r = 0; r < rows; r++) {
+        for (var c = 0; c < cols; c++) {
+          out += Math.random() < 0.22 ? GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)] : " ";
+        }
+        out += "\n";
+      }
+      glitchEl.textContent = out;
+      frame++;
+      if (frame < totalFrames) { requestAnimationFrame(tick); }
+      else { glitchEl.classList.remove("active"); glitchEl.textContent = ""; }
+    })();
+  }
+
   /* Line the panel's left edge up with the word's left edge -- "Ville
      Kokkomaki /" has no fixed width, so this has to be measured rather
      than assumed. Also force the gap above the first link to match the
@@ -180,20 +209,36 @@
     trigger.setAttribute("aria-expanded", String(open));
     panel.classList.toggle("open", open);
     document.body.classList.toggle("nav-hide-content", open);
+    glitchBurst();
     if (open) {
-      /* Matched pages (e.g. /resume/) already omit their own destination
-         server-side. On the homepage the word can settle on any of them,
-         so whichever one it's currently showing needs to be hidden here
-         instead -- otherwise it'd appear both as the trigger word and as
-         a panel entry a moment later. Links show with their full text
-         immediately -- no reveal animation here, since rewriting a
-         link's content while it's on screen is exactly the kind of thing
-         that can make a click land on a half-rebuilt element instead of
-         registering as a real click. */
+      /* The word you clicked becomes the exit control (scrambled into
+         "exit", color reset to plain/neutral) instead of just re-opening
+         -- and rather than disappearing, it moves to the front of the
+         list, so it's still exactly one click away instead of vanishing
+         the way the excluded-current-word approach used to make it. */
       var currentText = wordEl.textContent;
+      setWord("exit");
+      var currentLink = null;
       panel.querySelectorAll(".site-nav-links a").forEach(function (a) {
-        a.style.display = a.dataset.word === currentText ? "none" : "";
+        if (a.dataset.word === currentText) { currentLink = a; }
       });
+      if (currentLink && currentLink.parentElement) {
+        currentLink.parentElement.insertBefore(currentLink, currentLink.parentElement.firstChild);
+      }
+      /* Every visible link scrambles in place -- same text before and
+         after, never emptied. Wiping a link's text (the old approach)
+         shrinks its clickable area to ~0 width for a moment, which is
+         what actually broke clicking through to a destination; a
+         same-to-same scramble never collapses the hitbox. */
+      panel.querySelectorAll(".site-nav-links a").forEach(function (a, idx) {
+        setTimeout(function () { new Scramble(a).setText(a.textContent); }, idx * 45);
+      });
+    } else if (CURRENT) {
+      /* Matched pages have no idle cycle to fall back on -- put the
+         real destination back immediately instead of leaving "exit" up
+         there. The homepage's idle loop already re-checks every 300ms
+         while paused, so it recovers on its own. */
+      setWord(CURRENT);
     }
   }
 
