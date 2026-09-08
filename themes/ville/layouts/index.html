@@ -11,6 +11,17 @@
       <a href="https://github.com/Kokkomaki/" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
       </a>
+      <a href="https://debankd.org" target="_blank" rel="noopener" aria-label="Debankd" title="Debankd">
+        <svg viewBox="0 0 1200 1200">
+          <path fill="currentColor" d="M1106.4 93.6V1104H96V93.6z"/>
+          <path fill="var(--color-bg-primary)" d="M913.61 286.39v627.22H286.39V286.39z"/>
+          <path fill="currentColor" d="M730.93 469.07v259.46H471.47V469.07z"/>
+          <path fill="currentColor" d="M916.8 283.2v67.2h-67.2v-67.2z"/>
+          <path fill="currentColor" d="M916.8 847.2v67.2h-67.2v-67.2z"/>
+          <path fill="var(--color-bg-primary)" d="M700.8 506.4v67.2h-67.2v-67.2z"/>
+          <path fill="var(--color-bg-primary)" d="M614.4 585.6v28.8h-28.8v-28.8z"/>
+        </svg>
+      </a>
     </nav>
   </section>
 
@@ -41,52 +52,8 @@
     </ul>
 
     {{ if gt $total 5 }}
-    <div class="posts-extra">
-      <div>
-        <ul>
-          {{ range $i, $p := after 5 $posts }}
-          {{ $realIdx := add $i 5 }}
-          {{ $nextIdx := add $realIdx 1 }}
-          {{ $showYear := false }}
-          {{ if ge $nextIdx $total }}
-            {{ $showYear = true }}
-          {{ else }}
-            {{ $next := index $posts $nextIdx }}
-            {{ if ne $next.Date.Year $p.Date.Year }}
-              {{ $showYear = true }}
-            {{ end }}
-          {{ end }}
-          <li>
-            <span class="post-num">{{ sub $total (add $i 5) }}.</span>
-            <div><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></div>
-            <span class="post-date">{{ $p.Date.Format "2 Jan" }}</span>
-            <span class="post-year">{{ if $showYear }}'{{ $p.Date.Format "06" }}{{ end }}</span>
-          </li>
-          {{ end }}
-        </ul>
-      </div>
-    </div>
-
-    <button class="expand-btn" id="expand-posts" aria-expanded="false">More</button>
+    <a href="/posts/" class="expand-btn">More</a>
     {{ end }}
   </section>
-
-  <script>
-    (function () {
-      var btn = document.getElementById('expand-posts');
-      var extra = document.querySelector('.posts-extra');
-      if (!btn || !extra) { return; }
-      btn.addEventListener('click', function () {
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', !expanded);
-        btn.textContent = expanded ? 'More' : 'Less';
-        extra.classList.toggle('open', !expanded);
-        if (window.siteNav) {
-          if (expanded) { window.siteNav.resume(); }
-          else { window.siteNav.freeze('posts'); }
-        }
-      });
-    })();
-  </script>
 
 {{ end }}
