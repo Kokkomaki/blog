@@ -215,14 +215,15 @@ body.nav-hide-content .site-nav .theme-toggle {
 /* Brief glitch-block burst that plays over the page for a handful of
    frames right as the content fades, instead of a plain smooth fade. */
 .nav-glitch {
+  /* top/left/width/height are set per-burst in JS, scoped to wherever
+     the actual content is on that page -- not a fixed full-viewport box. */
   position: fixed;
-  inset: 0;
   z-index: 5;
   pointer-events: none;
   opacity: 0;
   overflow: hidden;
   margin: 0;
-  padding: var(--spacing-lg);
+  padding: 0;
   font-family: var(--font-family-mono);
   font-size: 10px;
   line-height: 1.1;

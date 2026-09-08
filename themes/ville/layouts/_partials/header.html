@@ -116,8 +116,11 @@
   var GLITCH_CHARS = "░▒▓█⣀⣄⣤⣦⣶⣷⣿";
   /* Density per frame, heaviest first -- the glitch is meant to obscure
      the old view hardest right as the state actually flips underneath
-     it, then taper off and reveal the new view as it clears. */
-  var GLITCH_DENSITY = [0.35, 0.20, 0.10, 0.04];
+     it, then taper off and reveal the new view as it clears. Much
+     lighter than the first pass (was 0.35/0.20/0.10/0.04) -- this is
+     meant to read as a texture over real content, not a wash covering
+     the whole screen. */
+  var GLITCH_DENSITY = [0.09, 0.05, 0.025, 0.01];
   function glitchBurst(onStateChange) {
     /* Queried at call time, not script-load time -- #nav-glitch lives
        after </footer> in the document, but this script runs the moment
@@ -125,14 +128,30 @@
        parsed yet. */
     var glitchEl = document.getElementById("nav-glitch");
     if (!glitchEl) { if (onStateChange) onStateChange(); return; }
+    /* Bounded to where content actually is -- the nav row (name, word,
+       search/dark) plus <main>'s own extent -- instead of the full
+       viewport. On a short page like /ai/ that's a small region well
+       short of the bottom of the screen; on a long one it naturally
+       covers more, because there's more real content to cover. */
+    var mainEl = document.querySelector("main");
+    var navRect = nav.getBoundingClientRect();
+    var mainRect = mainEl ? mainEl.getBoundingClientRect() : navRect;
+    var top = Math.min(navRect.top, mainRect.top);
+    var left = Math.min(navRect.left, mainRect.left);
+    var right = Math.max(navRect.right, mainRect.right);
+    var bottom = Math.max(navRect.bottom, mainRect.bottom);
+    glitchEl.style.top = top + "px";
+    glitchEl.style.left = left + "px";
+    glitchEl.style.width = (right - left) + "px";
+    glitchEl.style.height = (bottom - top) + "px";
     /* Deliberately over-provisioned (width / 5px is narrower than any
        real character in this font at this size) rather than measured
        exactly -- overflow:hidden clips the harmless excess, whereas
        under-provisioning (the previous width/9 guess) left a visible
        uncovered gap down the right side, past wherever the guess ran
        out of columns. */
-    var cols = Math.ceil(window.innerWidth / 5);
-    var rows = Math.ceil(window.innerHeight / 10);
+    var cols = Math.ceil((right - left) / 5);
+    var rows = Math.ceil((bottom - top) / 10);
     glitchEl.classList.add("active");
     var frame = 0, totalFrames = GLITCH_DENSITY.length, stepMs = 150; /* 4 * 150ms = 0.6s total */
     (function tick() {
