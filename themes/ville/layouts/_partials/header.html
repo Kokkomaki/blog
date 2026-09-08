@@ -42,18 +42,19 @@
      Has to be a client-side roll, not server-side -- this page is built
      once and served identically to everyone, so "sometimes" only means
      anything if each visitor's own browser decides. When it hits, it
-     joins the idle cycle (so the word itself says "easter egg" at some
+     joins the idle cycle (so the word itself says "onlyfans" at some
      point) and gets added to the reveal panel, same as any other
-     destination -- nothing else about it is special-cased. */
+     destination -- nothing else about it is special-cased. Clicking it
+     leads to a joke page, not anything real. */
   if (Math.random() < 0.1) {
-    WORDS.push("easter egg");
-    WORD_COLORS["easter egg"] = "var(--nav-c9)";
+    WORDS.push("onlyfans");
+    WORD_COLORS["onlyfans"] = "var(--nav-c9)";
     var linksEl = document.querySelector(".site-nav-links");
     if (linksEl) {
       var egg = document.createElement("a");
-      egg.href = "/secret/";
-      egg.textContent = "easter egg";
-      egg.dataset.word = "easter egg";
+      egg.href = "/onlyfans/";
+      egg.textContent = "onlyfans";
+      egg.dataset.word = "onlyfans";
       egg.style.color = "var(--nav-c9)";
       linksEl.appendChild(egg);
     }
