@@ -452,7 +452,6 @@ h5 > code {
 }
 
 .site-nav-links {
-  margin-top: var(--spacing-sm);
   width: fit-content;
   display: flex;
   flex-direction: column;

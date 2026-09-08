@@ -93,6 +93,10 @@
   }
   alignPanel();
   window.addEventListener("resize", alignPanel);
+  /* Re-measure once the real webfont is in -- the first call above can
+     land while text is still rendering in a fallback font with
+     different character widths, which throws the measurement off. */
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(alignPanel); }
 
   var fx = new Scramble(wordEl);
   var open = false;
