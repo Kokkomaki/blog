@@ -408,11 +408,12 @@ h5 > code {
   font-weight: bold;
   color: var(--color-text-primary);
   margin-left: 0;
-  border-bottom: 1px dotted transparent;
+  border-bottom: none;
 }
 
 .site-nav-name:hover {
-  border-bottom-color: currentColor;
+  border-bottom: none;
+  opacity: 0.75;
 }
 
 .site-nav-slash {

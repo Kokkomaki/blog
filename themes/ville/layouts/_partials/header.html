@@ -89,8 +89,11 @@
   if (CURRENT) {
     /* On a page that belongs to one of the destinations, show that
        destination -- the word is settled, not endlessly cycling away
-       from where you actually are. */
+       from where you actually are. It still re-scrambles in place every
+       few seconds, purely so the control keeps reading as clickable
+       rather than looking like static text. */
     fx.setText(CURRENT);
+    setInterval(function () { fx.setText(CURRENT); }, 3000);
   } else {
     /* Homepage (and any unmatched page) has no fixed "current section",
        so the word keeps cycling through every destination -- unless
