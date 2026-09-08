@@ -768,34 +768,10 @@ body.work-page {
 }
 
 /* =====================================================
-   Homepage hero — face, name, tagline, one-line bio
+   Homepage hero — tagline + social links
    ===================================================== */
 .hero {
   margin-bottom: var(--spacing-lg);
-}
-
-.hero-face {
-  width: 120px;
-  height: 120px;
-  display: block;
-  margin: 0 0 var(--spacing-sm);
-  background-color: currentColor;
-  -webkit-mask-image: url(/images/face-outline.png);
-  mask-image: url(/images/face-outline.png);
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-}
-
-.hero-name {
-  margin: 0 0 var(--spacing-xs);
-}
-
-.hero-name::before {
-  content: none;
 }
 
 .hero-tagline {
@@ -805,13 +781,6 @@ body.work-page {
 
 .hero .social-links {
   margin-top: var(--spacing-sm);
-}
-
-/* Homepage section snippets — Posts, Guestbook. Headings here are UI
-   labels, not document structure, so they skip the sitewide numbered-
-   heading counter the same way .nostr-comments-section does. */
-.home-posts h2::before {
-  content: none;
 }
 
 .view-all-link {
