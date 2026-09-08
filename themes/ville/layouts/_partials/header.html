@@ -1,10 +1,108 @@
 <nav class="site-nav" aria-label="Main navigation">
-  {{- range site.Menus.main }}
-  {{- $active := hasPrefix $.RelPermalink .URL }}
-  <a href="{{ .URL }}"{{ if $active }} class="active"{{ end }}>{{ .Name }}</a>
-  {{- end }}
+  <button class="site-nav-trigger" id="nav-trigger" type="button" aria-expanded="false" aria-controls="nav-panel">
+    <span class="site-nav-name">Ville Kokkomäki</span><span class="site-nav-slash">/</span><span class="site-nav-word" id="nav-word"></span>
+  </button>
   {{ partial "bottom-actions.html" . }}
 </nav>
+
+<div class="site-nav-panel" id="nav-panel"><div>
+  <div class="site-nav-links">
+    <a href="/posts/">Posts</a>
+    <a href="/work/">Work</a>
+    <a href="/guestbook/">Guestbook</a>
+    <a href="/about/">About</a>
+    <a href="/now/">Now</a>
+    <a href="/resume/">Resume</a>
+    <a href="/analytics/">Analytics</a>
+    <a href="/ai/">AI declaration</a>
+  </div>
+</div></div>
+
+<script>
+(function () {
+  var WORDS = ["posts", "work", "guestbook", "about", "now", "resume", "analytics", "ai declaration"];
+  var CHARS = "!<>-_\\/[]{}=+*^?#";
+
+  function Scramble(el) {
+    this.el = el;
+    this.q = [];
+    this.ct = 0;
+    this.req = null;
+    this.resolve = null;
+    this.frame = this.frame.bind(this);
+  }
+  Scramble.prototype.setText = function (text) {
+    var old = this.el.textContent, len = Math.max(old.length, text.length), self = this;
+    var p = new Promise(function (res) { self.resolve = res; });
+    this.q = [];
+    for (var i = 0; i < len; i++) {
+      var start = Math.floor(Math.random() * 20);
+      this.q.push({ from: old[i] || "", to: text[i] || "", start: start, end: start + Math.floor(Math.random() * 20) });
+    }
+    cancelAnimationFrame(this.req);
+    this.ct = 0;
+    this.frame();
+    return p;
+  };
+  Scramble.prototype.frame = function () {
+    var out = "", done = 0;
+    for (var i = 0; i < this.q.length; i++) {
+      var it = this.q[i];
+      if (this.ct >= it.end) {
+        done++;
+        out += it.to;
+      } else if (this.ct >= it.start) {
+        if (!it.char || Math.random() < 0.28) { it.char = CHARS[Math.floor(Math.random() * CHARS.length)]; }
+        out += '<span class="site-nav-char">' + it.char + '</span>';
+      } else {
+        out += it.from;
+      }
+    }
+    this.el.innerHTML = out;
+    if (done === this.q.length) { this.resolve(); }
+    else { this.req = requestAnimationFrame(this.frame); this.ct++; }
+  };
+
+  var wordEl = document.getElementById("nav-word");
+  var trigger = document.getElementById("nav-trigger");
+  var panel = document.getElementById("nav-panel");
+  if (!wordEl || !trigger || !panel) { return; }
+
+  var fx = new Scramble(wordEl);
+  var i = 0;
+  var open = false;
+
+  (function next() {
+    if (open) { setTimeout(next, 300); return; }
+    fx.setText(WORDS[i % WORDS.length]).then(function () { setTimeout(next, 1600); });
+    i++;
+  })();
+
+  function setOpen(next) {
+    open = next;
+    trigger.setAttribute("aria-expanded", String(open));
+    panel.classList.toggle("open", open);
+    if (open) {
+      panel.querySelectorAll(".site-nav-links a").forEach(function (a, idx) {
+        var linkFx = new Scramble(a);
+        var target = a.textContent;
+        a.textContent = "";
+        setTimeout(function () { linkFx.setText(target); }, idx * 45);
+      });
+    }
+  }
+
+  trigger.addEventListener("click", function () { setOpen(!open); });
+
+  document.addEventListener("click", function (e) {
+    if (open && !panel.contains(e.target) && !trigger.contains(e.target)) { setOpen(false); }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && open) { setOpen(false); }
+  });
+})();
+</script>
 
 <nav class="path-nav">
   <ol>

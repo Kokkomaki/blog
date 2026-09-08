@@ -77,6 +77,19 @@
     var(--bg-h) var(--bg-s) clamp(20%, calc(92% - var(--bg-l)), 83%)
   );
 
+  /* Nav reveal-panel rainbow -- one hue per destination. Dark/saturated
+     stops for light mode, light/saturated stops for dark mode, each
+     independently checked at >=4.5:1 against the page background
+     (see the theme overrides below). */
+  --nav-c1: #590C0C;
+  --nav-c2: #59330C;
+  --nav-c3: #59520C;
+  --nav-c4: #0C5919;
+  --nav-c5: #0C5946;
+  --nav-c6: #0C3259;
+  --nav-c7: #2C0C59;
+  --nav-c8: #590C33;
+
   /* Layout */
   --container-width: 72ch;
   --pre-border-radius: 0.75rem;
@@ -92,6 +105,14 @@
   --bg-l: 8%;
   --bg-s: 0%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
+  --nav-c1: #F5BCBC;
+  --nav-c2: #F5D8BC;
+  --nav-c3: #F5F0BC;
+  --nav-c4: #BCF5C5;
+  --nav-c5: #BCF5E7;
+  --nav-c6: #BCD8F5;
+  --nav-c7: #D3BCF5;
+  --nav-c8: #F5BCD8;
 }
 
 [data-theme="light"] {
@@ -99,6 +120,14 @@
   --bg-s: 50%;
   --bg-l: 95%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 0% / 7%);
+  --nav-c1: #590C0C;
+  --nav-c2: #59330C;
+  --nav-c3: #59520C;
+  --nav-c4: #0C5919;
+  --nav-c5: #0C5946;
+  --nav-c6: #0C3259;
+  --nav-c7: #2C0C59;
+  --nav-c8: #590C33;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -106,6 +135,14 @@
     --bg-l: 8%;
     --bg-s: 0%;
     --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
+    --nav-c1: #F5BCBC;
+    --nav-c2: #F5D8BC;
+    --nav-c3: #F5F0BC;
+    --nav-c4: #BCF5C5;
+    --nav-c5: #BCF5E7;
+    --nav-c6: #BCD8F5;
+    --nav-c7: #D3BCF5;
+    --nav-c8: #F5BCD8;
   }
 }
 
@@ -396,33 +433,100 @@ h5 > code {
   }
 }
 
-/* Site nav — sitewide, top of every page, above the breadcrumb */
+/* Site nav — sitewide, top of every page, above the breadcrumb. A single
+   trigger ("Name / word") where the word constantly scrambles between
+   every destination on the site; clicking opens a panel listing all of
+   them, each scrambling into view in its own color. */
 .site-nav {
   font-family: var(--font-family-mono);
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   gap: 1.5em;
   padding-bottom: var(--spacing-sm);
 }
 
-.site-nav a {
-  color: var(--color-text-muted);
-  border-bottom: none;
-  text-decoration: none;
-}
-
-.site-nav a:hover {
+.site-nav-trigger {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
   color: var(--color-text-primary);
 }
 
-.site-nav a.active {
-  color: var(--color-text-primary);
+.site-nav-name {
   font-weight: bold;
+}
+
+.site-nav-slash {
+  color: var(--color-text-muted);
+}
+
+.site-nav-word {
+  border-bottom: 1px dotted var(--color-text-muted);
+  padding-bottom: 1px;
+}
+
+.site-nav-char {
+  opacity: 0.55;
 }
 
 .site-nav .search-toggle {
   margin-left: auto;
+}
+
+.site-nav-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.site-nav-panel.open {
+  grid-template-rows: 1fr;
+}
+
+.site-nav-panel > div {
+  overflow: hidden;
+}
+
+.site-nav-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5em 2em;
+  padding: var(--spacing-sm) 0 var(--spacing-base);
+  font-size: var(--font-size-small);
+}
+
+.site-nav-links a {
+  display: inline-block;
+  width: fit-content;
+  border-bottom: 1px dotted currentColor;
+  padding-bottom: 1px;
+  text-decoration: none;
+  opacity: 0.92;
+}
+
+.site-nav-links a:hover {
+  opacity: 1;
+}
+
+.site-nav-links a:nth-child(1) { color: var(--nav-c1); }
+.site-nav-links a:nth-child(2) { color: var(--nav-c2); }
+.site-nav-links a:nth-child(3) { color: var(--nav-c3); }
+.site-nav-links a:nth-child(4) { color: var(--nav-c4); }
+.site-nav-links a:nth-child(5) { color: var(--nav-c5); }
+.site-nav-links a:nth-child(6) { color: var(--nav-c6); }
+.site-nav-links a:nth-child(7) { color: var(--nav-c7); }
+.site-nav-links a:nth-child(8) { color: var(--nav-c8); }
+
+@media (max-width: 600px) {
+  .site-nav-links {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Image styles */
