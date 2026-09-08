@@ -813,21 +813,6 @@ body.work-page {
   margin-top: var(--spacing-sm);
 }
 
-/* Expand animation for homepage post list */
-.posts-extra {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s ease;
-}
-
-.posts-extra.open {
-  grid-template-rows: 1fr;
-}
-
-.posts-extra > div {
-  overflow: hidden;
-}
-
 .expand-btn {
   background: none;
   border: none;
@@ -841,4 +826,19 @@ body.work-page {
 
 .expand-btn:hover {
   color: var(--color-text-primary);
+}
+
+/* Analytics — strip the sitewide boxed-pre treatment (border/shadow) for
+   both the standalone page and the blog-post embed. */
+#analytics-output,
+#analytics-output-embed {
+  border: none;
+  box-shadow: none;
+}
+
+/* About page photo — small and left-aligned, not full-bleed like content photos */
+.about-page img {
+  width: 30%;
+  display: block;
+  margin: 0 var(--spacing-lg) var(--spacing-lg) 0;
 }
