@@ -195,7 +195,7 @@ img {
 main {
   width: 100%;
   /* overflow-x: hidden removed — it was clipping box-shadows on shortcode components */
-  transition: opacity 0.1s linear, visibility 0.1s linear;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
 }
 
 /* Experiment: hide the rest of the page while the nav panel is open,
@@ -208,7 +208,7 @@ body.nav-hide-content main {
 
 .site-nav .search-toggle,
 .site-nav .theme-toggle {
-  transition: opacity 0.1s linear, visibility 0.1s linear;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
 }
 
 body.nav-hide-content .site-nav .search-toggle,

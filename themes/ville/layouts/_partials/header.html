@@ -108,9 +108,11 @@
   var links = document.querySelector(".site-nav-links");
 
   /* Fires a short burst of glitch-block noise over the page instead of
-     letting the content fade in plainly -- runs for a handful of real
-     frames (not a CSS duration), so it stays snappy regardless of
-     refresh rate. */
+     letting the content fade in plainly. Deliberately NOT
+     requestAnimationFrame -- rAF ticks at display refresh rate (~16ms
+     apart), so a handful of rAF frames blitzes past in well under
+     100ms, too fast to read as distinct frames at all. setTimeout with
+     an explicit step gives each frame real, visible screen time. */
   var GLITCH_CHARS = "░▒▓█⣀⣄⣤⣦⣶⣷⣿";
   function glitchBurst() {
     /* Queried at call time, not script-load time -- #nav-glitch lives
@@ -122,7 +124,7 @@
     var cols = Math.ceil(window.innerWidth / 9);
     var rows = Math.ceil(window.innerHeight / 12);
     glitchEl.classList.add("active");
-    var frame = 0, totalFrames = 6;
+    var frame = 0, totalFrames = 4, stepMs = 250; /* 4 frames * 250ms = 1s total */
     (function tick() {
       var out = "";
       for (var r = 0; r < rows; r++) {
@@ -133,7 +135,7 @@
       }
       glitchEl.textContent = out;
       frame++;
-      if (frame < totalFrames) { requestAnimationFrame(tick); }
+      if (frame < totalFrames) { setTimeout(tick, stepMs); }
       else { glitchEl.classList.remove("active"); glitchEl.textContent = ""; }
     })();
   }
