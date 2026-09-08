@@ -185,18 +185,14 @@
          server-side. On the homepage the word can settle on any of them,
          so whichever one it's currently showing needs to be hidden here
          instead -- otherwise it'd appear both as the trigger word and as
-         a panel entry a moment later. */
+         a panel entry a moment later. Links show with their full text
+         immediately -- no reveal animation here, since rewriting a
+         link's content while it's on screen is exactly the kind of thing
+         that can make a click land on a half-rebuilt element instead of
+         registering as a real click. */
       var currentText = wordEl.textContent;
-      panel.querySelectorAll(".site-nav-links a").forEach(function (a, idx) {
-        if (a.dataset.word === currentText) {
-          a.style.display = "none";
-          return;
-        }
-        a.style.display = "";
-        var linkFx = new Scramble(a);
-        var target = a.textContent;
-        a.textContent = "";
-        setTimeout(function () { linkFx.setText(target); }, idx * 45);
+      panel.querySelectorAll(".site-nav-links a").forEach(function (a) {
+        a.style.display = a.dataset.word === currentText ? "none" : "";
       });
     }
   }

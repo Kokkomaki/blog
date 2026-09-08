@@ -206,6 +206,17 @@ body.nav-hide-content main {
   visibility: hidden;
 }
 
+.site-nav .search-toggle,
+.site-nav .theme-toggle {
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+body.nav-hide-content .site-nav .search-toggle,
+body.nav-hide-content .site-nav .theme-toggle {
+  opacity: 0;
+  visibility: hidden;
+}
+
 @media (max-width: 600px) {
   :root {
     --font-size-base: 0.94em;
