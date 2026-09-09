@@ -556,6 +556,18 @@ blockquote p {
 blockquote > :first-child { margin-top: 0; }
 blockquote > :last-child  { margin-bottom: 0; }
 
+/* fade.html shortcode — the words carry their fade as an inline opacity
+   (set per-word by the template), so hovering needs !important to win
+   over that inline style. Without this the shortcode was rendering a
+   static fade with no way to read the dimmed words at all. */
+.fade-seq .fade-word {
+  transition: opacity 0.25s ease;
+}
+
+.fade-seq:hover .fade-word {
+  opacity: 1 !important;
+}
+
 /* Footnote ref numbers — muted so they don't compete with prose */
 a.footnote-ref {
   border-bottom: none;
