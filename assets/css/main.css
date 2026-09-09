@@ -91,6 +91,7 @@
   --nav-c7: #6B00FF;
   --nav-c8: #DB006E;
   --nav-c9: #8F6B00;
+  --nav-c10: #E00025;
 
   /* Layout */
   --container-width: 72ch;
@@ -107,15 +108,23 @@
   --bg-l: 8%;
   --bg-s: 0%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
-  --nav-c1: #FFCCCC;
-  --nav-c2: #FFE6CC;
-  --nav-c3: #FFFBCC;
-  --nav-c4: #CCFFD5;
-  --nav-c5: #CCFFF2;
-  --nav-c6: #CCE5FF;
-  --nav-c7: #E1CCFF;
-  --nav-c8: #FFCCE6;
-  --nav-c9: #FFF2CC;
+  /* Was still the old washed-out pastel set -- the prefers-color-scheme
+     block below has higher specificity (:root:not([data-theme="light"])
+     beats a bare attribute selector) and won whenever both conditions
+     were true, which is exactly what every test in this session happened
+     to hit (system preference was also dark), masking this being wrong
+     for a light-system user who explicitly clicks the toggle. Found
+     2026-09-09 while adding c10, not by testing this specific case. */
+  --nav-c1: #FF6B6B;
+  --nav-c2: #FFA94D;
+  --nav-c3: #FFD93D;
+  --nav-c4: #51CF66;
+  --nav-c5: #2EE6C4;
+  --nav-c6: #4DABFF;
+  --nav-c7: #B980FF;
+  --nav-c8: #FF6FB5;
+  --nav-c9: #FFC53D;
+  --nav-c10: #FF5C77;
 }
 
 [data-theme="light"] {
@@ -132,6 +141,7 @@
   --nav-c7: #6B00FF;
   --nav-c8: #DB006E;
   --nav-c9: #8F6B00;
+  --nav-c10: #E00025;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -148,6 +158,7 @@
     --nav-c7: #B980FF;
     --nav-c8: #FF6FB5;
     --nav-c9: #FFC53D;
+    --nav-c10: #FF5C77;
   }
 }
 
