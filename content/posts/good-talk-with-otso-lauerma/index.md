@@ -1,5 +1,5 @@
 +++
-title = "Silent Talk with Otso Lauerma"
+title = "Good Talk with Otso Lauerma"
 date = "2026-07-20T00:00:00+00:00"
 description = "Ville ja Joonatan haastattelevat ystäväänsä Otso Lauermaa kuntosalilla, ennen kymmenen päivän vipassana-meditaatioretriittiä ja heti sen jälkeen."
 draft = false
@@ -12,7 +12,9 @@ Otso Lauerma on ystävämme. Haastattelimme häntä Joonatanin kanssa kahdesti: 
 
 > *"Se on kuin puron lorina, tai kaivo, josta virtaa vettä syvältä alta. Pieni liplatus, joka elää siellä koko ajan."*
 
+{{< center >}}· · ·{{< /center >}}
 **{{< center >}}Ennen retriittiä{{< /center >}}**
+{{< center >}}· ○ · ○ ·{{< /center >}}
 
 **Ville: Mitä odotuksia sinulla on, jos retriitillä ei tapahdu mitään?**
 
@@ -26,7 +28,7 @@ Oletan, että päätyisin silloin tutkiskelemaan pelkästään omia ajatuksiani.
 
 **Ville: Mitä tekisit, jos tulisit retriitiltä ihan samanlaisena kuin nyt olet?**
 
-**Otso:** Se riippuu vähän siitä, miten määrittelee sen, mikä ei muutu. En ajattele, että retriitti avaisi minulle välttämättä mitään uusia ovia sisäisiin kysymyksiin. En myöskään odota, että tästä tulisi sellainen juttu, että haluaisin edes meditoida sen jälkeen itsekseni. Olen kyllä hyvin avoin sille, enkä tiedä. Se olisi varmaan hienoa. Mutta en usko, että harmittaisi kovin paljon, jos *vipassana* ei olisikaan minun juttuni.
+**Otso:** Se riippuu vähän siitä, miten määrittelee sen, mikä ei muutu. En ajattele, että retriitti avaisi minulle välttämättä mitään uusia ovia sisäisiin kysymyksiin. En myöskään odota, että tästä tulisi sellainen juttu, että haluaisin edes meditoida sen jälkeen itsekseni. En usko, että harmittaisi kovin paljon, jos *vipassana* ei olisikaan minun juttuni.
 
 **Joonatan: Tämä olisi paljon mielenkiintoisempi kysymys, jos sinulla olisi joitain suuria mielikuvia, jotka voisivat murentua. Mutta olet jotenkin liian maadoittunut. Olet jotenkin liian valmis ja avoin jo itsellesi, kokemuksillesi ja omille ajatuksillesi.**
 
