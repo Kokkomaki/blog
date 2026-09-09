@@ -82,15 +82,15 @@
      UI-component floor rather than 4.5:1 (bold, oversized decorative
      labels, not body text -- deliberate choice like the guestbook's own
      sub-aesthetic). Dark mode stays at >=4.5:1. See theme overrides below. */
-  --nav-c1: #990000;
-  --nav-c2: #994C00;
-  --nav-c3: #998C00;
-  --nav-c4: #00991A;
-  --nav-c5: #009973;
-  --nav-c6: #004C99;
-  --nav-c7: #400099;
-  --nav-c8: #99004D;
-  --nav-c9: #997300;
+  --nav-c1: #E00000;
+  --nav-c2: #AD5600;
+  --nav-c3: #7A7000;
+  --nav-c4: #008016;
+  --nav-c5: #008060;
+  --nav-c6: #006DDB;
+  --nav-c7: #6B00FF;
+  --nav-c8: #DB006E;
+  --nav-c9: #8F6B00;
 
   /* Layout */
   --container-width: 72ch;
@@ -123,15 +123,15 @@
   --bg-s: 50%;
   --bg-l: 95%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 0% / 7%);
-  --nav-c1: #990000;
-  --nav-c2: #994C00;
-  --nav-c3: #998C00;
-  --nav-c4: #00991A;
-  --nav-c5: #009973;
-  --nav-c6: #004C99;
-  --nav-c7: #400099;
-  --nav-c8: #99004D;
-  --nav-c9: #997300;
+  --nav-c1: #E00000;
+  --nav-c2: #AD5600;
+  --nav-c3: #7A7000;
+  --nav-c4: #008016;
+  --nav-c5: #008060;
+  --nav-c6: #006DDB;
+  --nav-c7: #6B00FF;
+  --nav-c8: #DB006E;
+  --nav-c9: #8F6B00;
 }
 
 @media (prefers-color-scheme: dark) {

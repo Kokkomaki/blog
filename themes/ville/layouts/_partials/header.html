@@ -116,17 +116,25 @@
 
   /* onlyfans never navigates -- clicking it cycles its own displayed text
      through a short bit in place (same Scramble effect the trigger word
-     uses), looping back to "onlyfans" at the end, so the joke replays on
-     every visit instead of only working once. */
-  var MORPH_WORDS = ["onlyfans", "nice try", "stop it", "i mean it", "ok you're persistent", "fine, it's just me", "hi mom", "there's no content", "i have a wife", "go outside"];
+     uses). Runs once per page load, not a loop: it ends on "bye" and then
+     dissolves itself out of the panel entirely, same vanish mechanics as
+     dissolveTick, rather than resetting back to "onlyfans". */
+  var MORPH_WORDS = ["onlyfans", "nice try", "stop it", "i mean it", "ok you're persistent", "fine, it's just me", "hi mom", "there's no content", "i have a wife", "bye"];
   document.querySelectorAll(".nav-morph").forEach(function (el) {
     var morphFx = new Scramble(el);
     var idx = 0;
     el.addEventListener("click", function (e) {
       e.preventDefault();
-      idx = (idx + 1) % MORPH_WORDS.length;
+      if (idx >= MORPH_WORDS.length - 1) { return; }
+      idx++;
       el.style.color = "var(--nav-c" + (idx % 9 + 1) + ")";
-      morphFx.setText(MORPH_WORDS[idx]);
+      morphFx.setText(MORPH_WORDS[idx]).then(function () {
+        if (idx === MORPH_WORDS.length - 1) {
+          setTimeout(function () {
+            morphFx.setText("").then(function () { el.remove(); });
+          }, 900);
+        }
+      });
     });
   });
 
