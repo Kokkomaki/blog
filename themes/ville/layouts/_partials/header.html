@@ -372,5 +372,31 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && open) { setOpen(false); }
   });
+
+  /* Page-entrance materialize: every page load resolves main/search-toggle/
+     theme-toggle in from a glitched state, not just the nav-panel close --
+     same mechanics as materializeTick above, just triggered by arriving at
+     a page instead of exiting the panel. js-entering (set in baseof.html,
+     before paint) keeps this invisible until the synchronous scramble below
+     has run, so there's no flash of plain text first. */
+  document.addEventListener("DOMContentLoaded", function () {
+    try {
+      var entryNodes = textNodesIn([document.querySelector("main"), document.getElementById("search-toggle"), document.getElementById("theme-toggle")]);
+      entryNodes.forEach(function (node) {
+        node.__origText = node.textContent;
+        var out = "";
+        for (var i = 0; i < node.__origText.length; i++) {
+          var ch = node.__origText[i];
+          out += (ch === " " || ch === "\n" || ch === "\t") ? ch : GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+        }
+        node.textContent = out;
+      });
+      document.documentElement.classList.remove("js-entering");
+      var entryIcons = Array.prototype.slice.call(document.querySelectorAll(".social-links a"));
+      materializeTick(entryNodes, entryIcons, 0, null, ++transitionId);
+    } catch (e) {
+      document.documentElement.classList.remove("js-entering");
+    }
+  });
 })();
 </script>

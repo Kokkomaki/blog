@@ -212,6 +212,17 @@ body.nav-hide-content .site-nav .theme-toggle {
   visibility: hidden;
 }
 
+/* Pairs with the js-entering class set in baseof.html's head script --
+   hidden until header.html's script resolves it in on DOMContentLoaded.
+   No opacity transition on purpose: the reveal is a hard cut straight
+   to the glitched state, same as the nav-panel dissolve/materialize --
+   the character-by-character resolve is the animation, not a fade. */
+html.js-entering main,
+html.js-entering #search-toggle,
+html.js-entering #theme-toggle {
+  opacity: 0;
+}
+
 
 @media (max-width: 600px) {
   :root {
