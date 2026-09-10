@@ -551,78 +551,6 @@ function cardTiltDeg(id) {
   return ((Math.abs(hashStr(id)) % 500) / 100) - 2.5;
 }
 
-/* ---------- dev-only demo board ----------
-   Only ever rendered when data-dev="true" on the mount element, which the
-   Hugo template sets from `hugo.IsDevelopment` -- never true in a
-   production build, so none of this ships. Exists so the board, grid,
-   pagination, and per-card variety (with/without url, with/without
-   signature, all ten colors) can be seen and iterated on without a
-   deployed relay. */
-function mulberry32(seed) {
-  return function () {
-    seed |= 0; seed = (seed + 0x6d2b79f5) | 0;
-    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-function genDemoSig(seed) {
-  if (seed === 0) return null;
-  const rnd = mulberry32(seed * 97 + 13);
-  const strokeCount = 1 + (seed % 3 === 0 ? 1 : 0);
-  const strokes = [];
-  for (let s = 0; s < strokeCount; s++) {
-    const pts = [];
-    const baseY = 20 + rnd() * 30 + s * 8;
-    const amp = 8 + rnd() * 14;
-    const freq = 1.5 + rnd() * 2.5;
-    const phase = rnd() * Math.PI * 2;
-    const slant = (rnd() - 0.5) * 18;
-    const startX = 8 + s * 16;
-    const endX = 194 - rnd() * 16;
-    for (let i = 0; i <= 24; i++) {
-      const t = i / 24;
-      const x = startX + (endX - startX) * t;
-      const y = baseY + Math.sin(t * Math.PI * freq + phase) * amp * (0.4 + 0.6 * Math.sin(t * Math.PI)) + slant * t;
-      pts.push({ x, y: Math.max(4, Math.min(76, y)) });
-    }
-    strokes.push(pts);
-  }
-  return strokesToPathData(strokes);
-}
-const DEMO_SEED = [
-  { name: "Anna K.", url: null, msg: "Found your Bitcoin & peace piece from a Nostr repost. Signing in solidarity.", color: 4, sig: 1 },
-  { name: "Jukka", url: "jukka.fi", msg: "Read the vipassana post twice. Needed it today.", color: 2, sig: 2 },
-  { name: "anonymous", url: null, msg: "hi", color: 8, sig: 0 },
-  { name: "Sofia R.", url: "sofia.blog", msg: "The lawn mower manifesto made me laugh out loud on a train.", color: 6, sig: 3 },
-  { name: "Marko", url: null, msg: "Fellow ex-soldier here. Thank you for writing what you wrote.", color: 1, sig: 4 },
-  { name: "Elina", url: "elina.codes", msg: "Your Umami analytics writeup helped me ship mine this week.", color: 5, sig: 0 },
-  { name: "Timo H.", url: null, msg: "Reading from Rovaniemi. Keep going.", color: 9, sig: 5 },
-  { name: "Priya", url: "priya.nyc", msg: "Found this through a Bitcoin thread, stayed for the essays.", color: 3, sig: 6 },
-  { name: "anonymous", url: null, msg: "signing because everyone else did :)", color: 7, sig: 0 },
-  { name: "Oskari", url: null, msg: "The 'why do we cut grass' post rewired something in my head.", color: 0, sig: 7 },
-  { name: "Leena V.", url: "leena.fi", msg: "Peace studies alum too — small world. Loved the mediation post.", color: 4, sig: 8 },
-  { name: "Kasper", url: null, msg: "guestbooks are back baby", color: 9, sig: 9 },
-  { name: "Ines", url: "ines.dev", msg: "The nostr guestbook is such a nice touch. Building one myself now.", color: 2, sig: 10 },
-  { name: "anonymous", url: null, msg: "signed (well, keyboarded).", color: 6, sig: 0 },
-];
-function buildDemoEntries() {
-  const now = Math.floor(Date.now() / 1000);
-  return DEMO_SEED.map((e, i) => ({
-    id: "demo-" + i,
-    name: e.name,
-    url: e.url,
-    msg: e.msg,
-    bg: PALETTE[e.color],
-    font: FONTS[i % FONTS.length].id,
-    sig: genDemoSig(e.sig),
-    date: formatHumanDate(new Date((now - i * 86400) * 1000)),
-    created_at: now - i * 3600,
-    pin: PIN_COLORS[i % PIN_COLORS.length],
-    tilt: cardTiltDeg("demo-" + i),
-  }));
-}
-
 /* Same isDarkMode() logic as themes/ville/assets/js/main.js: an explicit
    data-theme wins, otherwise fall back to the OS preference. Watches both,
    since either can change without a page reload (the toggle, or the user
@@ -722,20 +650,15 @@ function Guestbook({ url, isDev }) {
       .then((events) => {
         if (cancelled) return;
         const parsed = events.map(parseEntry).sort((a, b) => b.created_at - a.created_at);
-        setEntries(isDev ? [...parsed, ...buildDemoEntries()] : parsed);
+        setEntries(parsed);
         setLoadState("ready");
       })
       .catch(() => {
         if (cancelled) return;
-        if (isDev) {
-          setEntries(buildDemoEntries());
-          setLoadState("ready");
-        } else {
-          setLoadState("error");
-        }
+        setLoadState("error");
       });
     return () => { cancelled = true; };
-  }, [url, isDev]);
+  }, [url]);
 
   async function handleSubmit(e) {
     e.preventDefault();
