@@ -206,7 +206,6 @@ body.nav-hide-content main {
   visibility: hidden;
 }
 
-body.nav-hide-content .site-nav .search-toggle,
 body.nav-hide-content .site-nav .theme-toggle {
   opacity: 0;
   visibility: hidden;
@@ -218,7 +217,6 @@ body.nav-hide-content .site-nav .theme-toggle {
    to the glitched state, same as the nav-panel dissolve/materialize --
    the character-by-character resolve is the animation, not a fade. */
 html.js-entering main,
-html.js-entering #search-toggle,
 html.js-entering #theme-toggle {
   opacity: 0;
 }
@@ -281,30 +279,26 @@ a {
   color: var(--color-text-primary);
 }
 
-.site-nav .theme-toggle {
+/* Search lives next to "More" at the bottom of the homepage post list now
+   (themes/ville/layouts/index.html), not in the sitewide nav -- it's the
+   only place it's rendered at all, so no page-type hiding is needed. */
+.expand-btn + .search-toggle {
   margin-left: 1.2em;
 }
 
-/* Search only makes sense as a sitewide jump-to-anything control -- once
-   you're already reading a specific post or page, keep just the theme
-   toggle in the nav. The "/" keyboard shortcut (baseof.html) still works
-   everywhere regardless; this only hides the button. */
-body:not(.home-page) .search-toggle {
-  display: none;
-}
-
-/* Eclipse-style moon icon (crescent = a solid circle with a second,
-   offset circle masked out of it) plus a dotted ring -- same construction
-   as doantranminhthanh.com's theme toggle. Desktop keeps the "Light"/
-   "Dark" text (.theme-toggle-icon stays display:none there); below 600px
-   they swap, since text of varying length ("Light" vs "Dark") is exactly
-   what was forcing the nav row to wrap. */
 .theme-toggle {
   display: inline-flex;
   align-items: center;
 }
 
-.theme-toggle-icon {
+.theme-toggle-label {
+  color: inherit;
+}
+
+/* Plain circle, not an icon that changes shape -- ring always visible,
+   the inner dot's opacity is what flips: hollow in light mode, filled in
+   dark, same "Light"/"Dark" states the desktop text spells out. */
+.theme-toggle-dot {
   display: none;
 }
 
@@ -318,19 +312,34 @@ body:not(.home-page) .search-toggle {
     white-space: nowrap;
   }
 
-  .theme-toggle-icon {
+  .theme-toggle-dot {
     display: block;
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
   }
 
-  .theme-toggle-ring {
-    animation: theme-toggle-spin 24s linear infinite;
-    transform-origin: 50% 50%;
+  .theme-toggle-dot::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0; /* hollow ring in light mode */
+    transform: scale(0.55);
   }
 
-  @keyframes theme-toggle-spin {
-    to { transform: rotate(360deg); }
+  :root[data-theme="dark"] .theme-toggle-dot::before {
+    opacity: 1; /* filled in dark mode */
+  }
+}
+
+@media (max-width: 600px) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle-dot::before {
+    opacity: 1;
   }
 }
 

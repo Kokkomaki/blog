@@ -271,6 +271,7 @@
      destination, it should read as clickable, not as plain text. */
   function setWord(text) {
     wordEl.style.color = WORD_COLORS[text] || "";
+    wordEl.classList.toggle("is-exit", text === "exit");
     return fx.setText(text);
   }
 
@@ -340,7 +341,7 @@
       /* Watch the real content dissolve first, then snap the panel/
          main-hidden state in once it's actually gone -- not the other
          way around. */
-      dissolvedNodes = textNodesIn([document.querySelector("main"), document.getElementById("search-toggle"), document.getElementById("theme-toggle")]);
+      dissolvedNodes = textNodesIn([document.querySelector("main"), document.getElementById("theme-toggle")]);
       dissolvedNodes.forEach(function (node) {
         if (node.__origText === undefined) { node.__origText = node.textContent; }
       });
@@ -374,15 +375,16 @@
     if (e.key === "Escape" && open) { setOpen(false); }
   });
 
-  /* Page-entrance materialize: every page load resolves main/search-toggle/
-     theme-toggle in from a glitched state, not just the nav-panel close --
+  /* Page-entrance materialize: every page load resolves main (which now
+     includes search-toggle, on the homepage) and theme-toggle in from a
+     glitched state, not just the nav-panel close --
      same mechanics as materializeTick above, just triggered by arriving at
      a page instead of exiting the panel. js-entering (set in baseof.html,
      before paint) keeps this invisible until the synchronous scramble below
      has run, so there's no flash of plain text first. */
   document.addEventListener("DOMContentLoaded", function () {
     try {
-      var entryNodes = textNodesIn([document.querySelector("main"), document.getElementById("search-toggle"), document.getElementById("theme-toggle")]);
+      var entryNodes = textNodesIn([document.querySelector("main"), document.getElementById("theme-toggle")]);
       entryNodes.forEach(function (node) {
         node.__origText = node.textContent;
         var out = "";
