@@ -77,21 +77,29 @@
     var(--bg-h) var(--bg-s) clamp(20%, calc(92% - var(--bg-l)), 83%)
   );
 
-  /* Nav reveal-panel rainbow -- one hue per destination, full saturation
-     for visible "pop." Light mode is checked against the 3:1 large-text/
-     UI-component floor rather than 4.5:1 (bold, oversized decorative
-     labels, not body text -- deliberate choice like the guestbook's own
-     sub-aesthetic). Dark mode stays at >=4.5:1. See theme overrides below. */
-  --nav-c1: #E00000;
-  --nav-c2: #AD5600;
-  --nav-c3: #7A7000;
-  --nav-c4: #008016;
-  --nav-c5: #008060;
-  --nav-c6: #006DDB;
-  --nav-c7: #6B00FF;
-  --nav-c8: #DB006E;
-  --nav-c9: #8F6B00;
-  --nav-c10: #E00025;
+  /* Nav reveal-panel rainbow -- one hue per destination: red, gold, cyan,
+     green, purple, blue, magenta, pink, plus white and black as the two
+     neutral extremes. Full saturation throughout -- no brown/khaki/tan
+     "boring middle" hues. Each pair (this block + its [data-theme]
+     override, and the [data-theme="dark"] + prefers-color-scheme pair
+     below) must stay identical -- see the dark-mode comment for why two
+     copies exist. White/black swap roles by background: c9 is a muted
+     pale gray on light bg (true white would vanish) and true white on
+     dark bg; c10 is true black on light bg and a muted dark gray on dark
+     bg (true black would vanish there). Light mode is checked against
+     the 3:1 large-text/UI-component floor rather than 4.5:1 (bold,
+     oversized decorative labels, not body text -- deliberate choice like
+     the guestbook's own sub-aesthetic). Dark mode stays at >=4.5:1. */
+  --nav-c1: #E31B0C;
+  --nav-c2: #C99400;
+  --nav-c3: #00838F;
+  --nav-c4: #0C9440;
+  --nav-c5: #7B1FE0;
+  --nav-c6: #0060E6;
+  --nav-c7: #C81FA0;
+  --nav-c8: #E85A96;
+  --nav-c9: #8A93A3;
+  --nav-c10: #141414;
 
   /* Layout */
   --container-width: 72ch;
@@ -115,16 +123,16 @@
      to hit (system preference was also dark), masking this being wrong
      for a light-system user who explicitly clicks the toggle. Found
      2026-09-09 while adding c10, not by testing this specific case. */
-  --nav-c1: #FF6B6B;
-  --nav-c2: #FFA94D;
-  --nav-c3: #FFD93D;
-  --nav-c4: #51CF66;
-  --nav-c5: #2EE6C4;
-  --nav-c6: #4DABFF;
-  --nav-c7: #B980FF;
-  --nav-c8: #FF6FB5;
-  --nav-c9: #FFC53D;
-  --nav-c10: #FF5C77;
+  --nav-c1: #FF5B4D;
+  --nav-c2: #FFD93D;
+  --nav-c3: #29E4E0;
+  --nav-c4: #3FDD6E;
+  --nav-c5: #B375FF;
+  --nav-c6: #4FA8FF;
+  --nav-c7: #F13DC6;
+  --nav-c8: #FF8FC4;
+  --nav-c9: #F5F5F5;
+  --nav-c10: #5C5C5C;
 }
 
 [data-theme="light"] {
@@ -132,16 +140,16 @@
   --bg-s: 50%;
   --bg-l: 95%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 0% / 7%);
-  --nav-c1: #E00000;
-  --nav-c2: #AD5600;
-  --nav-c3: #7A7000;
-  --nav-c4: #008016;
-  --nav-c5: #008060;
-  --nav-c6: #006DDB;
-  --nav-c7: #6B00FF;
-  --nav-c8: #DB006E;
-  --nav-c9: #8F6B00;
-  --nav-c10: #E00025;
+  --nav-c1: #E31B0C;
+  --nav-c2: #C99400;
+  --nav-c3: #00838F;
+  --nav-c4: #0C9440;
+  --nav-c5: #7B1FE0;
+  --nav-c6: #0060E6;
+  --nav-c7: #C81FA0;
+  --nav-c8: #E85A96;
+  --nav-c9: #8A93A3;
+  --nav-c10: #141414;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -149,16 +157,16 @@
     --bg-l: 8%;
     --bg-s: 0%;
     --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
-    --nav-c1: #FF6B6B;
-    --nav-c2: #FFA94D;
-    --nav-c3: #FFD93D;
-    --nav-c4: #51CF66;
-    --nav-c5: #2EE6C4;
-    --nav-c6: #4DABFF;
-    --nav-c7: #B980FF;
-    --nav-c8: #FF6FB5;
-    --nav-c9: #FFC53D;
-    --nav-c10: #FF5C77;
+    --nav-c1: #FF5B4D;
+    --nav-c2: #FFD93D;
+    --nav-c3: #29E4E0;
+    --nav-c4: #3FDD6E;
+    --nav-c5: #B375FF;
+    --nav-c6: #4FA8FF;
+    --nav-c7: #F13DC6;
+    --nav-c8: #FF8FC4;
+    --nav-c9: #F5F5F5;
+    --nav-c10: #5C5C5C;
   }
 }
 
@@ -488,7 +496,6 @@ h5 > code {
   display: inline-block;
   width: fit-content;
   font-size: 1em;
-  font-weight: bold;
   border-bottom: 1px dotted currentColor;
   padding-bottom: 1px;
   text-decoration: none;
