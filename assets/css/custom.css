@@ -368,30 +368,10 @@ a {
   background: currentColor;
 }
 
-:root[data-theme="dark"] .theme-toggle-dot::before {
-  content: "";
-  position: absolute;
-  inset: -35%;
-  background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 255, 255, 0.55) 70deg, transparent 160deg, transparent 360deg);
-  animation: theme-toggle-shine 3s linear infinite;
-}
-
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .theme-toggle-dot {
     background: currentColor;
   }
-
-  :root:not([data-theme="light"]) .theme-toggle-dot::before {
-    content: "";
-    position: absolute;
-    inset: -35%;
-    background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 255, 255, 0.55) 70deg, transparent 160deg, transparent 360deg);
-    animation: theme-toggle-shine 3s linear infinite;
-  }
-}
-
-@keyframes theme-toggle-shine {
-  to { transform: rotate(360deg); }
 }
 
 /* Reading time */
