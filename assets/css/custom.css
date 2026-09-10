@@ -206,7 +206,6 @@ body.nav-hide-content main {
   visibility: hidden;
 }
 
-body.nav-hide-content .site-nav .search-toggle,
 body.nav-hide-content .site-nav .theme-toggle {
   opacity: 0;
   visibility: hidden;
@@ -218,7 +217,6 @@ body.nav-hide-content .site-nav .theme-toggle {
    to the glitched state, same as the nav-panel dissolve/materialize --
    the character-by-character resolve is the animation, not a fade. */
 html.js-entering main,
-html.js-entering #search-toggle,
 html.js-entering #theme-toggle {
   opacity: 0;
 }
@@ -276,9 +274,104 @@ a {
   color: var(--color-text-muted);
 }
 
+/* Light mode: match the social icons' tan (#705f2f, .social-links a) rather
+   than the generic muted gray -- straight black/gray read wrong next to
+   that tan elsewhere in the header. Dark mode keeps the generic muted
+   color, same split .social-links a already makes. */
+.theme-toggle {
+  color: #705f2f;
+}
+
+[data-theme="dark"] .theme-toggle {
+  color: var(--color-text-muted);
+}
+
 .theme-toggle:hover,
 .search-toggle:hover {
   color: var(--color-text-primary);
+}
+
+/* Search lives next to "More" at the bottom of the homepage post list now
+   (themes/ville/layouts/index.html), not in the sitewide nav -- it's the
+   only place it's rendered at all, so no page-type hiding is needed. */
+.expand-btn + .search-toggle {
+  margin-left: 1.2em;
+}
+
+/* Same icon-only circle on every screen size -- no separate desktop text
+   variant. The button's own box is the tap target (1.1rem, matching what
+   the visible circle used to measure) and stays that size regardless;
+   the circle drawn inside it is ~10% smaller, centered, so the hit area
+   doesn't shrink along with the visual. align-self:center overrides
+   .site-nav's baseline alignment just for this button -- a circle has no
+   text baseline to align to, so baseline-aligning it here read as
+   noticeably off relative to "Ville Kokkomäki". */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  /* align-self:center centers against the row's full cross-axis height,
+     which reserves descender space "Ville Kokkomäki" never actually uses
+     (no descenders in those letters) -- that reserved space below the
+     baseline pulls the geometric center about 1px lower than the text's
+     actual optical (cap-height) center. Measured directly, not guessed. */
+  margin-top: -1px;
+  margin-right: calc(0.2em + 20px);
+  width: 1.1rem;
+  height: 1.1rem;
+  box-sizing: border-box;
+}
+
+/* Hollow ring in light mode; a fully filled disc in dark mode (the ring
+   border just becomes invisible against its own matching fill) with a
+   slow conic-gradient sheen rotating inside it, clipped to the circle by
+   overflow:hidden. Duplicated across the explicit [data-theme="dark"]
+   and prefers-color-scheme fallback, same as the nav-c palette above --
+   see that comment for why both copies have to exist. */
+.theme-toggle-dot {
+  display: block;
+  position: relative;
+  /* .theme-toggle (the actual click target) keeps its own 1.1rem box
+     unchanged regardless of this, so the tappable area doesn't shrink or
+     grow along with the visible circle. */
+  width: 0.6rem;
+  height: 0.6rem;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1.1px solid currentColor;
+  overflow: hidden;
+  /* The sitewide `* { color: var(--color-text-primary) }` reset (main.css)
+     directly matches this span, and a direct match always beats an
+     inherited value regardless of specificity -- so without this, the
+     border's currentColor was resolving to near-black instead of
+     .theme-toggle's tan, no matter what color the button itself had. Same
+     bug the old .theme-toggle-label span needed this same fix for. */
+  color: inherit;
+}
+
+/* Click feedback: a quick scale-up-then-back "pop," not a hover/active
+   state -- .is-clicked is added and removed by main.js so it plays in
+   full on every click regardless of how long the button is actually
+   held down. */
+.theme-toggle-dot.is-clicked {
+  animation: theme-toggle-click 0.28s ease-in-out;
+}
+
+@keyframes theme-toggle-click {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+:root[data-theme="dark"] .theme-toggle-dot {
+  background: currentColor;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle-dot {
+    background: currentColor;
+  }
 }
 
 /* Reading time */
