@@ -274,6 +274,18 @@ a {
   color: var(--color-text-muted);
 }
 
+/* Light mode: match the social icons' tan (#705f2f, .social-links a) rather
+   than the generic muted gray -- straight black/gray read wrong next to
+   that tan elsewhere in the header. Dark mode keeps the generic muted
+   color, same split .social-links a already makes. */
+.theme-toggle {
+  color: #705f2f;
+}
+
+[data-theme="dark"] .theme-toggle {
+  color: var(--color-text-muted);
+}
+
 .theme-toggle:hover,
 .search-toggle:hover {
   color: var(--color-text-primary);
@@ -286,61 +298,76 @@ a {
   margin-left: 1.2em;
 }
 
+/* Same icon-only circle on every screen size -- no separate desktop text
+   variant. The button's own box is the tap target (1.1rem, matching what
+   the visible circle used to measure) and stays that size regardless;
+   the circle drawn inside it is ~10% smaller, centered, so the hit area
+   doesn't shrink along with the visual. align-self:center overrides
+   .site-nav's baseline alignment just for this button -- a circle has no
+   text baseline to align to, so baseline-aligning it here read as
+   noticeably off relative to "Ville Kokkomäki". */
 .theme-toggle {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  align-self: center;
+  /* align-self:center centers against the row's full cross-axis height,
+     which reserves descender space "Ville Kokkomäki" never actually uses
+     (no descenders in those letters) -- that reserved space below the
+     baseline pulls the geometric center about 1px lower than the text's
+     actual optical (cap-height) center. Measured directly, not guessed. */
+  margin-top: -1px;
+  margin-right: 0.2em;
+  width: 1.1rem;
+  height: 1.1rem;
+  box-sizing: border-box;
 }
 
-.theme-toggle-label {
-  color: inherit;
-}
-
-/* Plain circle, not an icon that changes shape -- ring always visible,
-   the inner dot's opacity is what flips: hollow in light mode, filled in
-   dark, same "Light"/"Dark" states the desktop text spells out. */
+/* Hollow ring in light mode; a fully filled disc in dark mode (the ring
+   border just becomes invisible against its own matching fill) with a
+   slow conic-gradient sheen rotating inside it, clipped to the circle by
+   overflow:hidden. Duplicated across the explicit [data-theme="dark"]
+   and prefers-color-scheme fallback, same as the nav-c palette above --
+   see that comment for why both copies have to exist. */
 .theme-toggle-dot {
-  display: none;
+  display: block;
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  overflow: hidden;
 }
 
-@media (max-width: 600px) {
-  .theme-toggle-label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-  }
+:root[data-theme="dark"] .theme-toggle-dot {
+  background: currentColor;
+}
 
-  .theme-toggle-dot {
-    display: block;
-    width: 1.1rem;
-    height: 1.1rem;
-    box-sizing: border-box;
-    border-radius: 50%;
-    border: 1.5px solid currentColor;
-  }
+:root[data-theme="dark"] .theme-toggle-dot::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 255, 255, 0.55) 70deg, transparent 160deg, transparent 360deg);
+  animation: theme-toggle-shine 3s linear infinite;
+}
 
-  .theme-toggle-dot::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle-dot {
     background: currentColor;
-    opacity: 0; /* hollow ring in light mode */
-    transform: scale(0.55);
   }
 
-  :root[data-theme="dark"] .theme-toggle-dot::before {
-    opacity: 1; /* filled in dark mode */
+  :root:not([data-theme="light"]) .theme-toggle-dot::before {
+    content: "";
+    position: absolute;
+    inset: -35%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 255, 255, 0.55) 70deg, transparent 160deg, transparent 360deg);
+    animation: theme-toggle-shine 3s linear infinite;
   }
 }
 
-@media (max-width: 600px) and (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle-dot::before {
-    opacity: 1;
-  }
+@keyframes theme-toggle-shine {
+  to { transform: rotate(360deg); }
 }
 
 /* Reading time */

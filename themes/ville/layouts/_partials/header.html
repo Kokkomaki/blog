@@ -1,14 +1,19 @@
+{{/* Rainbow order: white first, then red through purple/magenta/pink
+     following the palette's actual hue order (see the --nav-c comment in
+     main.css), black last. Destination-to-color assignment is unchanged
+     -- only the list order (which drives both this panel and the
+     homepage's idle word-cycling) moved. */}}
 {{ $destinations := slice
-  (dict "word" "about" "url" "/about/" "color" "var(--nav-c4)")
-  (dict "word" "ai" "url" "/ai/" "color" "var(--nav-c8)")
-  (dict "word" "analytics" "url" "/analytics/" "color" "var(--nav-c7)")
-  (dict "word" "guestbook" "url" "/guestbook/" "color" "var(--nav-c3)")
-  (dict "word" "newsletter" "url" "https://subscribe.kokkomaki.com/subscription/form" "color" "var(--nav-c2)")
-  (dict "word" "now" "url" "/now/" "color" "var(--nav-c5)")
   (dict "word" "onlyfans" "url" "" "color" "var(--nav-c9)" "morph" true)
-  (dict "word" "photos" "url" "https://photos.kokkomaki.com" "color" "var(--nav-c10)")
   (dict "word" "posts" "url" "/posts/" "color" "var(--nav-c1)")
+  (dict "word" "newsletter" "url" "https://subscribe.kokkomaki.com/subscription/form" "color" "var(--nav-c2)")
+  (dict "word" "about" "url" "/about/" "color" "var(--nav-c4)")
+  (dict "word" "guestbook" "url" "/guestbook/" "color" "var(--nav-c3)")
   (dict "word" "resume" "url" "/resume/" "color" "var(--nav-c6)")
+  (dict "word" "now" "url" "/now/" "color" "var(--nav-c5)")
+  (dict "word" "analytics" "url" "/analytics/" "color" "var(--nav-c7)")
+  (dict "word" "ai" "url" "/ai/" "color" "var(--nav-c8)")
+  (dict "word" "photos" "url" "https://photos.kokkomaki.com" "color" "var(--nav-c10)")
 }}
 {{ $currentWord := "" }}
 {{ range $destinations }}
@@ -341,7 +346,7 @@
       /* Watch the real content dissolve first, then snap the panel/
          main-hidden state in once it's actually gone -- not the other
          way around. */
-      dissolvedNodes = textNodesIn([document.querySelector("main"), document.getElementById("theme-toggle")]);
+      dissolvedNodes = textNodesIn([document.querySelector("main")]);
       dissolvedNodes.forEach(function (node) {
         if (node.__origText === undefined) { node.__origText = node.textContent; }
       });
@@ -376,15 +381,18 @@
   });
 
   /* Page-entrance materialize: every page load resolves main (which now
-     includes search-toggle, on the homepage) and theme-toggle in from a
-     glitched state, not just the nav-panel close --
-     same mechanics as materializeTick above, just triggered by arriving at
-     a page instead of exiting the panel. js-entering (set in baseof.html,
-     before paint) keeps this invisible until the synchronous scramble below
+     includes search-toggle, on the homepage) in from a glitched state, not
+     just the nav-panel close -- same mechanics as materializeTick above,
+     just triggered by arriving at a page instead of exiting the panel.
+     theme-toggle has no text of its own to glitch (icon-only button,
+     see bottom-actions.html) but still fades in on the same timeline via
+     the js-entering/nav-hide-content opacity rules in custom.css.
+     js-entering (set in baseof.html, before paint) keeps this invisible
+     until the synchronous scramble below
      has run, so there's no flash of plain text first. */
   document.addEventListener("DOMContentLoaded", function () {
     try {
-      var entryNodes = textNodesIn([document.querySelector("main"), document.getElementById("theme-toggle")]);
+      var entryNodes = textNodesIn([document.querySelector("main")]);
       entryNodes.forEach(function (node) {
         node.__origText = node.textContent;
         var out = "";

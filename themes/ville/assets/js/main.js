@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   var btn = document.getElementById('theme-toggle');
   if (!btn) return;
-  // Mobile shows an SVG icon instead of this text (see custom.css); the
-  // label still gets updated so screen readers and the desktop view both
-  // reflect real state. Kept as its own span, not btn.textContent, so
-  // setting it doesn't wipe out the icon markup sitting next to it.
-  var label = btn.querySelector('.theme-toggle-label');
+  // Same icon-only button on every screen size now -- nothing renders the
+  // "Light"/"Dark" text, so it just drives aria-label instead of a visible
+  // label span.
 
   function isDarkMode() {
     var theme = document.documentElement.dataset.theme;
@@ -14,13 +12,15 @@ document.addEventListener('DOMContentLoaded', function() {
     return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
-  label.textContent = isDarkMode() ? 'Dark' : 'Light';
+  function updateLabel() {
+    btn.setAttribute('aria-label', isDarkMode() ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  updateLabel();
 
   btn.addEventListener('click', function() {
-    var dark = isDarkMode();
-    var newTheme = dark ? 'light' : 'dark';
+    var newTheme = isDarkMode() ? 'light' : 'dark';
     document.documentElement.dataset.theme = newTheme;
     localStorage.setItem('theme', newTheme);
-    label.textContent = dark ? 'Light' : 'Dark';
+    updateLabel();
   });
 });
