@@ -7,8 +7,6 @@ date = "2025-11-28 18:32:53"
 
 <!--more-->
 
-In [Bitcoin as a Nonviolent Tool Against State Financial Censorship](https://www.doria.fi/handle/10024/187407), I wrote that Bitcoin "serves as a form of resistance against financial censorship by enabling borderless, censorship-resistant, and permissionless transactions". Later Louisa Alexa, the author of [The Rage](https://www.therage.co/), wrote a piece of that in [Forbes](https://www.forbes.com/sites/digital-assets/2023/07/13/new-study-investigates-bitcoin-as-a-tool-against-financial-censorship/) and I was ecstatic. However, I noticed she didn't read into the limitations of my study and mention them in the Forbes piece at all. And those limitations were quite important if one is to understand how Bitcoin could work against financial censorship. Even my case studies highlighted that. I think she exaggerated things.
-
 In the early days, Bitcoin was said to be private, anonymous, and untraceable. Thus users in the infamous Silk Road darknet marketplace used bitcoin quite extensively for their narcotics purchases being blindly confident in its anonymity. Today many everyday Bitcoin users think the system is fully traceable, but that too is not true.
 
 Another story we believe is that bitcoin is safe for human rights activists, or as Alex Gladstein likes to put it: [freedom tech](https://www.journalofdemocracy.org/articles/why-bitcoin-is-freedom-money/); freedom *from* censorship and freedom *to* transact. Indeed it is. But it is not without its caveats and the small, grey footnotes.
