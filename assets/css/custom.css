@@ -332,11 +332,14 @@ a {
 .theme-toggle-dot {
   display: block;
   position: relative;
-  width: 1rem;
-  height: 1rem;
+  /* Half the old 1rem visual size -- .theme-toggle (the actual click
+     target) keeps its own 1.1rem box unchanged, so the tappable area
+     doesn't shrink along with the visible circle. */
+  width: 0.5rem;
+  height: 0.5rem;
   box-sizing: border-box;
   border-radius: 50%;
-  border: 1.5px solid currentColor;
+  border: 1px solid currentColor;
   overflow: hidden;
   /* The sitewide `* { color: var(--color-text-primary) }` reset (main.css)
      directly matches this span, and a direct match always beats an
@@ -345,6 +348,20 @@ a {
      .theme-toggle's tan, no matter what color the button itself had. Same
      bug the old .theme-toggle-label span needed this same fix for. */
   color: inherit;
+}
+
+/* Click feedback: a quick scale-up-then-back "pop," not a hover/active
+   state -- .is-clicked is added and removed by main.js so it plays in
+   full on every click regardless of how long the button is actually
+   held down. */
+.theme-toggle-dot.is-clicked {
+  animation: theme-toggle-click 0.28s ease-in-out;
+}
+
+@keyframes theme-toggle-click {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  100% { transform: scale(1); }
 }
 
 :root[data-theme="dark"] .theme-toggle-dot {
