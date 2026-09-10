@@ -401,9 +401,14 @@ h5 > code {
 .site-nav {
   font-family: var(--font-family-mono);
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: baseline;
-  gap: 1.5em;
+  /* Tight on purpose: .site-nav-name, .site-nav-slash and .site-nav-trigger
+     are three separate flex children here (the slash isn't nested inside
+     the trigger), so THIS gap is what actually spaces "Name" from "/" --
+     not anything inside .site-nav-trigger. margin-right:auto below still
+     pushes search/theme to the far edge regardless of how small this is. */
+  gap: 0.15em;
   padding-bottom: 0.5em;
 }
 
@@ -415,8 +420,9 @@ h5 > code {
   font: inherit;
   display: inline-flex;
   align-items: baseline;
-  gap: 0.35em;
   color: var(--color-text-primary);
+  flex-shrink: 0;
+  margin-right: auto;
 }
 
 .site-nav-name {
@@ -424,6 +430,7 @@ h5 > code {
   color: var(--color-text-primary);
   margin-left: 0;
   border-bottom: none;
+  flex-shrink: 0;
 }
 
 .site-nav-name:hover {
@@ -433,19 +440,17 @@ h5 > code {
 
 .site-nav-slash {
   color: var(--color-text-muted);
+  flex-shrink: 0;
 }
 
 .site-nav-word {
   border-bottom: 1px dotted var(--color-text-muted);
   padding-bottom: 1px;
+  white-space: nowrap;
 }
 
 .site-nav-char {
   opacity: 0.55;
-}
-
-.site-nav .search-toggle {
-  margin-left: auto;
 }
 
 /* Normal document flow, not a floating overlay -- opening it pushes
@@ -479,6 +484,7 @@ h5 > code {
   display: inline-block;
   width: fit-content;
   font-size: 1em;
+  font-weight: bold;
   border-bottom: 1px dotted currentColor;
   padding-bottom: 1px;
   text-decoration: none;

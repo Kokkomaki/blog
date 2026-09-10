@@ -281,6 +281,59 @@ a {
   color: var(--color-text-primary);
 }
 
+.site-nav .theme-toggle {
+  margin-left: 1.2em;
+}
+
+/* Search only makes sense as a sitewide jump-to-anything control -- once
+   you're already reading a specific post or page, keep just the theme
+   toggle in the nav. The "/" keyboard shortcut (baseof.html) still works
+   everywhere regardless; this only hides the button. */
+body:not(.home-page) .search-toggle {
+  display: none;
+}
+
+/* Eclipse-style moon icon (crescent = a solid circle with a second,
+   offset circle masked out of it) plus a dotted ring -- same construction
+   as doantranminhthanh.com's theme toggle. Desktop keeps the "Light"/
+   "Dark" text (.theme-toggle-icon stays display:none there); below 600px
+   they swap, since text of varying length ("Light" vs "Dark") is exactly
+   what was forcing the nav row to wrap. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+}
+
+.theme-toggle-icon {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .theme-toggle-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .theme-toggle-icon {
+    display: block;
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .theme-toggle-ring {
+    animation: theme-toggle-spin 24s linear infinite;
+    transform-origin: 50% 50%;
+  }
+
+  @keyframes theme-toggle-spin {
+    to { transform: rotate(360deg); }
+  }
+}
+
 /* Reading time */
 .reading-time {
   color: var(--color-text-muted);

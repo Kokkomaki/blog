@@ -1,2 +1,12 @@
 <button class="search-toggle" id="search-toggle" aria-label="Search" title="Search (/)">Search</button>
-<button class="theme-toggle" id="theme-toggle">○</button>
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+  <span class="theme-toggle-label"></span>
+  <svg class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <mask id="theme-toggle-eclipse">
+      <rect width="24" height="24" fill="#fff"></rect>
+      <circle cx="16.5" cy="12" r="6.5" fill="#000"></circle>
+    </mask>
+    <circle cx="12" cy="12" r="6" fill="currentColor" mask="url(#theme-toggle-eclipse)"></circle>
+    <circle class="theme-toggle-ring" cx="12" cy="12" r="9.25" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="0.6 1.7" stroke-linecap="round"></circle>
+  </svg>
+</button>
