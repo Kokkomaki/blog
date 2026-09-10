@@ -48,16 +48,17 @@
   var WORD_COLORS = { {{ range $destinations }}{{ .word | jsonify | safeJS }}: {{ .color | jsonify | safeJS }}, {{ end }} };
   var CHARS = "!<>-_\\/[]{}=+*^?#";
 
-  /* Easter egg: a 10th destination that only exists ~10% of the time --
-     unlike "onlyfans" (a real, permanent destination above), this one
-     stays genuinely rare. Has to be a client-side roll, not server-side
-     -- this page is built once and served identically to everyone, so
+  /* Easter egg: a 10th destination that only exists ~30% of the time,
+     and only on the homepage (CURRENT is only unset there) -- unlike
+     "onlyfans" (a real, permanent destination above), this one stays
+     genuinely rare. Has to be a client-side roll, not server-side --
+     this page is built once and served identically to everyone, so
      "sometimes" only means anything if each visitor's own browser
      decides. When it hits, it joins the idle cycle (so the word itself
      says "secret" at some point) and gets added to the reveal panel,
      same as any other destination -- nothing else about it is
      special-cased. */
-  if (Math.random() < 0.1) {
+  if (!CURRENT && Math.random() < 0.3) {
     WORDS.push("secret");
     WORD_COLORS["secret"] = "var(--nav-c9)";
     var linksEl = document.querySelector(".site-nav-links");

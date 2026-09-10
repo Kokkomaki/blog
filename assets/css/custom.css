@@ -232,19 +232,14 @@ html.js-entering #theme-toggle {
     padding: 0 !important;
   }
 
-  .home-page {
+  /* Same horizontal padding on every page, matching what the home page
+     always used -- previously each page type had its own value
+     (home 1.35em, posts ~3.35em, about 2em, everything else the base
+     --spacing-lg/3em), which squeezed the content column on most pages
+     and made the site-nav's own position visibly shift between them. */
+  body {
     padding-right: 1.35em;
     padding-left: 1.35em;
-  }
-
-  .posts-page {
-    padding-right: calc(var(--spacing-lg) + 0.35em);
-    padding-left: calc(var(--spacing-lg) + 0.35em);
-  }
-
-  .about-page {
-    padding-right: 2em;
-    padding-left: 2em;
   }
 
   .num-list li {
@@ -362,6 +357,13 @@ a {
   0% { transform: scale(1); }
   40% { transform: scale(1.35); }
   100% { transform: scale(1); }
+}
+
+/* Light mode's ring is the only place this border is ever actually
+   visible -- dark mode's solid fill (below) covers its own edge
+   regardless of width -- so this only needs to be scoped to "not dark". */
+:root:not([data-theme="dark"]) .theme-toggle-dot {
+  border-width: 1.43px;
 }
 
 :root[data-theme="dark"] .theme-toggle-dot {
