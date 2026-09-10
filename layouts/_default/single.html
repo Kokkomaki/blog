@@ -116,9 +116,30 @@
       });
     }
 
-    /* run after images + fonts settle so vertical positions are accurate */
-    window.addEventListener('load', function () { setTimeout(initSidenotes, 30); });
-    window.addEventListener('resize', debounce(initSidenotes, 150));
+    /* Run only once the page-entrance glitch animation (header.html) has
+       fully resolved and webfonts have swapped in -- both still change the
+       text/layout inside <main> for a bit after `load` fires. Racing the
+       animation cloned half-glitched characters into a note permanently;
+       racing the font swap measured a position that was about to move once
+       the real font landed. Cached so a resize in that same window doesn't
+       open a second wait. */
+    var readyPromise = null;
+    function whenReady() {
+      if (!readyPromise) {
+        var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+        var entryDone = window.__mainMaterialized
+          ? Promise.resolve()
+          : new Promise(function (resolve) {
+              document.addEventListener('main-materialized', resolve, { once: true });
+              setTimeout(resolve, 3000); /* header.html's script failing shouldn't wedge this forever */
+            });
+        readyPromise = Promise.all([fontsReady, entryDone]);
+      }
+      return readyPromise;
+    }
+
+    window.addEventListener('load', function () { whenReady().then(function () { setTimeout(initSidenotes, 30); }); });
+    window.addEventListener('resize', debounce(function () { whenReady().then(initSidenotes); }, 150));
 
     /* prevent footnote-ref clicks jumping to the now-hidden section */
     document.addEventListener('click', function (e) {

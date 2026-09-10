@@ -394,9 +394,19 @@
       });
       document.documentElement.classList.remove("js-entering");
       var entryIcons = Array.prototype.slice.call(document.querySelectorAll(".social-links a"));
-      materializeTick(entryNodes, entryIcons, 0, null, ++transitionId);
+      /* Sidenote engine (single.html) clones footnote text out of <main>
+         and measures its position -- both come out wrong if that happens
+         mid-glitch, so it waits for this event first. Must fire on the
+         catch path too, or a page that errors here would leave it
+         waiting forever. */
+      materializeTick(entryNodes, entryIcons, 0, function () {
+        window.__mainMaterialized = true;
+        document.dispatchEvent(new Event("main-materialized"));
+      }, ++transitionId);
     } catch (e) {
       document.documentElement.classList.remove("js-entering");
+      window.__mainMaterialized = true;
+      document.dispatchEvent(new Event("main-materialized"));
     }
   });
 })();
