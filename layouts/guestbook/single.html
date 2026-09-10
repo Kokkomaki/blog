@@ -1,0 +1,39 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  {{- with resources.Get "css/guestbook-corkboard.css" }}
+    {{- if hugo.IsDevelopment }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{- else }}
+      {{- with . | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  <div class="gb-board">
+    <div id="guestbook-board" data-url="{{ .Permalink }}" data-dev="{{ hugo.IsDevelopment }}"></div>
+  </div>
+
+  {{- with resources.Get "js/guestbook.jsx" }}
+    {{- $opts := dict
+      "minify" (not hugo.IsDevelopment)
+      "jsx" "automatic"
+      "jsxImportSource" "react"
+      "targetPath" "js/guestbook.js"
+    }}
+    {{- with . | js.Build $opts }}
+      {{- if hugo.IsDevelopment }}
+        <script src="{{ .RelPermalink }}" defer></script>
+      {{- else }}
+        {{- with . | fingerprint }}
+          <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+  {{ if not .Date.IsZero }}{{ partial "date.html" .Date }}{{ end }}
+
+{{ end }}

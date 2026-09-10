@@ -1,0 +1,346 @@
+@font-face {
+  font-family: "Special Elite";
+  src: url("/fonts/special-elite.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Corkboard guestbook -- a deliberately committed visual world (via the
+   cards themselves and Special Elite type), distinct from the site's own
+   light/dark theme and from the plain nostr-comments widget used under
+   posts. No board/panel background -- just the cards on the page.
+
+   The site's own reset (assets/css/main.css) sets `* { color: var(--color-
+   text-primary) }` -- a direct match on every element, which beats plain
+   inheritance regardless of specificity. So `.gb-board { color: #2B2620 }`
+   alone never reaches descendants that don't set their own color: they
+   inherit the site's dark-mode near-white instead, which is exactly the
+   invisible-label bug. `.gb-board *` is a real (if low-specificity) match
+   that outguns the bare `*` reset, so it re-establishes ink as the actual
+   default for every descendant instead of relying on inheritance. */
+.gb-board, .gb-board * {
+  color: #2B2620;
+}
+.gb-status { font-family: ui-monospace, monospace; font-size: 0.8rem; opacity: 0.85; margin-bottom: 14px; }
+.gb-error { color: #61151B; font-weight: 600; opacity: 1; }
+
+/* The toolbar (color, font, Pin it) sits on top of the note now, not
+   beside it in a tall vertical panel -- a single horizontal row, then the
+   note beneath. The note is sized to roughly the same proportions as a
+   real pinned .gb-card, so composing it previews the result instead of
+   filling out an unrelated tall form. */
+.gb-compose {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 28px;
+}
+/* Deliberately not a strict 1:1 square: giving the signature pad enough
+   room to actually draw in was a real, reported usability problem
+   (previously 40px tall), and that matters more than exact squareness.
+   230x300 (ratio 1.3) is the note's *resting* size -- min-height, not a
+   hard height, so dragging the message textarea's own resize handle
+   (see .gb-note textarea below) can grow the whole note rather than
+   overflowing or clipping it. */
+.gb-note {
+  /* position:relative here, not just the "relative" class TiltCard adds --
+     that class name was never actually backed by a `.relative { position:
+     relative }` rule anywhere in this project (only .gb-card sets its own
+     position directly), so it was a no-op. Kept even after the curled-
+     corner experiment it was added for was removed (didn't read as real,
+     by direct feedback) -- it's still a correctness fix on its own. */
+  position: relative;
+  width: 230px; min-height: 300px; flex: none; border-radius: 2px; padding: 14px 14px 10px; background: #fff9ec;
+  font-family: "Special Elite", ui-monospace, monospace; font-size: 0.82rem;
+  /* -15% alpha across the board (see .gb-card's identical treatment
+     below for the exact before/after table). */
+  box-shadow:
+    inset 0 1px 0 #ffffff29,
+    0 1px 1px -1px #00000044,
+    0 16px 22px -12px #0000007f,
+    0 5px 10px -5px #00000056;
+  display: flex; flex-direction: column; transition: background-color 0.15s ease;
+}
+.gb-flabel { display: block; font-size: 0.68rem; opacity: 0.85; margin-bottom: 0; line-height: 1.3; }
+.gb-required { color: #61151B; opacity: 1; }
+.gb-note input, .gb-note textarea {
+  width: 100%; font-family: inherit; font-size: 0.88rem; border: none; border-bottom: 1px solid #00000030;
+  background: transparent; padding: 2px 2px; margin-bottom: 3px; color: #2B2620;
+}
+.gb-note input:focus, .gb-note textarea:focus { outline: 2px solid #2B2620; outline-offset: 1px; }
+/* resize:vertical, not none -- the word limit keeps a note from growing
+   unboundedly, but even 60 words can read as cramped in a small box;
+   letting the writer drag it taller (native textarea resize handle) beats
+   guessing one fixed height that works for everyone. Horizontal resize
+   stays off so the note's width -- which the final card echoes -- can't
+   be dragged out of proportion.
+
+   flex:none, not flex:1 -- this is the actual, confirmed bug behind three
+   rounds of "enlargening doesn't work": flex:1 sets flex-basis:0%, and a
+   flex item with flex-basis set ignores its own `height` entirely in
+   favor of the flex-basis+grow calculation on every layout. Native
+   resize (and, verified directly, even a plain `element.style.height =`)
+   was being silently discarded on the very next reflow -- not a framer/
+   tilt interaction at all, which is what the previous fixes chased.
+   min-height bumped from 16 to 80 to compensate: flex:1 used to size
+   this via "fill whatever's left in the note", which flex:none doesn't
+   do, so it needs its own reasonable starting size instead. */
+.gb-note textarea { resize: vertical; flex: none; min-height: 80px; max-height: 260px; margin-bottom: 0; }
+.gb-wordcount { font-size: 0.62rem; opacity: 0.6; text-align: right; margin-top: 2px; }
+/* 80px, not 40 -- a signature needs real vertical room to feel natural to
+   draw, not just to technically fit. Paired with the useSigPad rewrite
+   (fresh getBoundingClientRect() per event + a ResizeObserver, instead of
+   a size cached once at mount) that fixed the actual coordinate/cropping
+   bug -- the bigger canvas alone wouldn't have fixed drawing accuracy. */
+.gb-sigpad {
+  touch-action: none; cursor: crosshair; display: block; width: 100%; height: 80px; flex: none;
+  background: #fff9ec; border: 1px solid #00000025; border-radius: 2px; margin-top: 3px;
+}
+.gb-pad-actions { margin-top: 3px; }
+.gb-clear-btn {
+  font-size: 0.7rem; background: none; border: none; text-decoration: underline;
+  padding: 0; cursor: pointer; opacity: 0.85; font-family: inherit; color: #2B2620;
+}
+.gb-clear-btn:hover { opacity: 1; }
+
+/* Toolbar: color, font, and Pin it as three separate controls again (the
+   single fused stamp block this replaced read as ugly, by direct
+   feedback) -- a gap between each, not one merged pill. Fixed paper/ink
+   on font and Pin it regardless of site theme (same "own committed
+   visual world" rule the note and cards already follow, see DESIGN.md);
+   only the color trigger tracks light/dark (displayColor), since it's
+   standing in for the note/card preview color, which does the same.
+
+   All three share one explicit height (36px) rather than each deriving
+   its own from padding+line-height -- that mismatch (a 30px circle next
+   to a ~27px font box next to a ~32px submit button) is what actually
+   read as "not symmetrical" before; setting the height directly and
+   centering content in it makes all three provably equal instead of
+   coincidentally close. Square corners throughout (border-radius: 0) --
+   the color trigger stays a circle, which is a color-picker convention,
+   not the "rounded box" that was rejected. */
+.gb-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.gb-tool { position: relative; }
+.gb-tool-trigger {
+  font-family: "Special Elite", monospace; font-size: 0.8rem; cursor: pointer;
+  background: #fff9ec; color: #2B2620; border: 1px solid #2B2620; border-radius: 0;
+  height: 36px; display: flex; align-items: center; justify-content: center; padding: 0 16px;
+}
+.gb-color-trigger { width: 36px; height: 36px; border-radius: 50%; padding: 0; }
+.gb-tool-trigger:hover { background: #fff; }
+.gb-toolbar-submit { font-weight: bold; }
+.gb-toolbar-submit:disabled { opacity: 0.5; cursor: wait; }
+/* Paper dropdown, dropped and eased in rather than just appearing --
+   "neat CSS motion" instead of a plain instant toggle. Only plays on
+   mount (no exit animation), which is enough for a menu that's already
+   gone the instant it's closed. */
+.gb-tool-menu {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 20;
+  background: #fff9ec; border: 1px solid #2B2620; border-radius: 4px;
+  box-shadow: 0 10px 18px -8px #00000070, 0 3px 6px -2px #00000050;
+  padding: 8px; animation: gb-menu-in 0.15s ease both;
+}
+@keyframes gb-menu-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* Fixed-px columns (not 1fr) and no explicit width -- the box then
+   shrink-wraps to exactly fit the grid (absolutely positioned elements
+   size to their content by default) instead of needing a hand-computed
+   width kept in sync with swatch size/gap/padding by hand. The old fixed
+   width (158px) undercounted its own container's padding+border under
+   box-sizing:border-box, so the grid genuinely overflowed the box --
+   this fix removes the possibility structurally, not just the one wrong
+   number. */
+.gb-color-menu { display: grid; grid-template-columns: repeat(5, 26px); gap: 6px; }
+.gb-swatch {
+  width: 26px; height: 26px; border-radius: 50%; border: 1px solid transparent; cursor: pointer; padding: 0;
+  transition: transform 0.12s ease;
+}
+.gb-swatch:hover { transform: scale(1.12); }
+.gb-swatch[aria-pressed="true"] { border-color: #2B2620; }
+.gb-swatch:focus-visible { outline: 2px solid #2B2620; outline-offset: 2px; }
+/* Vertical list, not chips -- a proper dropdown menu now that it's a
+   popover rather than a permanently-visible row. Each option is set in
+   its own font -- "Comic Sans" literally reads in Comic Sans. */
+.gb-font-menu { display: flex; flex-direction: column; gap: 1px; width: 148px; }
+.gb-font-swatch {
+  font-size: 0.82rem; text-align: left; background: transparent; color: #2B2620;
+  border: none; border-radius: 3px; padding: 5px 7px; cursor: pointer; opacity: 0.85;
+}
+.gb-font-swatch:hover { opacity: 1; background: #2B262012; }
+.gb-font-swatch[aria-pressed="true"] { opacity: 1; background: #2B262020; }
+.gb-honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* .gb-board's own reset forces every descendant to the fixed ink color
+   (#2B2620) regardless of theme -- correct for the note/cards/toolbar,
+   which are their own committed paper-colored world independent of the
+   site's light/dark mode, but wrong for .gb-intro: that paragraph reads
+   as normal page prose (same font, same flow as any other paragraph on
+   the site), so it needs the site's own theme-aware text color, not a
+   fixed ink that would go near-invisible against a dark background.
+   Two classes beats .gb-board's one-class-plus-universal selector, so no
+   !important is needed. */
+.gb-board .gb-intro,
+.gb-board .gb-intro * {
+  color: var(--color-text-primary);
+}
+.gb-intro { margin-bottom: 28px; }
+/* The extension/bunker options, inline in the sentence itself -- always
+   present, nothing to click through first ("no need to hide anything").
+   Symmetrical by design: both methods get an icon + control of matching
+   size, so neither side reads as the "main" option. */
+.gb-inline-auth-link {
+  display: inline-flex; align-items: center; gap: 4px; vertical-align: -2px;
+  background: none; border: none; text-decoration: underline; padding: 0; cursor: pointer;
+  font: inherit; color: inherit;
+}
+.gb-inline-auth-link svg { width: 13px; height: 13px; flex: none; }
+.gb-inline-bunker { display: inline-flex; align-items: center; gap: 4px; vertical-align: -3px; }
+.gb-inline-bunker svg { width: 13px; height: 13px; flex: none; opacity: 0.85; }
+.gb-inline-bunker input {
+  width: 96px; font: inherit; font-size: 0.85em; border: none;
+  border-bottom: 1px solid currentColor; background: transparent; padding: 0 1px; color: inherit;
+}
+.gb-auth-go {
+  background: none; border: none; color: inherit; cursor: pointer; padding: 0 2px;
+  font-size: 1rem; line-height: 1; font-family: inherit; opacity: 0.85;
+}
+.gb-auth-go:hover { opacity: 1; }
+
+/* Waterfall/masonry, not a row grid: a row grid pads every card in a row
+   up to that row's tallest card, so short notes sit in a sea of empty
+   space under long ones -- exactly what a Pinterest-style board avoids
+   by packing each column independently, same width throughout, height
+   free to vary per item. CSS multi-column is the plain-CSS way to get
+   that: `columns: 190px` picks as many 190px-ish columns as fit, then
+   flows cards down one column before starting the next (each card's own
+   `break-inside: avoid` keeps a single note from being split across
+   columns). No JS masonry library needed for a static, already-rendered
+   grid of cards. */
+.gb-grid {
+  columns: 190px; column-gap: 18px; max-width: 680px;
+  /* No perspective here -- growth.design applies it per-card
+     (transformPerspective in the tilt component below), not on the
+     container, so each card gets its own vanishing point. */
+}
+/* Rotation/scale on .gb-card itself is owned entirely by the TiltCard
+   component's framer-motion springs (see guestbook.jsx) -- no CSS
+   transition on transform here, since animating the same property from
+   both a CSS transition and a JS rAF loop at once causes visible jank.
+   (The small *resting* tilt per card is also framer-driven, a static
+   `rotate` composed alongside the hover springs -- see cardTiltDeg() /
+   TiltCard's restRotate prop -- not CSS, so it can share one transform
+   pipeline with the interactive tilt instead of fighting it.)
+
+   The shadow itself is layered on purpose, not a single soft blur: a
+   tight, dark near-shadow (the paper's own edge/thickness) plus a
+   broader, softer far-shadow (the card lifting off the board) reads as
+   real depth: a flat card only ever has the second kind. A 1px inset
+   highlight along the top edge stands in for a bit of paper sheen. This
+   is what "the notes look too straight" (flat, grid-perfect, no
+   thickness) was asking to fix, on top of the resting rotation above. */
+.gb-card {
+  position: relative; padding: 30px 14px 14px; border-radius: 2px;
+  font-family: "Special Elite", ui-monospace, monospace; font-size: 0.86rem; line-height: 1.45;
+  /* -15% alpha across all four layers (rest and hover alike, below):
+     30->29, 55->48, 95->7f, 70->5f, and hover's 40->36, 65->56, c5->a7,
+     85->71 -- computed, not eyeballed, same as every other alpha choice
+     in this file. */
+  box-shadow:
+    inset 0 1px 0 #ffffff29,
+    0 1px 1px -1px #00000048,
+    0 18px 24px -12px #0000007f,
+    0 6px 12px -6px #0000005f;
+  transition: box-shadow 0.12s ease;
+  /* Column layout has no row-gap of its own -- margin is what separates
+     one card from the next one down its column. break-inside keeps a
+     card whole rather than letting the column break split it in half. */
+  margin-bottom: 20px;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+.gb-card:hover, .gb-card:focus-within {
+  z-index: 10;
+  box-shadow:
+    inset 0 1px 0 #ffffff36,
+    0 2px 2px -1px #00000056,
+    0 28px 34px -14px #000000a7,
+    0 10px 16px -6px #00000071;
+}
+.gb-glare {
+  pointer-events: none; position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: 50; border-radius: inherit;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gb-card { transition: none; }
+}
+.gb-pin {
+  position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+  width: 14px; height: 14px; border-radius: 50%; box-shadow: 0 5px 7px #00000092, 0 1px 2px #00000085;
+}
+/* opacity 0.82, not the requested 0.595 (0.85 minus 30%) -- computed
+   against all 20 card colors (10 light + 10 dark palette), 0.595 drops
+   worst-case contrast to 2.91:1, well under WCAG AA's 4.5:1 (fails
+   against #C7A858 specifically). 0.82 is the lowest value that still
+   clears 4.5:1 everywhere (floor is ~0.806), so this is the largest cut
+   the palette actually allows -- see DESIGN.md's opacity-floor note. */
+.gb-pin-date { text-align: left; font-size: 0.66rem; opacity: 0.82; margin-bottom: 8px; }
+/* A character cap alone can't guarantee one line -- card width varies
+   (masonry columns) and so does how much fits per line depending on the
+   chosen font (Impact fits far more per line than Comic Sans at the same
+   size). white-space:nowrap + ellipsis is the actual guarantee, clipping
+   to exactly one line regardless of font or width, with the maxLength
+   cap below (input, and escapeForTag() for other clients' events) as a
+   sensible hygiene limit on top, not the real defense. */
+.gb-name { font-weight: 400; font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gb-url { font-size: 0.72rem; opacity: 0.85; word-break: break-all; margin-top: 2px; }
+.gb-msg { margin-top: 8px; overflow-wrap: break-word; }
+.gb-sig { margin-top: 10px; opacity: 0.85; }
+
+/* Pin dots: no boxes at all, just ink glyphs and a row of dots -- see
+   pager_mockups (direction C) for the two alternatives this replaced.
+
+   Unlike the note/card (a deliberately fixed paper world regardless of
+   site theme, see DESIGN.md), the pager sits on the page itself, not on
+   a card -- it was still using the corkboard's fixed ink color, which on
+   a dark page background is dark-on-dark, close to invisible (confirmed:
+   the old accent-red active dot measured 1.43:1 against the dark page
+   background, nowhere near even the 3:1 UI-component floor).
+
+   Fixed by using the site's own theme-aware token -- but --color-text-
+   PRIMARY (the first fix) was the wrong one of the two: at light mode's
+   8% lightness floor it's close enough to black that its warm 44° hue is
+   barely perceptible, which read as "too dark, not beige" next to
+   .terminal-nav elements like Search/the page date, which use --color-
+   text-MUTED (a 30%/75% lightness token, genuinely and visibly warm
+   brown/tan). Switched to that -- confirmed same token, same rendered
+   color as Search: light mode (115,94,38) at 5.73:1, dark mode
+   (191,191,191) at 10.01:1 against the page background, both computed,
+   not eyeballed. Active/inactive/hover stay one color at different
+   opacities (1 / 0.7 / 0.85) rather than separate colors -- 0.7 is the
+   lowest that still clears the 3:1 non-text-contrast floor in the
+   tighter of the two themes (light mode needs >=0.688; dark only needs
+   >=0.453, so light is the binding constraint). */
+.gb-board .gb-pager-arrow,
+.gb-board .gb-pager-dot {
+  color: var(--color-text-muted);
+}
+.gb-pager { display: flex; align-items: center; gap: 14px; justify-content: center; margin-top: 24px; }
+.gb-pager-arrow {
+  font-family: "Special Elite", monospace; font-size: 1.2rem; line-height: 1;
+  background: none; border: none; cursor: pointer; padding: 2px 4px; opacity: 0.85;
+}
+.gb-pager-arrow:hover:not(:disabled) { opacity: 1; }
+.gb-pager-arrow:disabled { opacity: 0.3; cursor: default; }
+.gb-pager-dots { display: flex; align-items: center; gap: 8px; }
+.gb-pager-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: 0.7;
+  border: none; padding: 0; cursor: pointer;
+  transition: opacity 0.12s ease, width 0.12s ease, height 0.12s ease;
+}
+.gb-pager-dot:hover { opacity: 0.85; }
+.gb-pager-dot.active { opacity: 1; width: 9px; height: 9px; cursor: default; }
+
+@media (max-width: 480px) {
+  .gb-grid { columns: 2; column-gap: 10px; }
+  .gb-card { margin-bottom: 12px; }
+  .gb-note { width: 100%; max-width: 280px; }
+}

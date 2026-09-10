@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
+    "framer-motion": "^13.1.0",
     "gray-matter": "^4.0.3",
     "nostr-comments": "^0.7.0",
     "nostr-tools": "^2.7.2",
