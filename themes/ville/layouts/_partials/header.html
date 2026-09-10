@@ -13,7 +13,6 @@
   (dict "word" "now" "url" "/now/" "color" "var(--nav-c5)")
   (dict "word" "analytics" "url" "/analytics/" "color" "var(--nav-c7)")
   (dict "word" "ai" "url" "/ai/" "color" "var(--nav-c8)")
-  (dict "word" "photos" "url" "https://photos.kokkomaki.com" "color" "var(--nav-c10)")
 }}
 {{ $currentWord := "" }}
 {{ range $destinations }}
@@ -276,7 +275,6 @@
      destination, it should read as clickable, not as plain text. */
   function setWord(text) {
     wordEl.style.color = WORD_COLORS[text] || "";
-    wordEl.classList.toggle("is-exit", text === "exit");
     return fx.setText(text);
   }
 

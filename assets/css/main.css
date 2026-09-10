@@ -457,10 +457,6 @@ h5 > code {
   white-space: nowrap;
 }
 
-.site-nav-word.is-exit {
-  font-weight: bold;
-}
-
 .site-nav-char {
   opacity: 0.55;
 }

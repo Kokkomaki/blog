@@ -338,6 +338,13 @@ a {
   border-radius: 50%;
   border: 1.5px solid currentColor;
   overflow: hidden;
+  /* The sitewide `* { color: var(--color-text-primary) }` reset (main.css)
+     directly matches this span, and a direct match always beats an
+     inherited value regardless of specificity -- so without this, the
+     border's currentColor was resolving to near-black instead of
+     .theme-toggle's tan, no matter what color the button itself had. Same
+     bug the old .theme-toggle-label span needed this same fix for. */
+  color: inherit;
 }
 
 :root[data-theme="dark"] .theme-toggle-dot {
