@@ -317,7 +317,7 @@ a {
      baseline pulls the geometric center about 1px lower than the text's
      actual optical (cap-height) center. Measured directly, not guessed. */
   margin-top: -1px;
-  margin-right: 0.2em;
+  margin-right: calc(0.2em + 20px);
   width: 1.1rem;
   height: 1.1rem;
   box-sizing: border-box;
@@ -332,14 +332,14 @@ a {
 .theme-toggle-dot {
   display: block;
   position: relative;
-  /* Half the old 1rem visual size -- .theme-toggle (the actual click
-     target) keeps its own 1.1rem box unchanged, so the tappable area
-     doesn't shrink along with the visible circle. */
-  width: 0.5rem;
-  height: 0.5rem;
+  /* .theme-toggle (the actual click target) keeps its own 1.1rem box
+     unchanged regardless of this, so the tappable area doesn't shrink or
+     grow along with the visible circle. */
+  width: 0.6rem;
+  height: 0.6rem;
   box-sizing: border-box;
   border-radius: 50%;
-  border: 1px solid currentColor;
+  border: 1.1px solid currentColor;
   overflow: hidden;
   /* The sitewide `* { color: var(--color-text-primary) }` reset (main.css)
      directly matches this span, and a direct match always beats an
