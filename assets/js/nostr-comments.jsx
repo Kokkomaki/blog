@@ -35,12 +35,10 @@ function CommentsWrapper({ url }) {
     locale: "en",
     pow: 18,
     mention: OWNER_PUBKEY,
-    relays: [
-      "wss://relay.kokkomaki.com",
-      "wss://relay.damus.io",
-      "wss://nos.lol",
-      "wss://nostr.mom",
-    ],
+    /* Private relay only -- same reasoning as guestbook.jsx's RELAYS: if
+       comments also landed on public relays, deleting from your own
+       relay wouldn't actually remove them from everywhere they exist. */
+    relays: ["wss://relay.kokkomaki.com"],
   });
 }
 
