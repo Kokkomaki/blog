@@ -132,6 +132,10 @@
     el.addEventListener("click", function (e) {
       e.preventDefault();
       if (idx >= MORPH_WORDS.length - 1) { return; }
+      /* Only the very first click (idx still 0, the "onlyfans" word
+         itself) is tracked -- every later click just advances the same
+         MORPH_WORDS bit and isn't a separate thing worth counting. */
+      if (idx === 0 && window.umami && window.umami.track) { window.umami.track("onlyfans-click"); }
       idx++;
       el.style.color = "var(--nav-c" + (idx % 9 + 1) + ")";
       morphFx.setText(MORPH_WORDS[idx]).then(function () {
