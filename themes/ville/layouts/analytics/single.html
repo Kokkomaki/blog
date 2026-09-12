@@ -122,6 +122,7 @@
     out += renderSection("countries", d.countries, true);
     out += renderSection("devices",   d.devices);
     out += renderSection("browsers",  d.browsers);
+    out += renderSection("events",    d.events);
 
     out += sep3 + "\n";
     if (d.activeVisitors > 0) {
@@ -168,6 +169,7 @@
     out += renderSection("countries", d.countries, true,  12, 4);
     out += renderSection("devices",   d.devices,   false, 12, 4);
     out += renderSection("browsers",  d.browsers,  false, 12, 4);
+    out += renderSection("events",    d.events,    false, 12, 4);
 
     out += sep3 + "\n";
     if (d.activeVisitors > 0) {
