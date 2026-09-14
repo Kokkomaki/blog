@@ -192,30 +192,6 @@ img {
   display: block;
 }
 
-/* Plain preformatted text (e.g. inline ASCII bar charts) that should render
-   with zero box styling -- bypasses Chroma entirely (see hugo.toml's
-   noClasses=true + algol_nu style, which bakes a hardcoded light-mode
-   background straight onto Chroma-rendered <pre> tags via inline style,
-   ignoring site theme). This is a plain author-written <pre>, never touched
-   by Chroma, so the override here is all that's needed. */
-pre.ascii-bars {
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  color: inherit;
-}
-
-/* Opt-in override for a single content image that shouldn't go full-bleed --
-   base img rule above still applies everywhere else. Centered via the
-   margin: auto already set on img in main.css. Desktop only (matches the
-   site's single 600px breakpoint); mobile keeps the full-width default. */
-@media (min-width: 601px) {
-  img.img-narrow {
-    width: 50%;
-  }
-}
-
 main {
   width: 100%;
   /* overflow-x: hidden removed — it was clipping box-shadows on shortcode components */
