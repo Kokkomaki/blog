@@ -12,8 +12,16 @@
     {{- end }}
   {{- end }}
 
+  {{- $powURL := "" }}
+  {{- with resources.Get "js/pow-worker.js" }}
+    {{- $wopts := dict "minify" (not hugo.IsDevelopment) "targetPath" "js/pow-worker.js" }}
+    {{- with . | js.Build $wopts }}
+      {{- $powURL = .RelPermalink }}
+    {{- end }}
+  {{- end }}
+
   <div class="gb-board">
-    <div id="guestbook-board" data-url="{{ .Permalink }}" data-dev="{{ hugo.IsDevelopment }}"></div>
+    <div id="guestbook-board" data-url="{{ .Permalink }}" data-dev="{{ hugo.IsDevelopment }}" data-pow-worker="{{ $powURL }}"></div>
   </div>
 
   {{- with resources.Get "js/guestbook.jsx" }}

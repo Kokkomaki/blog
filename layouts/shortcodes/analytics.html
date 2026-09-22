@@ -40,7 +40,12 @@
 
   function stripPostsPrefix(pages) {
     return (pages || []).map(function(p) {
-      return { path: p.path.replace(/^\/posts/, ""), views: p.views };
+      /* Only strip "/posts" when a path segment actually follows it.
+         "/posts/" is the post *index*, a real and separate page, and an
+         unconditional strip collapsed it to "/" -- where it sat directly
+         on top of the homepage as an identical second "/" row. Found live
+         2026-09-21 with "/" 68 and "/posts/" 14 both rendering as "/". */
+      return { path: p.path.replace(/^\/posts(?=\/.)/, ""), views: p.views };
     });
   }
 

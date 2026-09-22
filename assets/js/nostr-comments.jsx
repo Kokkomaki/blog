@@ -33,7 +33,13 @@ function CommentsWrapper({ url }) {
     url,
     theme,
     locale: "en",
-    pow: 18,
+    /* Must equal write-policy.sh's MIN_POW, and therefore BASE_POW in
+       guestbook.jsx -- post comments and guestbook notes are the same kind
+       (1111) hitting the same relay, so ONE server-side threshold governs
+       both. Raised 18 -> 19 on 2026-09-22 alongside the guestbook; leaving
+       this at 18 while the relay moved to 19 would have silently rejected
+       every blog comment while the guestbook kept working. */
+    pow: 19,
     mention: OWNER_PUBKEY,
     /* Private relay only -- same reasoning as guestbook.jsx's RELAYS: if
        comments also landed on public relays, deleting from your own

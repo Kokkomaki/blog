@@ -70,8 +70,27 @@ function safeFont(id) {
    against several of the brighter dark-palette cards. */
 const ACCENT_RED = "#61151B";
 const PAGE_SIZE = 10;
-const BASE_POW = 18;
-const SIG_POW = 22;
+/* 19, not 18, and deliberately the same number for both. Measured in a real
+   browser 2026-09-22 (8 workers, this laptop): 18 bits landed between 0.12s
+   and 4.4s, median 1.6s -- comfortably fast, so there was room to buy back a
+   little spam cost. 19 doubles the work.
+
+   Both are equal because a drawing already taxes itself: proof-of-work hashes
+   the whole serialized event, so a bigger "sig" tag makes every attempt
+   slower (160k hashes/sec for a plain note vs 28k/sec at SIG_MAX_LEN). The
+   old SIG_POW of 22 charged four extra bits for a cost the physics already
+   collects, and it fell on visitors drawing on phones rather than on scripts.
+
+   MUST stay in sync with THREE other places, or writes are silently rejected:
+     - write-policy.sh's MIN_POW and SIG_POW (home-server repo) -- the real
+       check; client-side PoW alone is an honor system
+     - the `pow:` prop in assets/js/nostr-comments.jsx -- blog post comments
+       hit the SAME relay and the same MIN_POW
+   Lower the relay FIRST when reducing, raise the CLIENTS first when
+   increasing: the relay rejects anything under its threshold, so the safe
+   order is always "whichever side is more permissive goes first". */
+const BASE_POW = 19;
+const SIG_POW = 19;   // must match write-policy.sh — see docs/plan-guestbook-pow-speed-2026-09-22.md Part 4.1
 const DEV_POW = 1; // dev-only -- gated behind data-dev, which Hugo only ever sets "true" in `hugo server`
 /* Matches the actual drawing surface's own aspect ratio (a 230px note,
    minus its 14px side padding, x the 80px-tall .gb-sigpad = 202x80) --
@@ -85,6 +104,29 @@ const DEV_POW = 1; // dev-only -- gated behind data-dev, which Hugo only ever se
    (width:100%, height:auto against this viewBox) specifically so no
    second mismatch can reappear downstream. */
 const SIG_BOX = { w: 202, h: 80 };
+
+/* Max characters for a stored "sig" path. NOT an external constraint:
+   write-policy.sh length-checks the message *content* only (500 chars)
+   and never the sig tag, and strfry allows 128 KB per event. This is
+   purely our own budget, and it MUST be the single source of truth for
+   both the write path and safeSigPath()'s read guard -- they were two
+   separate 1500 literals before, which is exactly the kind of pair that
+   drifts apart and makes every new signature silently unrenderable.
+
+   3000 rather than something larger because the sig is part of the event
+   that gets proof-of-work mined at SIG_POW (22 bits, ~4M hashes): SHA-256
+   cost is linear in event size, so the cap is also a ceiling on how long
+   "Pin it" takes. With the compact encoding below (~6-10 chars/point vs
+   the old ~22) this still buys roughly 300-450 points -- about 6x what
+   the old 1500-char cap actually allowed, and comfortably enough for a
+   multi-stroke drawing. */
+const SIG_MAX_LEN = 3000;
+/* Minimum distance (in SIG_BOX units, so ~1 pixel on the real pad)
+   between two kept samples. Pointer events fire at 60-120 Hz, so a slow
+   hand produces heaps of sub-pixel samples that cost ~20 characters each
+   and contribute nothing visible -- 43% of the points in one real stored
+   signature were within half a unit of the previous one. */
+const SIG_MIN_STEP = 1;
 
 function isSafeUrl(u) {
   if (!u) return null;
@@ -142,7 +184,7 @@ function safeBg(hex) {
 }
 function safeSigPath(d) {
   if (!d || typeof d !== "string") return null;
-  if (d.length > 1500) return null;
+  if (d.length > SIG_MAX_LEN) return null;
   if (!/^[ML0-9.,\-\sQ]+$/.test(d)) return null;
   return d;
 }
@@ -241,28 +283,260 @@ async function minePow(unsigned, difficulty, onProgress) {
   }
 }
 
+/* Progress glyphs, from the same vocabulary the nav's dissolve effect and
+   the /analytics dashboard already use -- this is the site's existing way
+   of drawing a quantity in text, not a new visual idea. */
+/* How long the "Pinning your note…" step lasts at minimum. Not padding for
+   its own sake -- see the long comment at the call site. */
+const POW_MIN_MS = 5000;
+const BAR_W = 22;
+/* Shaded ramp, not the braille one. Both were on the table; rendered side
+   by side on the real dark page at the actual 0.8rem, the braille set
+   (⣀⣄⣤⣦⣶⣷⣿) reads as a faint dotted line whose filled and empty halves
+   are hard to tell apart, while █ against ░ reads unmistakably as a bar
+   at a glance. Swap this one constant to go back:
+   { empty: "⣀", steps: ["⣀","⣄","⣤","⣦","⣶","⣷"], full: "⣿" } */
+const BAR = { empty: "░", steps: ["░", "▒", "▓"], full: "█" };
+
+function powBar(p) {
+  // Non-finite guard, not paranoia: Math.min(1, NaN) is NaN, Math.floor(NaN)
+  // is NaN, and "x".repeat(NaN) is "" -- so a single NaN progress value made
+  // the whole bar collapse to an empty string, which reads as "broken" rather
+  // than "0%". Clamp to 0 instead so the bar is always exactly BAR_W cells.
+  p = Number.isFinite(p) ? Math.max(0, Math.min(1, p)) : 0;
+  const exact = p * BAR_W, whole = Math.floor(exact);
+  let s = BAR.full.repeat(Math.min(whole, BAR_W));
+  if (whole < BAR_W) {
+    s += BAR.steps[Math.floor((exact - whole) * BAR.steps.length)];
+    s += BAR.empty.repeat(BAR_W - whole - 1);
+  }
+  return s;
+}
+
+/* The only honest progress signal available. Proof-of-work is memoryless:
+   the expected remaining time never decreases, so a countdown or a naive
+   "percent done" would be displaying a quantity that does not exist. This
+   is the real probability the work should already have finished after
+   `attempts` tries -- monotonic, smooth, and it approaches 1 without ever
+   claiming to have arrived. See
+   docs/research-guestbook-pow-speed-2026-09-22.md. */
+const powProgress = (attempts, bits) => 1 - Math.exp(-attempts / Math.pow(2, bits));
+
+/* Mines via Web Workers when possible, falling back to the existing
+   main-thread minePow otherwise -- Worker unavailable, no worker URL built
+   (Hugo/js.Build failed for some reason), a worker fails to construct, or
+   any worker reports an `error` event. The fallback must be real, not
+   theoretical: this is the actual degrade path, not a "shouldn't happen"
+   branch, since it's what every visitor got before this change and must
+   keep working identically if anything about the worker path goes wrong.
+
+   Partitioning: worker k of n starts at nonce k and steps by n (disjoint
+   nonce spaces -- see pow-worker.js's own comment). onProgress receives
+   the SUM of every worker's reported attempts, not any single worker's,
+   so the bar reflects the actual aggregate hash rate.
+
+   On the winning worker's `found` message, every worker is terminated
+   immediately -- including the winner itself, nothing left running -- and
+   the main thread rebuilds the final event with that nonce and re-verifies
+   getEventHash() against the required difficulty exactly as minePow does,
+   because a worker only *claims* to have found a valid nonce; nothing
+   should be trusted, let alone published, without that same check minePow
+   already performs before returning. If verification fails (which would
+   mean a bug in the worker's hashing, not an attacker -- the id is
+   recomputed from data the caller already built), fall back to the
+   main-thread path rather than ever publishing something the relay would
+   reject anyway. */
+async function minePowWorkers(unsigned, difficulty, workerURL, onProgress) {
+  if (typeof Worker === "undefined" || !workerURL) return minePow(unsigned, difficulty, onProgress);
+
+  const baseTags = unsigned.tags.filter((t) => t[0] !== "nonce");
+  const tagsWithMarker = [...baseTags, ["nonce", NONCE_MARKER, String(difficulty)]];
+  const serialized = JSON.stringify([0, unsigned.pubkey, unsigned.created_at, unsigned.kind, tagsWithMarker, unsigned.content]);
+  const markerIdx = serialized.indexOf(NONCE_MARKER);
+  if (markerIdx === -1) return minePow(unsigned, difficulty, onProgress);
+
+  const prefixBytes = utf8.encode(serialized.slice(0, markerIdx));
+  const suffixBytes = utf8.encode(serialized.slice(markerIdx + NONCE_MARKER.length));
+
+  const n = Math.min(navigator.hardwareConcurrency || 4, 8);
+  let workers = [];
+  let settled = false;
+
+  function terminateAll() {
+    for (const w of workers) {
+      try { w.terminate(); } catch {}
+    }
+    workers = [];
+  }
+
+  try {
+    workers = Array.from({ length: n }, () => new Worker(workerURL, { type: "module" }));
+  } catch {
+    terminateAll();
+    return minePow(unsigned, difficulty, onProgress);
+  }
+
+  const perWorkerAttempts = new Array(n).fill(0);
+
+  const result = await new Promise((resolve) => {
+    workers.forEach((w, k) => {
+      w.onmessage = (e) => {
+        if (settled) return;
+        const { found, nonce, progress, attempts } = e.data;
+        if (progress !== undefined) {
+          perWorkerAttempts[k] = progress;
+          onProgress && onProgress(perWorkerAttempts.reduce((a, b) => a + b, 0));
+          return;
+        }
+        if (found) {
+          perWorkerAttempts[k] = attempts;
+          settled = true;
+          resolve({ nonce });
+        }
+      };
+      w.onerror = () => {
+        if (settled) return;
+        settled = true;
+        resolve(null); // signals "fall back"
+      };
+      // Each worker needs its own copy of prefix/suffix: transferring an
+      // ArrayBuffer detaches it from the sender, so the same buffer can't
+      // be transferred to more than one worker. .slice() makes a fresh
+      // copy per worker, and that copy (not the shared original) is both
+      // what's sent and what's listed in the transfer list -- the transfer
+      // list must reference buffers actually present in the message, or
+      // postMessage throws.
+      const prefixCopy = prefixBytes.slice();
+      const suffixCopy = suffixBytes.slice();
+      w.postMessage(
+        { prefix: prefixCopy, suffix: suffixCopy, difficulty, start: k, stride: n },
+        [prefixCopy.buffer, suffixCopy.buffer]
+      );
+    });
+  });
+
+  terminateAll();
+
+  if (!result) return minePow(unsigned, difficulty, onProgress);
+
+  const finalTags = [...baseTags, ["nonce", String(result.nonce), String(difficulty)]];
+  const finalEvent = { pubkey: unsigned.pubkey, created_at: unsigned.created_at, kind: unsigned.kind, tags: finalTags, content: unsigned.content };
+  const id = getEventHash(finalEvent);
+  if (leadingZeroBits(id) < difficulty) return minePow(unsigned, difficulty, onProgress);
+  return finalEvent;
+}
+
+/* Encodes strokes as an SVG path. Two deliberate choices:
+
+   1. A POLYLINE, not the quadratic curves this used to emit. The old
+      encoder wrote `Q <sampled point> <midpoint>` -- 4 numbers per point,
+      2 of them derived from the others -- which burned half the character
+      budget on redundancy. It also disagreed with the live pad: redrawAll()
+      draws with ctx.lineTo, so what a person watched themselves draw was
+      already a polyline while what got saved was curves. Storing the
+      polyline makes the saved signature match the preview exactly and
+      costs half as much.
+
+   2. IMPLICIT COMMAND REPETITION. `M12 30L13 31 14 33 15 36` is the same
+      path as `M 12 30 L 13 31 L 14 33 L 15 36` and is valid SVG -- after
+      an L, each further coordinate pair is another lineto. Saves the
+      repeated command letter and its separator on every single point.
+
+   Coordinates are rounded to one decimal, and JS drops a trailing ".0"
+   for free (String(18.0) === "18"), so points that land on the integer
+   grid -- most of them, given SIG_MIN_STEP -- cost 2-3 characters instead
+   of 4. Together these take the encoding from ~22 characters per point to
+   roughly 6-10. */
 function strokesToPathData(strokes) {
+  const n = (v) => String(Math.round(v * 10) / 10);
   return strokes
     .map((pts) => {
       if (!pts.length) return "";
-      // A tap (no drag) is a single point, not a 2+ point line -- rendering
-      // nothing for it is exactly the "drew eyes and they didn't render"
-      // bug. `M x y L x y` is a zero-length subpath: with round linecaps
-      // (set by every consumer of this path) SVG renders that as a dot.
-      if (pts.length === 1) {
-        const p = pts[0];
-        return `M ${p.x.toFixed(1)} ${p.y.toFixed(1)} L ${p.x.toFixed(1)} ${p.y.toFixed(1)}`;
+      const head = `M${n(pts[0].x)} ${n(pts[0].y)}`;
+      // A tap with no drag is a single point. `M x y L x y` is a
+      // zero-length subpath, which renders as a dot under the round
+      // linecaps every consumer of this path sets -- rendering nothing
+      // for it is the old "drew eyes and they didn't show up" bug.
+      if (pts.length === 1) return `${head}L${n(pts[0].x)} ${n(pts[0].y)}`;
+      let d = `${head}L`;
+      for (let i = 1; i < pts.length; i++) {
+        d += (i > 1 ? " " : "") + n(pts[i].x) + " " + n(pts[i].y);
       }
-      let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
-      for (let i = 1; i < pts.length - 1; i++) {
-        const mx = (pts[i].x + pts[i + 1].x) / 2, my = (pts[i].y + pts[i + 1].y) / 2;
-        d += ` Q ${pts[i].x.toFixed(1)} ${pts[i].y.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;
-      }
-      const last = pts[pts.length - 1];
-      d += ` L ${last.x.toFixed(1)} ${last.y.toFixed(1)}`;
       return d;
     })
-    .join(" ");
+    .join("");
+}
+
+/* Ramer-Douglas-Peucker: drops points that lie within `tol` of the
+   straight line between the points that would remain, i.e. exactly the
+   points whose absence nobody can see. Iterative, not recursive -- a long
+   stroke can be thousands of points deep and blowing the JS stack inside
+   a submit handler is not an acceptable failure mode: an explicit stack
+   of [startIdx, endIdx] ranges stands in for the call stack a recursive
+   version would use. `keep` is a same-length boolean array, seeded with
+   both endpoints of every range always kept, and only interior points
+   that clear `tol` get flipped on. */
+function simplifyStroke(pts, tol) {
+  if (pts.length <= 2) return pts;
+  const keep = new Array(pts.length).fill(false);
+  keep[0] = true;
+  keep[pts.length - 1] = true;
+  const stack = [[0, pts.length - 1]];
+  while (stack.length) {
+    const [start, end] = stack.pop();
+    const a = pts[start], b = pts[end];
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const segLenSq = dx * dx + dy * dy;
+    let maxDist = -1, maxIdx = -1;
+    for (let i = start + 1; i < end; i++) {
+      const p = pts[i];
+      let dist;
+      if (segLenSq === 0) {
+        // Degenerate case: the two endpoints coincide (a zero-length
+        // segment), so "distance to the line" is meaningless -- fall
+        // back to plain point-to-point distance instead of dividing by
+        // segLenSq (which would be a divide by zero).
+        dist = Math.hypot(p.x - a.x, p.y - a.y);
+      } else {
+        // Perpendicular distance from p to the infinite line through a/b,
+        // via the standard projection formula: |cross product| / |ab|.
+        const t = ((p.x - a.x) * dx + (p.y - a.y) * dy) / segLenSq;
+        const projX = a.x + t * dx, projY = a.y + t * dy;
+        dist = Math.hypot(p.x - projX, p.y - projY);
+      }
+      if (dist > maxDist) { maxDist = dist; maxIdx = i; }
+    }
+    if (maxIdx !== -1 && maxDist > tol) {
+      keep[maxIdx] = true;
+      stack.push([start, maxIdx]);
+      stack.push([maxIdx, end]);
+    }
+  }
+  return pts.filter((_, i) => keep[i]);
+}
+
+/* Fits a drawing into SIG_MAX_LEN without ever producing a malformed
+   path. The old code did `.slice(0, 1500)`, a blind character cut through
+   a serialized path: it threw whole strokes away (one real note lost every
+   stroke of a cat except the first) and routinely cut mid-command, leaving
+   things like `Q 42.9 52.7 4` -- a quadratic missing an argument, which
+   makes a renderer draw up to that point and stop. That is the entire
+   "my drawing didn't render" bug.
+
+   Instead: encode, and while it's too long, simplify harder and re-encode.
+   Detail degrades gradually and invisibly long before anything is lost.
+   If even an aggressively simplified version won't fit, return null and
+   say so -- a signature we can't store faithfully is not stored at all. */
+function encodeSignature(strokes) {
+  let current = strokes;
+  let tol = 0;
+  for (let pass = 0; pass < 8; pass++) {
+    const d = strokesToPathData(current);
+    if (d.length <= SIG_MAX_LEN) return d;
+    tol = tol ? tol * 1.6 : 0.5;
+    current = strokes.map((s) => simplifyStroke(s, tol)).filter((s) => s.length);
+  }
+  return null;
 }
 
 function SignatureThumb({ d, color = "#2b2620" }) {
@@ -469,7 +743,18 @@ function useSigPad(canvasRef) {
 
     function pos(e) {
       const r = canvas.getBoundingClientRect();
-      return { x: ((e.clientX - r.left) / r.width) * SIG_BOX.w, y: ((e.clientY - r.top) / r.height) * SIG_BOX.h };
+      /* Clamped to the pad. A pointer dragged past the canvas edge
+         mid-stroke otherwise produces coordinates outside the viewBox --
+         stored faithfully, costing characters, and then invisible when
+         rendered because they fall outside SIG_BOX. Sticking to the edge
+         is both what signature pads normally do and what the person
+         watching the live canvas already sees. */
+      const x = ((e.clientX - r.left) / r.width) * SIG_BOX.w;
+      const y = ((e.clientY - r.top) / r.height) * SIG_BOX.h;
+      return {
+        x: Math.min(SIG_BOX.w, Math.max(0, x)),
+        y: Math.min(SIG_BOX.h, Math.max(0, y)),
+      };
     }
     function down(e) {
       const p = pos(e);
@@ -481,7 +766,12 @@ function useSigPad(canvasRef) {
       if (!stateRef.current.drawing) return;
       e.preventDefault();
       const strokes = stateRef.current.strokes;
-      strokes[strokes.length - 1].push(pos(e));
+      const cur = strokes[strokes.length - 1];
+      const p = pos(e);
+      const last = cur[cur.length - 1];
+      // Drop samples the eye can't distinguish -- see SIG_MIN_STEP.
+      if (last && Math.hypot(p.x - last.x, p.y - last.y) < SIG_MIN_STEP) return;
+      cur.push(p);
       redrawAll();
     }
     function up() {
@@ -577,7 +867,7 @@ function useIsDarkMode() {
   return isDark;
 }
 
-function Guestbook({ url, isDev }) {
+function Guestbook({ url, isDev, powWorkerURL }) {
   const isDark = useIsDarkMode();
   const { signer, isLoggedIn, isNip07Available, loginWithNip07, loginWithTemp, loginWithBunker, getTempSigner, signerInfo, error: signerError } =
     useSigner();
@@ -595,6 +885,7 @@ function Guestbook({ url, isDev }) {
   const [submitting, setSubmitting] = useState(false);
   const [colorOpen, setColorOpen] = useState(false);
   const [fontOpen, setFontOpen] = useState(false);
+  const [powBarText, setPowBarText] = useState(null);
   const canvasRef = useRef(null);
   const sigState = useSigPad(canvasRef);
   const toolbarRef = useRef(null);
@@ -679,7 +970,7 @@ function Guestbook({ url, isDev }) {
       // already set by the time this runs.
       let activeSigner = signer;
       if (!activeSigner) {
-        setStatus("Creating a one-time key…");
+        setStatus("Getting things ready…");
         await loginWithTemp();
         activeSigner = getTempSigner();
       }
@@ -692,7 +983,13 @@ function Guestbook({ url, isDev }) {
       const pubkey = await activeSigner.getPublicKey();
       const base = buildWebComment({ url, content: msg.trim().slice(0, 500) });
       const strokes = sigState.current.strokes.filter((s) => s.length > 0);
-      const sigD = strokes.length ? strokesToPathData(strokes).slice(0, 1500) : null;
+      const sigD = strokes.length ? encodeSignature(strokes) : null;
+      if (strokes.length && !sigD) {
+        setStatusIsError(true);
+        setStatus("That drawing is too detailed to save. Try a simpler one, or use “clear” and redraw.");
+        setSubmitting(false);
+        return;
+      }
       const customTags = [];
       const cleanName = escapeForTag(name, NAME_MAX);
       if (cleanName) customTags.push(["name", cleanName]);
@@ -704,9 +1001,59 @@ function Guestbook({ url, isDev }) {
 
       const difficulty = isDev ? DEV_POW : (sigD ? SIG_POW : BASE_POW);
       const unsigned = { pubkey, created_at: base.created_at, kind: base.kind, tags: [...base.tags, ...customTags], content: base.content };
-      setStatus(`Mining proof-of-work (${difficulty} bits)…`);
-      const mined = await minePow(unsigned, difficulty, (n) => setStatus(`Mining proof-of-work (${difficulty} bits)… ${n.toLocaleString()} attempts`));
-      setStatus("Signing…");
+      // Bar-only status, no attempt counts and no jargon -- see
+      // docs/plan-guestbook-pow-speed-2026-09-22.md Part 5.3. After 20s the
+      // label swaps to acknowledge the wait without freezing on a stale
+      // number or claiming a false ETA (PoW is memoryless -- see
+      // docs/research-guestbook-pow-speed-2026-09-22.md).
+      /* Deliberate minimum duration, and the reason the countdown below is
+         honest at all. Mining time is geometric and wildly variable -- the
+         same event took 0.12s and 4.4s on the same machine minutes apart --
+         so pinning either flashed past unnoticed or dragged, with no
+         consistency between two visitors. Waiting out a fixed floor makes
+         every submission feel the same on every device, and it does it
+         without raising difficulty, which would have cost phones far more
+         than desktops.
+
+         It also rescues the countdown that was originally asked for and
+         rejected as untruthful: a countdown against *mining* is meaningless
+         because the expected remaining time never decreases, but a countdown
+         against a floor we have committed to waiting out is exact. The
+         moment we exceed the floor the honest-but-indeterminate probability
+         bar takes back over. */
+      const miningStarted = Date.now();
+      let attemptsSoFar = 0;
+      /* Driven by its own timer rather than by mining callbacks: workers can
+         go quiet for a while between progress reports, and the countdown has
+         to keep ticking smoothly regardless of when they happen to report. */
+      const tick = () => {
+        const elapsed = Date.now() - miningStarted;
+        if (elapsed < POW_MIN_MS) {
+          setStatus(`Pinning your note… ${Math.ceil((POW_MIN_MS - elapsed) / 1000)}`);
+          setPowBarText(powBar(elapsed / POW_MIN_MS));
+        } else {
+          setStatus("Still working — nearly there…");
+          setPowBarText(powBar(powProgress(attemptsSoFar, difficulty)));
+        }
+      };
+      tick();
+      const ticker = setInterval(tick, 100);
+      let mined;
+      try {
+        // Promise.all, so this resolves only once BOTH the work is done and
+        // the floor has elapsed -- whichever finishes last.
+        const settled = await Promise.all([
+          minePowWorkers(unsigned, difficulty, powWorkerURL, (a) => { attemptsSoFar = a; }),
+          new Promise((r) => setTimeout(r, POW_MIN_MS)),
+        ]);
+        mined = settled[0];
+      } finally {
+        // In a finally so a mining failure can't leave a timer running
+        // against an unmounted/reset form.
+        clearInterval(ticker);
+      }
+      setPowBarText(null);
+      setStatus("Almost there…");
       const { pubkey: _pk, ...template } = mined;
       const signed = await activeSigner.signEvent(template);
 
@@ -736,6 +1083,7 @@ function Guestbook({ url, isDev }) {
       setStatusIsError(true);
       setStatus("Couldn't sign that entry: " + (err && err.message ? err.message : "unknown error"));
     } finally {
+      setPowBarText(null);
       setSubmitting(false);
     }
   }
@@ -830,6 +1178,7 @@ function Guestbook({ url, isDev }) {
         }, submitting ? "Working…" : "Pin it")
       ),
       status && h("div", { className: statusIsError ? "gb-status gb-error" : "gb-status" }, status),
+      powBarText && h("div", { className: "gb-status" }, powBarText),
       signerError && h("div", { className: "gb-status gb-error" }, signerError),
       /* The note: only what actually ends up on the pinned card (name,
          url, message, signature) -- roughly square, same proportions as a
@@ -894,5 +1243,5 @@ function Guestbook({ url, isDev }) {
 
 const el = document.getElementById("guestbook-board");
 if (el) {
-  createRoot(el).render(h(Guestbook, { url: el.dataset.url, isDev: el.dataset.dev === "true" }));
+  createRoot(el).render(h(Guestbook, { url: el.dataset.url, isDev: el.dataset.dev === "true", powWorkerURL: el.dataset.powWorker || "" }));
 }

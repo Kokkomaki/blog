@@ -22,7 +22,7 @@
   color: #2B2620;
 }
 .gb-status { font-family: ui-monospace, monospace; font-size: 0.8rem; opacity: 0.85; margin-bottom: 14px; }
-.gb-error { color: #61151B; font-weight: 600; opacity: 1; }
+.gb-error { color: var(--gb-error-on-page); font-weight: 600; opacity: 1; }
 
 /* The toolbar (color, font, Pin it) sits on top of the note now, not
    beside it in a tall vertical panel -- a single horizontal row, then the
@@ -183,6 +183,50 @@
   color: var(--color-text-primary);
 }
 .gb-intro { margin-bottom: 28px; }
+
+/* .gb-status (and its .gb-error variant) sit on the PAGE background, not on
+   a pastel card -- so, exactly like .gb-intro directly above and like
+   .gb-pager-arrow/.gb-pager-dot further down, they have to opt out of
+   .gb-board's forced ink and follow the site's own theme instead. This one
+   was simply missed when the others were done.
+
+   Without it the fixed #2B2620 ink lands on the dark-mode page background
+   (#141414) at 1.23:1 -- measured in a real browser 2026-09-22, not
+   estimated -- which is invisible, not merely low-contrast. That is what
+   "on dark, the thing doesn't show" was: every status message, including
+   the new progress bar, rendering as dark ink on a dark page.
+
+   The error variant needs its own dark value rather than reusing #61151B:
+   that red was tuned in DESIGN.md against the ten *card* colours, and on
+   the dark page background it measures 1.43:1 -- just as invisible. Values
+   below verified numerically against the real tokens, per DESIGN.md:
+
+     .gb-status  var(--color-text-primary)  16.07:1 light / 15.34:1 dark
+     .gb-error   #61151B                    11.84:1 light
+                 #FF6B6B                     6.62:1 dark
+
+   Two classes beats .gb-board's one-class-plus-universal selector, so no
+   !important is needed. The .gb-error rule MUST stay after the .gb-status
+   one: an error status carries BOTH classes, the two selectors have equal
+   specificity, so source order is what decides the winner. */
+:root { --gb-error-on-page: #61151B; }
+[data-theme="dark"] { --gb-error-on-page: #FF6B6B; }
+/* Both copies must stay identical -- same reason main.css keeps a pair:
+   :root:not([data-theme="light"]) outranks a bare attribute selector, so a
+   light-system user who explicitly picks dark needs the block above, and a
+   dark-system user with no explicit choice needs this one. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --gb-error-on-page: #FF6B6B; }
+}
+
+.gb-board .gb-status,
+.gb-board .gb-status * {
+  color: var(--color-text-primary);
+}
+.gb-board .gb-error,
+.gb-board .gb-error * {
+  color: var(--gb-error-on-page);
+}
 /* The extension/bunker options, inline in the sentence itself -- always
    present, nothing to click through first ("no need to hide anything").
    Symmetrical by design: both methods get an icon + control of matching

@@ -15,10 +15,12 @@
   (dict "word" "ai" "url" "/ai/" "color" "var(--nav-c8)")
 }}
 {{ $currentWord := "" }}
+{{ $morphDest := "" }}
 {{ range $destinations }}
   {{ if and (not .morph) (hasPrefix $.RelPermalink .url) }}
     {{ $currentWord = .word }}
   {{ end }}
+  {{ if .morph }}{{ $morphDest = .word }}{{ end }}
 {{ end }}
 
 <nav class="site-nav" aria-label="Main navigation">
@@ -44,6 +46,10 @@
 <script>
 (function () {
   var WORDS = [{{ range $destinations }}{{ .word | jsonify | safeJS }}, {{ end }}];
+  /* The word that never navigates (currently "onlyfans"). Named
+     MORPH_DEST, not MORPH_WORD, to stay clearly distinct from the
+     MORPH_WORDS joke sequence further down. */
+  var MORPH_DEST = {{ $morphDest | jsonify | safeJS }};
   var CURRENT = {{ $currentWord | jsonify | safeJS }};
   var WORD_COLORS = { {{ range $destinations }}{{ .word | jsonify | safeJS }}: {{ .color | jsonify | safeJS }}, {{ end }} };
   var CHARS = "!<>-_\\/[]{}=+*^?#";
@@ -303,7 +309,20 @@
        animation gets cancelled and its Promise never resolves, which
        silently killed this whole loop forever. A plain timer can't
        stall that way. */
-    var i = 0;
+    /* Start somewhere random, and never on the morph word.
+
+       This used to be a flat `var i = 0`, and cycleTick() runs
+       immediately -- so the first word every visitor ever saw was
+       WORDS[0]. WORDS[0] is "onlyfans" only because $destinations is
+       ordered by rainbow colour (see the comment at the top of this
+       file), not because anyone decided the joke should be the site's
+       greeting. It still comes around later in the cycle; it just isn't
+       the first impression any more. */
+    var startable = [];
+    for (var w = 0; w < WORDS.length; w++) {
+      if (WORDS[w] !== MORPH_DEST) { startable.push(w); }
+    }
+    var i = startable.length ? startable[Math.floor(Math.random() * startable.length)] : 0;
     function cycleTick() {
       if (!open && !frozen) { setWord(WORDS[i % WORDS.length]); i++; }
       setTimeout(cycleTick, open || frozen ? 300 : 1600);
