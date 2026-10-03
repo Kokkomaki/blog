@@ -1,6 +1,6 @@
 +++
 title = "Listmonk email layout test"
-date = "2026-10-03T14:00:00+03:00"
+date = "2026-10-03T10:00:00+03:00"
 description = "This is a temporary test post for the new email layout. Only this description should appear in the email."
 draft = false
 +++
