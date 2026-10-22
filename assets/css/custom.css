@@ -960,3 +960,154 @@ body.work-page {
   display: block;
   margin: 0 var(--spacing-lg) var(--spacing-lg) 0;
 }
+
+/* Image gallery shortcode (layouts/shortcodes/gallery.html) */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(var(--gallery-cols, 2), 1fr);
+  gap: calc(var(--spacing-base) * 0.5);
+  margin: var(--spacing-base) 0;
+}
+
+.gallery p {
+  margin: 0;
+}
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery em {
+  display: block;
+  margin-top: calc(var(--spacing-base) * 0.25);
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Chapter divider shortcode (layouts/shortcodes/divider.html) */
+.divider {
+  margin: calc(var(--spacing-base) * 2) 0;
+  text-align: center;
+  font-family: var(--font-family-mono);
+  color: var(--color-text-muted);
+  letter-spacing: 0.15em;
+  white-space: pre;
+  user-select: none;
+}
+
+/* Smaller GoAT diagram: ```goat {class="goat-small"} */
+.goat.goat-small svg {
+  max-width: 34rem;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Collapsible sections ({{< details >}}): make the summary read as clickable */
+details > summary {
+  cursor: pointer;
+  width: fit-content;
+  border-bottom: 1px dotted currentColor;
+}
+
+details > summary:hover {
+  border-bottom-style: solid;
+}
+
+details[open] > summary {
+  margin-bottom: var(--spacing-base);
+}
+
+/* Tabs shortcode (layouts/shortcodes/tabs.html + tab.html):
+   a row of buttons, one panel visible at a time, no JS. */
+.tabs {
+  margin: var(--spacing-base) 0;
+}
+
+.tabs__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tabs__button {
+  display: inline-block;
+  margin: 0 calc(var(--spacing-base) * 0.25) calc(var(--spacing-base) * 0.5) 0;
+  padding: calc(var(--spacing-base) * 0.25) calc(var(--spacing-base) * 0.6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--pre-border-radius);
+  background: var(--color-bg-secondary);
+  box-shadow: 0 1px 2px var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  cursor: pointer;
+  user-select: none;
+}
+
+.tabs__button:hover {
+  color: var(--color-text-primary);
+}
+
+.tabs__input:checked + .tabs__button {
+  background: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  color: var(--color-bg-primary);
+}
+
+.tabs__input:focus-visible + .tabs__button {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+.tabs__panel {
+  display: none;
+}
+
+.tabs__input:nth-of-type(1):checked ~ .tabs__panels > .tabs__panel:nth-child(1),
+.tabs__input:nth-of-type(2):checked ~ .tabs__panels > .tabs__panel:nth-child(2),
+.tabs__input:nth-of-type(3):checked ~ .tabs__panels > .tabs__panel:nth-child(3),
+.tabs__input:nth-of-type(4):checked ~ .tabs__panels > .tabs__panel:nth-child(4),
+.tabs__input:nth-of-type(5):checked ~ .tabs__panels > .tabs__panel:nth-child(5),
+.tabs__input:nth-of-type(6):checked ~ .tabs__panels > .tabs__panel:nth-child(6) {
+  display: block;
+}
+
+/* Tabs: repeated buttons under the panels */
+.tabs {
+  scroll-margin-top: var(--spacing-base);
+}
+
+.tabs__nav--bottom {
+  margin-top: calc(var(--spacing-base) * 0.5);
+}
+
+.tabs__input:nth-of-type(1):checked ~ .tabs__nav--bottom > .tabs__button:nth-child(1),
+.tabs__input:nth-of-type(2):checked ~ .tabs__nav--bottom > .tabs__button:nth-child(2),
+.tabs__input:nth-of-type(3):checked ~ .tabs__nav--bottom > .tabs__button:nth-child(3),
+.tabs__input:nth-of-type(4):checked ~ .tabs__nav--bottom > .tabs__button:nth-child(4),
+.tabs__input:nth-of-type(5):checked ~ .tabs__nav--bottom > .tabs__button:nth-child(5),
+.tabs__input:nth-of-type(6):checked ~ .tabs__nav--bottom > .tabs__button:nth-child(6) {
+  background: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+  color: var(--color-bg-primary);
+}
+
+/* Wide tables inside tabs: scroll sideways within the panel instead of
+   stretching the page. <main> is a grid item (body is a grid), and grid
+   items won't shrink below their content unless min-width is 0. */
+main {
+  min-width: 0;
+}
+
+.tabs__panel {
+  overflow-x: auto;
+}

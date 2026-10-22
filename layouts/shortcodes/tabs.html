@@ -1,0 +1,62 @@
+{{/* ─── tabs.html ──────────────────────────────────────────────────────
+     A row of buttons that shows one panel at a time. No JavaScript:
+     each button is a visually hidden radio input + label, so it stays
+     keyboard-accessible and works with scripts off. The first tab is
+     selected by default.
+
+     Usage (each panel's body is Markdown, e.g. a table):
+       {{< tabs >}}
+       {{< tab name="Show" >}}
+       | A | B |
+       | --- | --- |
+       | 1 | 2 |
+       {{< /tab >}}
+       {{< tab name="Refuse" >}}…{{< /tab >}}
+       {{< /tabs >}}
+
+     Styling lives in assets/css/custom.css (.tabs). The buttons repeat
+     under the panels; clicking one there switches and scrolls back up. Supports up to
+     6 tabs per block (see the nth-of-type rules there).
+   ─────────────────────────────────────────────────────────────────── */}}
+{{- $_ := .Inner -}}
+{{- $id := printf "tabs-%d" .Ordinal -}}
+{{- $tabs := .Store.Get "tabs" | default dict -}}
+<div class="tabs">
+{{- $i := 0 -}}
+{{- range $k, $t := $tabs }}
+<input type="radio" class="tabs__input" name="{{ $id }}" id="{{ $id }}-{{ $i }}"{{ if eq $i 0 }} checked{{ end }}>
+<label class="tabs__button" for="{{ $id }}-{{ $i }}">{{ $t.name }}</label>
+{{- $i = add $i 1 -}}
+{{- end }}
+<div class="tabs__panels">
+{{- range $k, $t := $tabs }}
+<div class="tabs__panel">
+{{ $t.content }}
+</div>
+{{- end }}
+</div>
+<div class="tabs__nav--bottom">
+{{- $j := 0 -}}
+{{- range $k, $t := $tabs }}
+<label class="tabs__button" for="{{ $id }}-{{ $j }}">{{ $t.name }}</label>
+{{- $j = add $j 1 -}}
+{{- end }}
+</div>
+</div>
+<script>
+/* Bottom tab buttons: switch the panel, then bring the reader back up
+   to the top of that tab block. */
+if (!window.__tabsBottomInit) {
+window.__tabsBottomInit = true;
+document.addEventListener("click", function (e) {
+  var label = e.target.closest(".tabs__nav--bottom .tabs__button");
+  if (!label) return;
+  var block = label.closest(".tabs");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  setTimeout(function () {
+    var top = block.getBoundingClientRect().top + window.scrollY - 24;
+    window.scrollTo({ top: top, behavior: reduce ? "auto" : "smooth" });
+  }, 0);
+});
+}
+</script>

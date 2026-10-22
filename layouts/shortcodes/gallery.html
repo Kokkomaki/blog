@@ -1,0 +1,22 @@
+{{/* ─── gallery.html ───────────────────────────────────────────────────
+     Lay out several images (each with its italic caption) in a grid, so
+     a run of related photos takes less space and scans at a glance.
+
+     Usage — each image + caption is its own paragraph, blank line between:
+       {{< gallery >}}
+       ![](/images/a.jpg)
+       *Caption A*
+
+       ![](/images/b.jpg)
+       *Caption B*
+       {{< /gallery >}}
+
+     Params:
+       cols  number of columns on desktop. Default 2. Mobile is always 1.
+
+     Styling lives in assets/css/custom.css (.gallery).
+   ─────────────────────────────────────────────────────────────────── */}}
+{{- $cols := .Get "cols" | default 2 -}}
+<div class="gallery" style="--gallery-cols: {{ $cols }}">
+{{ .Inner | .Page.RenderString (dict "display" "block") }}
+</div>

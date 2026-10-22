@@ -1,0 +1,11 @@
+{{/* ─── divider.html ───────────────────────────────────────────────────
+     A quieter, roomier chapter break than a plain `---` rule: a short
+     line of ASCII text centred between generous vertical space.
+
+     Usage:
+       {{< divider >}}
+       {{< divider "~ ~ ~" >}}   (any custom text)
+
+     Styling lives in assets/css/custom.css (.divider).
+   ─────────────────────────────────────────────────────────────────── */}}
+<div class="divider" role="separator" aria-hidden="true">{{ .Get 0 | default "-=-=-=  ₿  =-=-=-" }}</div>

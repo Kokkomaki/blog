@@ -1,0 +1,6 @@
+{{/* ─── tab.html ───────────────────────────────────────────────────────
+     One panel inside {{< tabs >}}. Param: name (the button label).
+   ─────────────────────────────────────────────────────────────────── */}}
+{{- with .Parent -}}
+{{- .Store.SetInMap "tabs" (printf "%03d" $.Ordinal) (dict "name" ($.Get "name") "content" ($.Inner | $.Page.RenderString (dict "display" "block"))) -}}
+{{- end -}}
