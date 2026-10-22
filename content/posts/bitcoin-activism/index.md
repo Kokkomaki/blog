@@ -1,6 +1,6 @@
 +++
 title = "Bitcoin Activism"
-date = "2026-10-20T16:05:15+03:00"
+date = "2026-10-22T12:00:00+03:00"
 description = "Bitcoin isn't one movement, but it is activism: a look at the many small, nonviolent ways people use it."
 draft = false
 +++
