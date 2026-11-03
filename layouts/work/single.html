@@ -2,7 +2,7 @@
   <h1>{{ .Title }}</h1>
   {{ .Content }}
 
-  {{ $work := site.Data.work }}
+  {{ $work := hugo.Data.work }}
   {{ $liveSites := where $work "section" "live_sites" }}
   {{ $writing := where $work "section" "opensats_writing" }}
   {{ $research := where $work "section" "research_ai" }}
