@@ -16,8 +16,10 @@
 }}
 {{ $currentWord := "" }}
 {{ $morphDest := "" }}
+{{/* Match on the default-language URL, so a translated page (/fi/posts/...) highlights the same section as its original. */}}
+{{ $currentPath := (index $.AllTranslations 0).RelPermalink }}
 {{ range $destinations }}
-  {{ if and (not .morph) (hasPrefix $.RelPermalink .url) }}
+  {{ if and (not .morph) (hasPrefix $currentPath .url) }}
     {{ $currentWord = .word }}
   {{ end }}
   {{ if .morph }}{{ $morphDest = .word }}{{ end }}

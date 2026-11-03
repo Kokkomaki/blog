@@ -1,0 +1,12 @@
+[readingTime]
+one = "{{ . }} min read"
+other = "{{ . }} min read"
+
+[lang_en]
+other = "English"
+
+[lang_fi]
+other = "Suomi"
+
+[languageSwitcherLabel]
+other = "Language"

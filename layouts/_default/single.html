@@ -1,6 +1,6 @@
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
-  {{ if eq .Section "posts" }}<p class="reading-time">{{ .ReadingTime }} min read</p>{{ end }}
+  {{ if eq .Section "posts" }}<p class="reading-time">{{ i18n "readingTime" .ReadingTime }}{{ partial "lang-switch.html" . }}</p>{{ end }}
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 
   {{ $hasToC := .Params.toc | default false }}

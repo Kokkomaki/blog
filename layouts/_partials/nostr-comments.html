@@ -1,7 +1,10 @@
 {{- $showComments := .Params.comments | default (eq .Section "posts") }}
 {{- if $showComments }}
+{{- /* One comment thread per post, not per language: key it to the default-language page (first by language weight). */}}
+{{- $threadURL := .Permalink }}
+{{- with index .AllTranslations 0 }}{{ $threadURL = .Permalink }}{{ end }}
 <section class="nostr-comments-section">
-  <div id="nostr-comments" data-url="{{ .Permalink }}"></div>
+  <div id="nostr-comments" data-url="{{ $threadURL }}"></div>
   {{- with resources.Get "js/nostr-comments.jsx" }}
     {{- $opts := dict
       "minify" (not hugo.IsDevelopment)

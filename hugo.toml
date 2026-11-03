@@ -2,6 +2,19 @@ baseURL = 'https://www.kokkomaki.com/'
 locale = 'en-us'
 title = 'Ville Kokkomäki'
 theme = "ville"
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
+
+# English stays at the root, so no existing URL changes. Finnish exists only
+# as per-post translations under /fi/ (switcher in layouts/_default/single.html);
+# it has no home, section, tag or feed pages of its own. Its sitemap stays on,
+# since the root sitemap index points to it and carries the hreflang links.
+[languages]
+  [languages.en]
+    weight = 1
+  [languages.fi]
+    weight = 2
+    disableKinds = ['home', 'section', 'taxonomy', 'term', 'rss']
 
 [params]
   author = "Ville Kokkomäki"
