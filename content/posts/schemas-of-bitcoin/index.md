@@ -1,6 +1,8 @@
 +++
 title = "Schemas of Bitcoin"
 date = "2020-06-15 17:03:00"
+postLanguage = "en"
+translation = "/posts/skeemoja-bitcoinista/"
 +++
 
 I was five or maybe six-years-old when I begun to understand what money means. First we had Finnish markka and Estonian kroons. Then we had euros and kroons, and later only euros. I remember as a little kid thinking myself why the world does not have money that everybody would use: a global money. Well now there is. It is called Bitcoin.

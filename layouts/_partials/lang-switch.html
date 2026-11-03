@@ -1,12 +1,13 @@
-{{- /* Inline language switcher for a post that has translations; renders nothing otherwise.
-       Meant to sit at the end of the .reading-time line. Every language is listed (current one
-       unlinked), in language-weight order, so the order never changes between pages. */ -}}
-{{- if .IsTranslated -}}
+{{- /* Inline language switcher for a post that has another-language version (see translations.html
+       for the two ways to declare one); renders nothing otherwise. Meant to sit at the end of the
+       .reading-time line. Every language is listed, the current one unlinked. */ -}}
+{{- $versions := partial "translations.html" . -}}
+{{- if gt (len $versions) 1 -}}
 <span class="lang-switch" role="group" aria-label="{{ i18n "languageSwitcherLabel" }}"> · {{ "" -}}
-{{- range $i, $t := .AllTranslations }}
+{{- range $i, $v := $versions }}
 {{- if $i }} / {{ end }}
-{{- if eq $t.Lang $.Lang }}<span class="lang-switch-current" lang="{{ $t.Lang }}" aria-current="true">{{ i18n (printf "lang_%s" $t.Lang) }}</span>
-{{- else }}<a href="{{ $t.RelPermalink }}" lang="{{ $t.Lang }}" hreflang="{{ $t.Lang }}">{{ i18n (printf "lang_%s" $t.Lang) }}</a>
+{{- if $v.current }}<span class="lang-switch-current" lang="{{ $v.lang }}" aria-current="true">{{ i18n (printf "lang_%s" $v.lang) }}</span>
+{{- else }}<a href="{{ $v.url }}" lang="{{ $v.lang }}" hreflang="{{ $v.lang }}">{{ i18n (printf "lang_%s" $v.lang) }}</a>
 {{- end }}
 {{- end }}</span>
 {{- end -}}

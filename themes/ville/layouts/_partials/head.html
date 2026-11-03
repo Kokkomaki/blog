@@ -3,9 +3,10 @@
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 {{ partialCached "head/favicon.html" . }}
 {{ partial "head/opengraph.html" . }}
-{{- if .IsTranslated }}
-{{- range .AllTranslations }}
-<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{- $versions := partial "translations.html" . }}
+{{- if gt (len $versions) 1 }}
+{{- range $versions }}
+<link rel="alternate" hreflang="{{ .lang }}" href="{{ .abs }}">
 {{- end }}
 {{- end }}
 {{ partialCached "head/css.html" . }}

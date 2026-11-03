@@ -1,6 +1,8 @@
 +++
 title = "Miten Bitcoin liittyy rauhaan?"
 date = "2026-02-05 12:59:20"
+postLanguage = "fi"
+translation = "/posts/how-bitcoin-relates-to-peace/"
 +++
 
 ![](/images/miten-bitcoin-liittyy-rauhaan-pxart.png)

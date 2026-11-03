@@ -1,6 +1,8 @@
 +++
 title = "hi, dear love"
 date = "2024-11-20 11:26:51"
+postLanguage = "en"
+translation = "/posts/hei-rakas/"
 +++
 
 ![](/images/hi-dear-love-f9710e56-d482-4d51-848c-a8c081331cbc-1.jpg)The final morning.

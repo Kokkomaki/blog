@@ -1,0 +1,23 @@
+{{- /* The versions of this page in other languages, as [{lang, url, abs, current}]; empty when there are none.
+       Two sources:
+         1. Hugo translations (index.en.md / index.fi.md in one folder), e.g. the Otso post.
+         2. Hand-linked pairs of separate posts, from front matter:
+              translation  = "/posts/hi-dear-love/"   # the other version
+              postLanguage = "fi"                     # this post's own language, "en" or "fi"
+            Set both on both posts of the pair.
+       English always comes first, so the order never changes from page to page. */ -}}
+{{- $out := slice }}
+{{- if .IsTranslated }}
+  {{- range .AllTranslations }}
+    {{- $out = $out | append (dict "lang" .Lang "url" .RelPermalink "abs" .Permalink "current" (eq .Lang $.Lang)) }}
+  {{- end }}
+{{- else if and .Params.translation .Params.postlanguage }}
+  {{- with site.GetPage .Params.translation }}
+    {{- $mine := dict "lang" $.Params.postlanguage "url" $.RelPermalink "abs" $.Permalink "current" true }}
+    {{- $twin := dict "lang" (cond (eq $.Params.postlanguage "fi") "en" "fi") "url" .RelPermalink "abs" .Permalink "current" false }}
+    {{- if eq $.Params.postlanguage "en" }}{{ $out = slice $mine $twin }}{{ else }}{{ $out = slice $twin $mine }}{{ end }}
+  {{- else }}
+    {{- warnf "%s: translation %q does not match any page" .File.Path .Params.translation }}
+  {{- end }}
+{{- end }}
+{{- return $out }}

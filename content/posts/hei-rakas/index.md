@@ -1,6 +1,8 @@
 +++
 title = "hei, rakas"
 date = "2024-11-20 10:16:11"
+postLanguage = "fi"
+translation = "/posts/hi-dear-love/"
 +++
 
 ![](/images/hei-rakas-f9710e56-d482-4d51-848c-a8c081331cbc.jpg)Viimeinen aamu.

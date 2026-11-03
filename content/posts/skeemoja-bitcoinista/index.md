@@ -1,6 +1,8 @@
 +++
 title = "Skeemoja Bitcoinista"
 date = "2020-06-14 17:02:00"
+postLanguage = "fi"
+translation = "/posts/schemas-of-bitcoin/"
 +++
 
 Olin viisi- tai ehkä kuusivuotias kun aloin ymmärtää, mitä raha tarkoittaa. Meidän perheessämme liikkui ensin markkoja ja krooneja, sitten euroja ja krooneja, ja myöhemmin vain euroja. Muistan, kun joskus pienenä mietin itsekseni, miksi maailmassa ei ole rahaa, jota kaikki ihmiset käyttäisivät: maailmanlaajuinen raha. No nyt on. Sen nimi on Bitcoin.
