@@ -1,0 +1,25 @@
+{{- /* The image shown when a page is shared, as {url, width, height} (width/height 0 when unknown).
+       First match wins:
+         1. `image = "/images/x.jpg"` in the page's front matter
+         2. the first jpg/png/webp/gif in the post body (markdown or <img>), local or absolute
+         3. the site default
+       Social crawlers don't render avif/svg, so those are skipped. */ -}}
+{{- $path := "" }}
+{{- with .Params.image }}{{ $path = . }}{{ end }}
+{{- if and (not $path) .IsPage }}
+  {{- range findRESubmatch `!\[[^\]]*\]\(\s*<?([^)\s>]+)|<img[^>]+src=["']([^"']+)["']` .RawContent }}
+    {{- $src := or (index . 1) (index . 2) }}
+    {{- if and (not $path) (findRE `^(/|https?://)` $src) (findRE `(?i)\.(jpe?g|png|webp|gif)(\?.*)?$` $src) }}{{ $path = $src }}{{ end }}
+  {{- end }}
+{{- end }}
+{{- $img := dict "url" (absURL "images/og-default.png") "width" 1200 "height" 630 }}
+{{- if $path }}
+  {{- $img = dict "url" (cond (hasPrefix $path "http") $path (absURL $path)) "width" 0 "height" 0 }}
+  {{- $file := printf "static%s" (urls.PathUnescape $path) }}
+  {{- if and (hasPrefix $path "/") (fileExists $file) }}
+    {{- with try (images.Config $file) }}
+      {{- if not .Err }}{{ $img = merge $img (dict "width" .Value.Width "height" .Value.Height) }}{{ end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- return $img }}
