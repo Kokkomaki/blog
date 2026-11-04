@@ -16,6 +16,34 @@ defaultContentLanguageInSubdir = false
     weight = 2
     disableKinds = ['home', 'section', 'taxonomy', 'term', 'rss']
 
+# static/images is also an asset folder, so share previews (layouts/_partials/share-image.html)
+# can be resized at build time. Setting any mount drops Hugo's defaults, so they're restated.
+[module]
+  [[module.mounts]]
+    source = 'archetypes'
+    target = 'archetypes'
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    source = 'content'
+    target = 'content'
+  [[module.mounts]]
+    source = 'data'
+    target = 'data'
+  [[module.mounts]]
+    source = 'i18n'
+    target = 'i18n'
+  [[module.mounts]]
+    source = 'layouts'
+    target = 'layouts'
+  [[module.mounts]]
+    source = 'static'
+    target = 'static'
+  [[module.mounts]]
+    source = 'static/images'
+    target = 'assets/images'
+
 [params]
   author = "Ville Kokkomäki"
   email = "ville.kokkomaki@protonmail.com"

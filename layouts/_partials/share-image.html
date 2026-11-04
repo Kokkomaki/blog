@@ -1,24 +1,33 @@
-{{- /* The image shown when a page is shared, as {url, width, height} (width/height 0 when unknown).
-       First match wins:
+{{- /* The image shown when a page is shared, as {url, width, height}: a 1200x630 jpg made at build
+       time from the first usable candidate, else the site default. Candidates, in order:
          1. `image = "/images/x.jpg"` in the page's front matter
-         2. the first jpg/png/webp/gif in the post body (markdown or <img>), local or absolute
-         3. the site default
-       Social crawlers don't render avif/svg, so those are skipped. */ -}}
-{{- $path := "" }}
-{{- with .Params.image }}{{ $path = . }}{{ end }}
-{{- if and (not $path) .IsPage }}
+         2. the images in the post body (markdown or <img>), first to last
+       Local jpg/png/webp/gif/avif are resized and cropped (Smart); an absolute https:// URL is used
+       as is. Crawlers don't render avif or huge files, hence the conversion. Images narrower than
+       600px would only blur, so they're skipped. */ -}}
+{{- $candidates := slice }}
+{{- with .Params.image }}{{ $candidates = $candidates | append . }}{{ end }}
+{{- if .IsPage }}
   {{- range findRESubmatch `!\[[^\]]*\]\(\s*<?([^)\s>]+)|<img[^>]+src=["']([^"']+)["']` .RawContent }}
-    {{- $src := or (index . 1) (index . 2) }}
-    {{- if and (not $path) (findRE `^(/|https?://)` $src) (findRE `(?i)\.(jpe?g|png|webp|gif)(\?.*)?$` $src) }}{{ $path = $src }}{{ end }}
+    {{- $candidates = $candidates | append (or (index . 1) (index . 2)) }}
   {{- end }}
 {{- end }}
 {{- $img := dict "url" (absURL "images/og-default.png") "width" 1200 "height" 630 }}
-{{- if $path }}
-  {{- $img = dict "url" (cond (hasPrefix $path "http") $path (absURL $path)) "width" 0 "height" 0 }}
-  {{- $file := printf "static%s" (urls.PathUnescape $path) }}
-  {{- if and (hasPrefix $path "/") (fileExists $file) }}
-    {{- with try (images.Config $file) }}
-      {{- if not .Err }}{{ $img = merge $img (dict "width" .Value.Width "height" .Value.Height) }}{{ end }}
+{{- $found := false }}
+{{- range $candidates }}
+  {{- $src := . }}
+  {{- if and (not $found) (findRE `(?i)\.(jpe?g|png|webp|gif|avif)(\?.*)?$` $src) }}
+    {{- if hasPrefix $src "https://" }}
+      {{- $img = dict "url" $src "width" 0 "height" 0 }}{{ $found = true }}
+    {{- else if hasPrefix $src "/" }}
+      {{- with resources.Get (strings.TrimPrefix "/" (urls.PathUnescape $src)) }}
+        {{- if ge .Width 600 }}
+          {{- with try (.Fill "1200x630 q80 jpg Smart") }}
+            {{- if .Err }}{{ warnf "share-image: %s: %v" $src .Err }}
+            {{- else }}{{ $img = dict "url" .Value.Permalink "width" .Value.Width "height" .Value.Height }}{{ $found = true }}{{ end }}
+          {{- end }}
+        {{- end }}
+      {{- else }}{{ warnf "share-image: no image at %s" $src }}{{ end }}
     {{- end }}
   {{- end }}
 {{- end }}
