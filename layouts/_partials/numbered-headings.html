@@ -1,0 +1,15 @@
+{{- /*
+  Returns true when this page gets automatic heading numbers (2., 2.1., ...).
+  Context: the page.
+  - Front matter `numberedHeadings = true|false` always wins.
+  - Otherwise pages dated before params.numberedHeadingsBefore get numbers.
+    Undated pages count as old, so they keep theirs.
+  Newer posts write their numbers by hand in the heading text.
+*/ -}}
+{{- $on := false -}}
+{{- if isset .Params "numberedheadings" -}}
+  {{- $on = .Params.numberedheadings -}}
+{{- else if site.Params.numberedHeadingsBefore -}}
+  {{- $on = lt .Date (time site.Params.numberedHeadingsBefore) -}}
+{{- end -}}
+{{- return $on -}}

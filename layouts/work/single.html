@@ -1,5 +1,6 @@
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
+  <div class="numbered-headings">
   {{ .Content }}
 
   {{ $work := hugo.Data.work }}
@@ -60,5 +61,6 @@
       {{ end }}
     {{ end }}
   </ul>
+  </div>
 
 {{ end }}

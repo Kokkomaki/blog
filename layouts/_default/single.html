@@ -14,7 +14,9 @@
     </nav>
   {{ end }}
 
-  {{ .Content }}
+  <div{{ if partial "numbered-headings.html" . }} class="numbered-headings"{{ end }}>
+    {{ .Content }}
+  </div>
   {{ if not .Date.IsZero }}{{ partial "date.html" .Date }}{{ end }}
 
   {{ $showSubscribe := eq .Section "posts" }}

@@ -56,6 +56,11 @@
   --color-selection-bg: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) - 13%));
   --color-dot: hsl(var(--bg-h) var(--bg-s) 0% / 7%);
 
+  /* Code blocks: a visible step darker than the page in light mode (dark
+     beige), a step lighter in dark mode (dark gray). Never white. */
+  --color-bg-code: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) - 5%));
+  --color-border-code: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) - 12%));
+
   /* Text colors with WCAG-friendly contrast */
   /* Primary: ensures near-black on light bg and near-white on dark bg */
   --color-text-primary: hsl(
@@ -116,6 +121,8 @@
   --bg-l: 8%;
   --bg-s: 0%;
   --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
+  --color-bg-code: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) + 5%));
+  --color-border-code: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) + 12%));
   /* Was still the old washed-out pastel set -- the prefers-color-scheme
      block below has higher specificity (:root:not([data-theme="light"])
      beats a bare attribute selector) and won whenever both conditions
@@ -157,6 +164,8 @@
     --bg-l: 8%;
     --bg-s: 0%;
     --color-dot: hsl(var(--bg-h) var(--bg-s) 100% / 7%);
+    --color-bg-code: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) + 5%));
+    --color-border-code: hsl(var(--bg-h) var(--bg-s) calc(var(--bg-l) + 12%));
     --nav-c1: #FF5B4D;
     --nav-c2: #FFD93D;
     --nav-c3: #29E4E0;
@@ -264,39 +273,49 @@ h5 {
   font-weight: bold;
 }
 
-h2 {
+/* Automatic heading numbers (2., 2.1., ...) are opt-in. The wrapper below is
+   only emitted for posts dated before params.numberedHeadingsBefore (or with
+   `numberedHeadings = true`), and for the Work page; see
+   layouts/_partials/numbered-headings.html. Newer posts write their numbers
+   by hand in the heading text ("### 1. Ask the disk"). The wrapper has no box
+   of its own, so it cannot change layout. */
+.numbered-headings {
+  display: contents;
+}
+
+.numbered-headings h2 {
   counter-increment: h2;
   counter-reset: h3;
 }
 
-h3 {
+.numbered-headings h3 {
   counter-increment: h3;
   counter-reset: h4;
 }
 
-h4 {
+.numbered-headings h4 {
   counter-increment: h4;
   counter-reset: h5;
 }
 
-h5 {
+.numbered-headings h5 {
   counter-increment: h5;
 }
 
 /* nested counters */
-h2::before {
+.numbered-headings h2::before {
   content: counter(h2) ". ";
 }
 
-h3::before {
+.numbered-headings h3::before {
   content: counter(h2) "." counter(h3) ". ";
 }
 
-h4::before {
+.numbered-headings h4::before {
   content: counter(h2) "." counter(h3) "." counter(h4) ". ";
 }
 
-h5::before {
+.numbered-headings h5::before {
   content: counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) ". ";
 }
 

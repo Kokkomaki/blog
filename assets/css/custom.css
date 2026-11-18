@@ -1111,3 +1111,94 @@ main {
 .tabs__panel {
   overflow-x: auto;
 }
+
+/* Code blocks ---------------------------------------------------------
+   Highlighting is class-based (hugo.toml: markup.highlight.noClasses =
+   false), so nothing here fights an inline style. The fill follows the
+   theme: dark beige on light, dark gray on dark, never white. The
+   colours are monochrome on purpose, same as the rest of the site:
+   keywords bold, comments muted italic, strings italic. */
+.highlight {
+  position: relative;
+}
+
+.highlight pre,
+pre.chroma {
+  background-color: var(--color-bg-code);
+  border-color: var(--color-border-code);
+}
+
+.chroma .err {
+  color: inherit;
+  background-color: transparent;
+}
+
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1,
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.chroma .k,
+.chroma .kc,
+.chroma .kd,
+.chroma .kn,
+.chroma .kp,
+.chroma .kr,
+.chroma .kt {
+  font-weight: bold;
+}
+
+.chroma .s,
+.chroma .sa,
+.chroma .sb,
+.chroma .sc,
+.chroma .dl,
+.chroma .sd,
+.chroma .s2,
+.chroma .se,
+.chroma .sh,
+.chroma .si,
+.chroma .sx,
+.chroma .sr,
+.chroma .s1,
+.chroma .ss {
+  font-style: italic;
+}
+
+/* Copy button: a small stamped tab sitting on the top edge of the block,
+   so it never covers code. Added by themes/ville/assets/js/main.js. */
+.code-copy {
+  position: absolute;
+  top: 0;
+  right: var(--spacing-md);
+  transform: translateY(-50%);
+  min-width: 4.6em;
+  padding: 0.3em 0.8em;
+  font: inherit;
+  font-size: var(--font-size-small);
+  line-height: 1.2;
+  text-align: center;
+  color: var(--color-text-muted);
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-code);
+  border-radius: var(--inline-border-radius);
+  cursor: pointer;
+}
+
+.code-copy:hover,
+.code-copy:focus-visible,
+.code-copy.is-copied {
+  color: var(--color-text-primary);
+  border-color: currentColor;
+}
+
+.code-copy:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

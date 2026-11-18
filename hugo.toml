@@ -49,6 +49,10 @@ defaultContentLanguageInSubdir = false
   email = "ville.kokkomaki@protonmail.com"
   paywallApiBase = "https://paywall.kokkomaki.com"
   description = "I write about Bitcoin, peace, vipassana, and all that good stuff."
+  # Automatic heading numbers (1., 1.1., ...) only for posts dated before this
+  # day. Newer posts write their numbers by hand in the heading text. A post
+  # can opt in or out with `numberedHeadings = true|false` in its front matter.
+  numberedHeadingsBefore = "2026-11-18"
 
 [markup]
   [markup.goldmark]
@@ -58,7 +62,7 @@ defaultContentLanguageInSubdir = false
     codeFences = true
     guessSyntax = true
     lineNos = false
-    noClasses = true
+    noClasses = false  # class-based, so assets/css/custom.css can colour code per theme
     tabWidth = 4
     style = "algol_nu"
   [markup.tableOfContents]
