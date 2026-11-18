@@ -1,6 +1,6 @@
 +++
 title = "Samsung 980 Pro died, critical warning 0x09: How I cloned a dying NVMe SSD"
-date = "2026-11-18T12:00:00+02:00"
+date = "2026-11-18T17:00:00+02:00"
 description = "My 2 TB Samsung 980 Pro went read-only with 9 % of its life used. How I cloned the dying NVMe SSD to a new disk with LUKS, LVM and Debian."
 draft = false
 +++
@@ -9,7 +9,7 @@ On Monday afternoon all of a sudden my self-hosted server died. I couldn't acces
 
 <!--more-->
 
-*Just want the commands? Jump to the [appendix](#appendix-if-your-ssd-goes-read-only).*
+(*Just want the commands? Jump to the [appendix](#appendix-if-your-ssd-goes-read-only).*)
 
 I hurried, cycled from my office to where the server is at. I connected the ancient LCD IPS screen and restarted the computer. 
 
@@ -47,21 +47,31 @@ On Tuesday I booted a rescue stick and asked the disk how it was doing.
 
 *Overall health: FAILED. Available spare: 0 %. Media placed in read only mode. Percentage used: 9 %.*
 
-Nine percent of its life gone, and no spare left.
+So basically it is dead. (More Cursing %&!/i?=!!). 
 
-It was a 2 TB Samsung 980 Pro, bought used, made in February 2021. The five-year warranty ended this February, and I had no receipt anyway. So there was nobody to be angry at who would listen, and I was angry. I trusted Samsung. Shit, scheiße, paska. Electronic waste. 
+It was a 2 TB Samsung 980 Pro, bought used, made in February 2021. The five-year warranty ended this February, and I had no receipt anyway. So there was nobody to be angry at who would listen, and I was angry. I trusted Samsung. 
+
+{{< center >}}Shit, Scheiße, paska{{< /center >}}
+{{< center >}}Electronic waste piles up{{< /center >}}
+{{< center >}}Here, have a haiku{{< /center >}}
 
 I didn't have the money for a new one, but luckily a friend helped me out. Thank you! A 1 TB SSD cost me 200 euros, where the dead one was 2 TB. SSD prices have doubled, thanks to the AI data centres, and that pissed me off too. (Then again, long ago I paid 550 euros for a 500 GB SATA3 SSD. So it isn't *that* bad?)
 
-The rescue took three painstakingly-long hours with a bright light to my eyes under a dim lighted room. The AI knew everything. Its instructions were right from the first command to the last. Rest in peace Stack Overflow? 
+The rescue took three painstakingly-long hours with a bright light to my eyes under a dim lighted room. My wife wasn't too happy I came home at 22.00 in the evening. 
 
-It also told me a lot I didn't need to know, in long careful paragraphs I had to wade through while very tired. And the way we worked was ridiculous: type a command on the server, photograph the screen with my phone, send the photo to the AI, read its answer on the laptop, type the next command. Right, left, right, left, right, left. For two hours my head went back and forth like I was watching tennis.
+What made working with AI ridiculous was it told me a lot I didn't need to know, in long careful paragraphs I had to wade through. I typed a command on the server, photographed the screen with my phone, sent the photo to the AI who read its answer on the laptop, and then typed the next command. Rinse and repeat.
 
-Somewhere in the second hour I knew what I should have done: Write a bloody script! One that reads the old disk, never writes to it, and does the whole job by itself, so I could press enter once and go to bed. Hour two of a rescue is a terrible time to realise it...
+*Right, left, right, left, right, left.*
 
-Then the new SSD booted. I typed the passphrase and wrote: *server is now working,* to AI.
+For two hours my head went back and forth like I was watching tennis.
 
-Afterwards I went reading, and it looks like it was only a matter of time. In early 2023, 2 TB 980 Pros on firmware 3B2QGXA7 began failing like mine did: media errors climbing, spare capacity dropping, then read-only. Samsung confirmed the bug and shipped a fix, 5B2QGXA7. It protects a drive that still works. A dead one stays dead [[1]](https://www.pugetsystems.com/support/guides/critical-samsung-ssd-firmware-update/)[[2]](https://www.guru3d.com/story/samsung-issues-new-firmware-to-prevent-dying-980-pro-ssds/)[[3]](https://www.pcgameshardware.de/SSD-Hardware-255552/News/Samsung-Neue-Firmware-gegen-sterbende-SSD-980-Pro-1412617/)[[4]](https://nascompares.com/2023/02/02/samsung-980-pro-970-evo-plus-pm9a1-and-more-reporting-failures-everything-we-know-so-far/)[[5]](https://community.frame.work/t/solved-samsung-ssd-980-pro-firmware-update-on-linux-how/27046). How should I have known about this?!
+Somewhere in the second hour I knew what I should have done: Write a bloody script and put that in the USB stick! 
+
+Anyway, then the new SSD booted. I typed the passphrase and wrote: *server is now working,* to AI.
+
+In the end, it was only a matter of time. In early 2023, 2 TB 980 Pros on firmware 3B2QGXA7 began failing like mine did: media errors climbing, spare capacity dropping, and then read-only. Samsung confirmed the bug and shipped a fix, 5B2QGXA7. It protects a drive that still works. A dead one stays dead [[1]](https://www.pugetsystems.com/support/guides/critical-samsung-ssd-firmware-update/)[[2]](https://www.guru3d.com/story/samsung-issues-new-firmware-to-prevent-dying-980-pro-ssds/)[[3]](https://www.pcgameshardware.de/SSD-Hardware-255552/News/Samsung-Neue-Firmware-gegen-sterbende-SSD-980-Pro-1412617/)[[4]](https://nascompares.com/2023/02/02/samsung-980-pro-970-evo-plus-pm9a1-and-more-reporting-failures-everything-we-know-so-far/)[[5]](https://community.frame.work/t/solved-samsung-ssd-980-pro-firmware-update-on-linux-how/27046). 
+
+How should I have known about this?!
 
 ## Appendix: if your SSD goes read-only
 
