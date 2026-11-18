@@ -1,6 +1,6 @@
 +++
 title = "Samsung 980 Pro died, critical warning 0x09: How I cloned a dying NVMe SSD"
-date = "2026-11-18T121:14:00+02:00"
+date = "2026-11-18T21:14:00+02:00"
 description = "My 2 TB Samsung 980 Pro went read-only with 9 % of its life used. How I cloned the dying NVMe SSD to a new disk with LUKS, LVM and Debian."
 image = "/images/samsung-980-pro-error-1962.jpg"
 draft = false
