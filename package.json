@@ -2,6 +2,7 @@
   "name": "kokkomaki-blog",
   "private": true,
   "scripts": {
+    "check:all": "node scripts/check-all.mjs",
     "screenshot-work": "node scripts/screenshot-work.mjs"
   },
   "dependencies": {
