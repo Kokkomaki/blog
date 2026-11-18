@@ -2,58 +2,64 @@
 title = "Samsung 980 Pro died, critical warning 0x09: How I cloned a dying NVMe SSD"
 date = "2026-11-18T17:00:00+02:00"
 description = "My 2 TB Samsung 980 Pro went read-only with 9 % of its life used. How I cloned the dying NVMe SSD to a new disk with LUKS, LVM and Debian."
+image = "/images/samsung-980-pro-error-1962.jpg"
 draft = false
 +++
 
-On Monday afternoon all of a sudden my self-hosted server died. I couldn't access it. My paranoid ass thought it was hackers. I was traumatised with keyloggers and viruses when I was a kid, so these things really freak me out. However, it turned out that the machine died. Phew!
+![error 1962](/images/samsung-980-pro-error-1962.jpg)
+
+On Monday afternoon all of a sudden my self-hosted server died. I couldn't access it. My paranoid ass thought it was hackers. I was traumatised with keyloggers and viruses when I was a kid, so these things really freak me out. However, it turned out that the machine died. Phew?
 
 <!--more-->
 
-(*Just want the commands? Jump to the [appendix](#appendix-if-your-ssd-goes-read-only).*)
+{{< center >}}· · · ✦ · · ·{{< /center >}}
 
 I hurried, cycled from my office to where the server is at. I connected the ancient LCD IPS screen and restarted the computer. 
 
-<pre role="img" aria-label="Error screen. Error 1962. No operating system found. Boot sequence will automatically repeat. What failed: Samsung 980 Pro, 2 TB. Stop code: CRITICAL_WARNING 0x09." style="display:block;width:fit-content;max-width:100%;white-space:pre;overflow-x:auto;background:#0b0b0b;color:#e8e8e8;border:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono','Liberation Mono',monospace;font-size:min(14px,3.1vw);line-height:1.15;padding:1.2em 1.4em;box-shadow:none">   ▄▄▀▀▀▀▀▀▀▄▄
-  █           █
- █   ▄▄   ▄▄   █
- █   ▀▀   ▀▀   █
- █    ▄▄▄▄▄    █
- ▀▄ ▄▀     ▀▄ ▄▀
-  ▀▄▄       ▄▄▀
-     ▀▀▀▀▀▀▀
- 
- █▀▀▀▀ █▀▀▀▄ █▀▀▀▄ ▄▀▀▀▄ █▀▀▀▄
- █▄▄▄  █▄▄▄▀ █▄▄▄▀ █   █ █▄▄▄▀
- █     █ ▀▄  █ ▀▄  █   █ █ ▀▄
- ▀▀▀▀▀ ▀   ▀ ▀   ▀  ▀▀▀  ▀   ▀
- 
-  ▄█   ▄▀▀▀▄  ▄▀▀  ▄▀▀▀▄
-   █   ▀▄▄▄█ █▄▄▄     ▄▀
-   █      ▄▀ █   █  ▄▀
-  ▀▀▀   ▀▀    ▀▀▀  ▀▀▀▀▀
- 
- No operating system found.
- Boot sequence will automatically repeat.
- 
- What failed:  Samsung 980 Pro, 2 TB
- Stop code:    CRITICAL_WARNING 0x09
+<pre role="img" aria-label="Error screen. Error 1962. No operating system found. Boot sequence will automatically repeat. What failed: Samsung 980 Pro, 2 TB. Stop code: CRITICAL_WARNING 0x09." style="display:block;width:fit-content;max-width:100%;white-space:pre;overflow-x:auto;background:#0b0b0b;color:#e8e8e8;border:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono','Liberation Mono',monospace;font-size:min(14px,3.1vw);line-height:1.15;padding:1.2em 1.4em;box-shadow:none;margin-left:auto;margin-right:auto">              ▄▄▀▀▀▀▀▀▀▄▄
+             █           █
+            █   ▄▄   ▄▄   █
+            █   ▀▀   ▀▀   █
+            █    ▄▄▄▄▄    █
+            ▀▄ ▄▀     ▀▄ ▄▀
+             ▀▄▄       ▄▄▀
+                ▀▀▀▀▀▀▀
+
+     █▀▀▀▀ █▀▀▀▄ █▀▀▀▄ ▄▀▀▀▄ █▀▀▀▄
+     █▄▄▄  █▄▄▄▀ █▄▄▄▀ █   █ █▄▄▄▀
+     █     █ ▀▄  █ ▀▄  █   █ █ ▀▄
+     ▀▀▀▀▀ ▀   ▀ ▀   ▀  ▀▀▀  ▀   ▀
+
+         ▄█   ▄▀▀▀▄  ▄▀▀  ▄▀▀▀▄
+          █   ▀▄▄▄█ █▄▄▄     ▄▀
+          █      ▄▀ █   █  ▄▀
+         ▀▀▀   ▀▀    ▀▀▀  ▀▀▀▀▀
+
+       No operating system found.
+Boot sequence will automatically repeat.
+
+  What failed:  Samsung 980 Pro, 2 TB
+  Stop code:    CRITICAL_WARNING 0x09
 </pre>
 
-*What the fuck*, I typed to the AI. 
+{{< center >}}What the fuck, I typed to the AI.{{< /center >}}
 
 My first thought was a hack, my second an AI worker getting creative with `rm -rf`. The logs showed nothing. Then the BIOS asked for a password. I typed it three times, it said no, and it halted with a fatal error. (The BIOS has an American keyboard. My password was right and wrong at the same time.) 
 
 On Tuesday I booted a rescue stick and asked the disk how it was doing.
 
-*Overall health: FAILED. Available spare: 0 %. Media placed in read only mode. Percentage used: 9 %.*
+*Overall health: FAILED.*\
+*Available spare: 0 %.*\
+*Media placed in read only mode.*\
+*Percentage used: 9 %.*
 
 So basically it is dead. (More Cursing %&!/i?=!!). 
 
 It was a 2 TB Samsung 980 Pro, bought used, made in February 2021. The five-year warranty ended this February, and I had no receipt anyway. So there was nobody to be angry at who would listen, and I was angry. I trusted Samsung. 
 
-{{< center >}}Shit, Scheiße, paska{{< /center >}}
-{{< center >}}Electronic waste piles up{{< /center >}}
-{{< center >}}Here, have a haiku{{< /center >}}
+**{{< center >}}Shit, Scheiße, paska{{< /center >}}**
+**{{< center >}}Electronic waste piles up{{< /center >}}**
+**{{< center >}}Here, have a haiku{{< /center >}}**
 
 I didn't have the money for a new one, but luckily a friend helped me out. Thank you! A 1 TB SSD cost me 200 euros, where the dead one was 2 TB. SSD prices have doubled, thanks to the AI data centres, and that pissed me off too. (Then again, long ago I paid 550 euros for a 500 GB SATA3 SSD. So it isn't *that* bad?)
 
@@ -73,6 +79,7 @@ In the end, it was only a matter of time. In early 2023, 2 TB 980 Pros on firmwa
 
 How should I have known about this?!
 
+{{< center >}}· · · ✦ · · ·{{< /center >}}
 ## Appendix: if your SSD goes read-only
 
 Old disk `nvme0n1`, new SSD `sda`: check yours with `lsblk` before anything that writes. I left out the many checks in between and swapped my volume names for `vg0`. All of it ran as root from a Debian Live stick.
