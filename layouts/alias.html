@@ -1,0 +1,13 @@
+{{- /* Hugo's redirect stub (for aliases and the default-language /en/ URL). Same as the built-in
+       one, plus the share-preview tags of the page it points at, so a link to a redirecting URL
+       still unfurls with a title and image. */ -}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}">
+  <head>
+    <title>{{ .Permalink }}</title>
+    <link rel="canonical" href="{{ .Permalink }}">
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url={{ .Permalink }}">
+    {{ partial "head/opengraph.html" .Page }}
+  </head>
+</html>
