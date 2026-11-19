@@ -12,6 +12,10 @@
 # denies reading credentials, private data and every other project. Test it without quota:
 #   scripts/worker-cli.codex.sh --sandbox-test /bin/ls "$HOME/.ssh"     (run inside a worktree)
 #
+# WEB SEARCH. A card line `Web search: yes` adds `codex --search`: Codex's own live web search. It runs
+# on OpenAI's side and needs no network inside the sandbox, so the deny list stays in force. `Network: yes`
+# (shell network inside the sandbox) is still refused. Not yet proven with a real run (no quota).
+#
 # Models: build work uses gpt-6.1-sol at xhigh, research and audits use gpt-6-luna at max (card
 # field `Kind:`). No permission bypass, no danger-full-access.
 set -euo pipefail
@@ -50,6 +54,8 @@ card=$(grep -oE 'docs/changes/[A-Za-z0-9-]+\.md' "$prompt" | head -1)
 [[ -n $card && -f $card ]] || { echo "card not found from prompt: $card" >&2; exit 2; }
 kind=$(sed -n 's/^Kind: //p' "$card" | head -1)
 network=$(sed -n 's/^Network: //p' "$card" | head -1)
+web=$(sed -n 's/^Web search: //p' "$card" | head -1)
+search=(); [[ $web == yes* ]] && search=(--search)
 [[ $network == yes* ]] && { echo 'Network: yes is not supported with the deny-list profile yet; ask the lead.' >&2; exit 2; }
 
 case $kind in
@@ -58,5 +64,5 @@ case $kind in
 esac
 
 profile_args
-printf 'worker: account=%s model=%s effort=%s card=%s denied-read-paths=%s\n' "$CODEX_HOME" "$model" "$effort" "$card" "${#deny[@]}" >&2
-exec codex exec -m "$model" -c "model_reasoning_effort=\"$effort\"" "${cfg[@]}" - < "$prompt"
+printf 'worker: account=%s model=%s effort=%s web-search=%s card=%s denied-read-paths=%s\n' "$CODEX_HOME" "$model" "$effort" "${web:-no}" "$card" "${#deny[@]}" >&2
+exec codex ${search[@]+"${search[@]}"} exec -m "$model" -c "model_reasoning_effort=\"$effort\"" "${cfg[@]}" - < "$prompt"
