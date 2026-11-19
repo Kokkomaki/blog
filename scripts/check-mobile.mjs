@@ -7,7 +7,13 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
-import { chromium } from 'playwright';
+
+let chromium;
+try { ({ chromium } = await import('playwright')); } catch {
+  if (process.env.CI) { console.error('check-mobile: playwright is not installed in CI'); process.exit(1); }
+  console.log('check-mobile: skipped, playwright is not installed (run npm install)');
+  process.exit(0);
+}
 
 const out = process.argv[2];
 if (!out || !fs.existsSync(out)) { console.error('usage: node scripts/check-mobile.mjs <built site dir>'); process.exit(2); }

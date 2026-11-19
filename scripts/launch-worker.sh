@@ -110,6 +110,7 @@ mkdir -p -- "$worktree/docs/changes" "$worktree/.claude/output-styles" "$worktre
 for f in AGENTS.md CLAUDE.md REVIEW.md DESIGN.md; do [[ -f $f ]] && cp -- "$f" "$worktree/$f"; done
 [[ -d docs/owner ]] && cp -R docs/owner "$worktree/docs/owner"
 [[ -d docs/design ]] && cp -R docs/design "$worktree/docs/design"
+[[ -d node_modules ]] && ln -s "$project_root/node_modules" "$worktree/node_modules"   # ignored by git; the gate's phone check needs playwright
 cp -- "$card" "$worktree/$card"
 cp -- .claude/output-styles/blog-eli5.md "$worktree/.claude/output-styles/blog-eli5.md"
 [[ -d .agents/skills ]] && cp -RL .agents/skills/. "$worktree/.agents/skills/"
