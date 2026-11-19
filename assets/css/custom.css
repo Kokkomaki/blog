@@ -716,7 +716,7 @@ body.work-page {
 }
 
 .work-chrome-grid {
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
 }
 
 /* Browser-chrome card — adapted from the design-evolution shortcode's .dev-*
@@ -1201,4 +1201,37 @@ pre.chroma {
 .code-copy:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+/* Narrow screens --------------------------------------------------------
+   Nothing inside a post may be wider than the screen. One unbreakable URL, a fixed-width iframe or
+   an inline code span used to widen the whole page, and iOS Safari then shrank the page to fit
+   (found 2026-11-19: the reference links of the Samsung post). `npm run check:all` runs
+   scripts/check-mobile.mjs at 390px and 320px to keep this true. */
+main a,
+main li,
+main p,
+main td,
+main th,
+main figcaption,
+main :not(pre) > code {
+  overflow-wrap: anywhere;
+}
+
+main iframe {
+  max-width: 100%;
+}
+
+main iframe[src*="youtube"],
+main iframe[src*="vimeo"] {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 600px) {
+  /* Inline code is nowrap by default; on a phone a long span (a URL in backticks) must wrap. */
+  main :not(pre) > code {
+    white-space: normal;
+  }
 }
