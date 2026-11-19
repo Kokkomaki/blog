@@ -9,7 +9,11 @@ import path from 'node:path';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const keep = process.argv.includes('--keep');
-const SITE = 'https://www.kokkomaki.com';
+const skipMobile = process.argv.includes('--skip-mobile');
+const updateUrls = process.argv.includes('--update-urls');
+// GitHub Pages serves the site on the apex domain and redirects www to it, and CI builds with that
+// base URL. Build the gate the same way, or its checks describe a site that does not exist.
+const SITE = 'https://kokkomaki.com';
 const failures = [];
 const notes = [];
 const fail = (msg) => failures.push(msg);
@@ -115,12 +119,47 @@ function checkDrafts(out) {
   }
 }
 
+// 6. URL continuity: every address that existed must still exist. New addresses are always fine.
+//    Removing or renaming a page on purpose: `npm run check:all -- --update-urls`, then read the diff of
+//    scripts/known-urls.txt. Without an alias, the old link is a 404 for everyone who saved it.
+function builtUrls(out) {
+  const urls = walk(out)
+    .filter((f) => f.endsWith('index.html') && !f.includes(`${path.sep}pagefind${path.sep}`))
+    .map((f) => '/' + path.relative(out, path.dirname(f)).split(path.sep).join('/') + '/')
+    .map((u) => u.replace(/^\/\/$/, '/'));
+  for (const f of ['index.xml', 'sitemap.xml']) if (fs.existsSync(path.join(out, f))) urls.push('/' + f);
+  return [...new Set(urls)].sort();
+}
+function checkUrlBaseline(out) {
+  const file = path.join(root, 'scripts/known-urls.txt');
+  const now = builtUrls(out);
+  if (updateUrls) {
+    fs.writeFileSync(file, `# Every address the live site has had. check:all fails if one disappears.\n# Update on purpose with: npm run check:all -- --update-urls\n${now.join('\n')}\n`);
+    notes.push(`known-urls.txt rewritten with ${now.length} addresses`);
+    return;
+  }
+  if (!fs.existsSync(file)) { fail('scripts/known-urls.txt is missing (create it with --update-urls)'); return; }
+  const have = new Set(now);
+  const known = fs.readFileSync(file, 'utf8').split('\n').filter((l) => l && !l.startsWith('#'));
+  for (const u of known) if (!have.has(u)) fail(`address disappeared from the site: ${u}`);
+  notes.push(`url continuity: ${known.length} known addresses, ${now.length - known.length >= 0 ? now.length - known.length : 0} new`);
+}
+
+// 7. Phone layout: nothing wider than the screen at 390px and 320px (needs a browser).
+function checkMobile(out) {
+  if (skipMobile) { notes.push('mobile layout check skipped (--skip-mobile)'); return; }
+  const r = sh('node', ['scripts/check-mobile.mjs', out]);
+  const text = `${r.stdout}${r.stderr}`.trim();
+  if (r.status !== 0) fail(`mobile layout:\n${text.split('\n').slice(0, 25).join('\n')}`);
+  else notes.push(text.split('\n').pop());
+}
+
 checkInstructionFiles();
 checkPrivateFilesUntracked();
 const out = fs.mkdtempSync(path.join(os.tmpdir(), 'blog-gate-'));
 try {
   build(out);
-  if (fs.existsSync(path.join(out, 'index.html'))) { checkPages(out); checkDrafts(out); }
+  if (fs.existsSync(path.join(out, 'index.html'))) { checkPages(out); checkDrafts(out); checkUrlBaseline(out); checkMobile(out); }
   else fail('build produced no index.html');
 } finally {
   if (keep) console.log(`build kept at ${out}`);

@@ -1,4 +1,4 @@
-baseURL = 'https://www.kokkomaki.com/'
+baseURL = 'https://kokkomaki.com/'
 locale = 'en-us'
 title = 'Ville Kokkomäki'
 theme = "ville"
