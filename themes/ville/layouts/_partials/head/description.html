@@ -1,16 +1,18 @@
 {{- /* The one place that decides a page's description. Used by head/opengraph.html (og:description)
        and head/meta.html (meta description), so they are always identical. In order: front matter
-       `description` (as is); else the plain-text summary; else, for a page with a body, the start of
-       the body text. Whitespace collapsed; derived text is cut at 160 characters. Nothing invented:
-       with no text, or on the home page, it returns an empty string and no tag is printed. */ -}}
+       `description` (as is); else the plain-text summary; else, when the summary is only a word or two
+       ("Abstract", "tl;dr."), or empty, the start of the body text. Entities such as &rsquo; are turned
+       into real characters, whitespace is collapsed, derived text is cut at 160 characters. Nothing
+       invented: with no text, or on the home page, it returns an empty string and no tag is printed.
+       Derived text that contains an email address is dropped (the resume page lists one). */ -}}
 {{- $text := "" }}
 {{- $derived := false }}
 {{- if .Description }}{{ $text = .Description }}
 {{- else if not .IsHome }}
-  {{- $text = .Summary | plainify | replaceRE `\s+` " " | strings.TrimSpace }}
-  {{- if not $text }}{{ $text = .Plain | replaceRE `\s+` " " | strings.TrimSpace }}{{ end }}
   {{- $derived = true }}
+  {{- $text = .Summary | plainify | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace }}
+  {{- if lt (strings.RuneCount $text) 60 }}{{ $text = .Plain | htmlUnescape | replaceRE `\s+` " " | strings.TrimSpace }}{{ end }}
 {{- end }}
-{{- $text = $text | replaceRE `\s+` " " | strings.TrimSpace }}
+{{- if and $derived (findRE `[[:alnum:]._%+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}` $text) }}{{ $text = "" }}{{ end }}
 {{- if $derived }}{{ $text = $text | truncate 160 }}{{ end }}
 {{- return $text -}}

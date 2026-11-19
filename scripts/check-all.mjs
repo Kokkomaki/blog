@@ -100,6 +100,11 @@ function checkMeta(page, html) {
     if (/^\/(?:[a-z]{2}\/)?posts\/[^/]+\/index\.html$/.test(page)) fail(`${page}: a post page must have a description`);
     else noDescription.push(page);
   }
+  // Quality (lead review 2026-11-19): a description is read by people in link previews.
+  if (desc.length === 1 && desc[0]) {
+    if (/&amp;(?:#\d+|[a-z]+);/i.test(desc[0])) fail(`${page}: description shows a raw HTML entity (double-escaped): ${desc[0].slice(0, 60)}`);
+    if (/[\w.%+-]+@[\w.-]+\.[a-z]{2,}/i.test(desc[0])) fail(`${page}: description contains an email address`);
+  }
 }
 const noDescription = [];
 function checkPages(out) {
