@@ -1,0 +1,16 @@
+{{- /* The one place that decides a page's description. Used by head/opengraph.html (og:description)
+       and head/meta.html (meta description), so they are always identical. In order: front matter
+       `description` (as is); else the plain-text summary; else, for a page with a body, the start of
+       the body text. Whitespace collapsed; derived text is cut at 160 characters. Nothing invented:
+       with no text, or on the home page, it returns an empty string and no tag is printed. */ -}}
+{{- $text := "" }}
+{{- $derived := false }}
+{{- if .Description }}{{ $text = .Description }}
+{{- else if not .IsHome }}
+  {{- $text = .Summary | plainify | replaceRE `\s+` " " | strings.TrimSpace }}
+  {{- if not $text }}{{ $text = .Plain | replaceRE `\s+` " " | strings.TrimSpace }}{{ end }}
+  {{- $derived = true }}
+{{- end }}
+{{- $text = $text | replaceRE `\s+` " " | strings.TrimSpace }}
+{{- if $derived }}{{ $text = $text | truncate 160 }}{{ end }}
+{{- return $text -}}

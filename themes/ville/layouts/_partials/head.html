@@ -3,6 +3,7 @@
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 {{ partialCached "head/favicon.html" . }}
 {{ partial "head/opengraph.html" . }}
+{{ partial "head/meta.html" . }}
 {{- $versions := partial "translations.html" . }}
 {{- if gt (len $versions) 1 }}
 {{- range $versions }}

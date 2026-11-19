@@ -72,6 +72,36 @@ function build(out) {
 
 // 4. Built pages: title, share image, existing image file, internal links.
 function attr(html, re) { const m = html.match(re); return m ? m[1] : null; }
+// Parse the opening tags of one kind (`meta` or `link`) into attribute maps. Minified HTML drops
+// attribute quotes, so values may be bare, single-quoted or double-quoted.
+function tagsOf(html, name) {
+  const head = html.split(/<\/head>/i)[0];
+  return [...head.matchAll(new RegExp(`<${name}\\s([^>]*)>`, 'gi'))].map((m) => {
+    const attrs = {};
+    for (const a of m[1].matchAll(/([^\s=\/]+)(?:=(?:"([^"]*)"|'([^']*)'|([^\s"'>]+)))?/g)) attrs[a[1].toLowerCase()] = a[2] ?? a[3] ?? a[4] ?? '';
+    return attrs;
+  });
+}
+// Every page: exactly one canonical equal to og:url. Every page except the home page and Hugo's
+// redirect stubs: exactly one meta description equal to og:description.
+function checkMeta(page, html) {
+  const metas = tagsOf(html, 'meta');
+  const ogUrl = metas.filter((t) => t.property === 'og:url').map((t) => t.content);
+  const ogDesc = metas.filter((t) => t.property === 'og:description').map((t) => t.content);
+  const canon = tagsOf(html, 'link').filter((t) => (t.rel || '').toLowerCase() === 'canonical').map((t) => t.href);
+  if (canon.length !== 1) fail(`${page}: ${canon.length} canonical links, expected 1`);
+  else if (ogUrl.length !== 1 || canon[0] !== ogUrl[0]) fail(`${page}: canonical ${canon[0]} does not equal og:url ${ogUrl[0]}`);
+  const isStub = metas.some((t) => (t['http-equiv'] || '').toLowerCase() === 'refresh');
+  if (isStub || page === '/index.html') return;
+  const desc = metas.filter((t) => t.name === 'description').map((t) => t.content);
+  if (desc.length > 1 || ogDesc.length > 1) fail(`${page}: ${desc.length} meta descriptions and ${ogDesc.length} og:description, expected at most 1 each`);
+  else if (desc.length !== ogDesc.length || desc[0] !== ogDesc[0]) fail(`${page}: meta description and og:description must both be present and equal, or both absent`);
+  else if (!desc.length) {
+    if (/^\/(?:[a-z]{2}\/)?posts\/[^/]+\/index\.html$/.test(page)) fail(`${page}: a post page must have a description`);
+    else noDescription.push(page);
+  }
+}
+const noDescription = [];
 function checkPages(out) {
   const pages = walk(out).filter((f) => f.endsWith('.html') && !f.includes(`${path.sep}pagefind${path.sep}`));
   const exists = (p) => {
@@ -83,6 +113,7 @@ function checkPages(out) {
     const page = '/' + path.relative(out, file).split(path.sep).join('/');
     const html = fs.readFileSync(file, 'utf8');
     if (!/<title>[^<]+<\/title>/.test(html)) fail(`${page}: no <title>`);
+    checkMeta(page, html);
     const og = attr(html, /property="?og:image"?\s+content="?([^"\s>]+)/);
     const tw = attr(html, /name="?twitter:image"?\s+content="?([^"\s>]+)/);
     if (!og) fail(`${page}: no og:image`);
@@ -96,6 +127,7 @@ function checkPages(out) {
     }
   }
   notes.push(`pages checked: ${pages.length}`);
+  notes.push(`pages without a description (not a failure): ${noDescription.length}${noDescription.length ? ' - ' + noDescription.join(', ') : ''}`);
 }
 
 // 5. Drafts and future-dated posts must not be in the build.
