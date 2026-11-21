@@ -48,6 +48,17 @@ for a in "${allowed[@]}"; do
   case $a in content|content/*) fail "Workers never edit content/ (AGENTS.md invariant 1): $a" ;; esac
 done
 
+# Inputs: private research files or folders the worker may read, copied into its worktree (card line
+# `Inputs:`, space separated, under docs/research/ only). Later research stages read earlier results this way.
+inputs_str=''
+for i in $(sed -n 's/^Inputs: //p' "$card" | head -1); do
+  [[ $i =~ ^docs/research/[A-Za-z0-9._/-]+$ && $i != *..* ]] || fail "Inputs must be under docs/research/ without '..': $i"
+  [[ -e $i && ! -L $i ]] || fail "Input not found or a symbolic link: $i"
+  [[ -z $(find "$i" -type l 2>/dev/null) ]] || fail "Input contains a symbolic link: $i"
+  inputs_str+="$i "
+done
+inputs_str=${inputs_str% }
+
 overlaps() { # does path $1 fall under an Allowed entry?
   local p=$1 a
   for a in "${allowed[@]}"; do
@@ -88,6 +99,7 @@ adapter=${WORKER_ADAPTER:-$project_root/scripts/worker-cli.codex.sh}
 printf 'Mode: %s\nBase: %s\nStart: %s\nCard: %s\nBranch: %s\nWorktree: %s\nLog: %s\nAdapter: %s\nAllowed: %s\n' \
   "$mode" "$base" "$start_head" "$card" "$branch" "$worktree" "$log_file" "$adapter" "${allowed[*]}"
 if [[ -n $dirty ]]; then printf 'Note: main has uncommitted files, none overlap Allowed (%s paths).\n' "$(printf '%s\n' "$dirty" | grep -c .)"; fi
+if [[ -n $inputs_str ]]; then printf 'Inputs: %s\n' "$inputs_str"; fi
 if [[ $mode == --dry-run ]]; then
   printf 'Dry run only. No files, branches, worktrees, or workers created.\n'
   exit 0
@@ -112,6 +124,7 @@ for f in AGENTS.md CLAUDE.md REVIEW.md DESIGN.md; do [[ -f $f ]] && cp -- "$f" "
 [[ -d docs/design ]] && cp -R docs/design "$worktree/docs/design"
 [[ -d node_modules ]] && { cp -cR node_modules "$worktree/node_modules" 2>/dev/null || cp -R node_modules "$worktree/node_modules"; }   # a real copy (APFS clone): Hugo refuses a symlinked node_modules ("outside the project"); git-ignored
 cp -- "$card" "$worktree/$card"
+for i in $inputs_str; do mkdir -p -- "$worktree/$(dirname "$i")"; cp -R -- "$i" "$worktree/$(dirname "$i")/"; done
 cp -- .claude/output-styles/blog-eli5.md "$worktree/.claude/output-styles/blog-eli5.md"
 [[ -d .agents/skills ]] && cp -RL .agents/skills/. "$worktree/.agents/skills/"
 
