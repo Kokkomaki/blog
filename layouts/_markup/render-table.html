@@ -1,0 +1,26 @@
+{{- /* Every Markdown table gets a box that scrolls sideways when the table is wider than the screen.
+       Without it a wide table either widens the whole page or, with `overflow-wrap: anywhere`, has its
+       words cut in half (found 2026-11-21 in the Bitcoin activism post). The box is focusable so a
+       keyboard can scroll it. Styles: .table-scroll in assets/css/custom.css. */ -}}
+<div class="table-scroll" role="region" aria-label="Scrollable table" tabindex="0">
+  <table>
+    <thead>
+      {{- range .THead }}
+      <tr>
+        {{- range . }}
+        <th{{ with .Alignment }} style="text-align: {{ . }}"{{ end }}>{{ .Text }}</th>
+        {{- end }}
+      </tr>
+      {{- end }}
+    </thead>
+    <tbody>
+      {{- range .TBody }}
+      <tr>
+        {{- range . }}
+        <td{{ with .Alignment }} style="text-align: {{ . }}"{{ end }}>{{ .Text }}</td>
+        {{- end }}
+      </tr>
+      {{- end }}
+    </tbody>
+  </table>
+</div>

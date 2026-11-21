@@ -1211,11 +1211,34 @@ pre.chroma {
 main a,
 main li,
 main p,
-main td,
-main th,
 main figcaption,
 main :not(pre) > code {
   overflow-wrap: anywhere;
+}
+
+/* Tables are the exception. `anywhere` lets a column shrink to a few pixels and cuts ordinary words in
+   half ("Status" over two lines, found 2026-11-21 in the Bitcoin activism post). Cells break between
+   words only. A table that is too wide for the screen scrolls sideways inside .table-scroll
+   (layouts/_markup/render-table.html) instead of widening the page. `npm run check:all` tests both. */
+main td,
+main th,
+main td a,
+main th a {
+  overflow-wrap: normal;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  margin: var(--spacing-base) 0;
+}
+
+.table-scroll > table {
+  margin: 0;
+}
+
+/* Four or more columns need room to read: on a narrow screen the table scrolls instead of squeezing. */
+.table-scroll > table:has(th:nth-child(4)) {
+  min-width: 34rem;
 }
 
 main iframe {
