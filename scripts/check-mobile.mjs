@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-// Mobile layout guard. Usage: node scripts/check-mobile.mjs <built site dir> [--widths 390,320]
-// Serves the built site, opens every page in a narrow window, and fails when anything is wider than
-// the screen. One unbreakable URL, a fixed-width iframe or a wide table is enough to make iOS Safari
-// shrink the whole page (found 2026-11-19 on the Samsung post). Third-party requests are blocked, so
-// the check never loads analytics or embeds. Without a browser it is skipped locally and FAILS in CI.
+// Phone layout guard. Usage: node scripts/check-mobile.mjs <built site dir> [--widths 390,320]
+// Serves the built site and opens every page in a narrow window. Fails when anything is wider than the
+// screen (one unbreakable URL, a fixed-width iframe or a wide table makes iOS Safari shrink the whole
+// page). Third-party requests are blocked. Without a browser it is skipped locally and fails in CI.
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -91,10 +90,9 @@ for (const width of widths) {
   }));
   await ctx.close();
 }
-// Tables: no ordinary word may be split across lines inside a cell. `overflow-wrap: anywhere` on cells
-// once shrank columns to a few pixels and cut words like "Status" in half (found 2026-11-21 in the
-// Bitcoin activism post, caused by the phone fix above). Only pages that have a table are checked, at
-// desktop and phone widths. A URL may break where it must, so text nodes holding one are skipped.
+// Tables: no ordinary word may be split across lines inside a cell (`overflow-wrap: anywhere` on cells
+// does that). Only pages with a table are checked, at desktop and phone widths. Text nodes that hold a
+// URL are skipped, since a URL may break where it must.
 const tableWidths = [1280, 768, ...widths];
 const tablePages = pages.filter((u) => {
   const f = path.join(out, u, 'index.html');

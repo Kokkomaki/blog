@@ -6,6 +6,7 @@ import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const keep = process.argv.includes('--keep');
@@ -30,37 +31,6 @@ function walk(dir, out = []) {
   return out;
 }
 const lines = (file) => fs.readFileSync(file, 'utf8').split('\n').length - (fs.readFileSync(file, 'utf8').endsWith('\n') ? 1 : 0);
-
-// 1. Instruction files (private on purpose; skipped when they are absent, for example in a fresh clone).
-function checkInstructionFiles() {
-  const agents = path.join(root, 'AGENTS.md');
-  if (!fs.existsSync(agents)) { notes.push('instruction files: AGENTS.md absent, skipped'); return; }
-  if (lines(agents) > 150) fail(`AGENTS.md has ${lines(agents)} lines, limit 150`);
-  if (/REPLACE_WITH_/.test(fs.readFileSync(agents, 'utf8'))) fail('AGENTS.md still has REPLACE_WITH_ placeholders');
-  const claude = path.join(root, 'CLAUDE.md');
-  if (!fs.existsSync(claude) || fs.readFileSync(claude, 'utf8').trim() !== '@AGENTS.md') fail('CLAUDE.md must be exactly the one line @AGENTS.md');
-  const skills = path.join(root, '.claude/skills');
-  if (fs.existsSync(skills)) {
-    for (const d of fs.readdirSync(skills, { withFileTypes: true })) {
-      const f = path.join(skills, d.name, 'SKILL.md');
-      if (!d.isDirectory() || !fs.existsSync(f)) continue;
-      const text = fs.readFileSync(f, 'utf8');
-      if (lines(f) > 500) fail(`${d.name}/SKILL.md has ${lines(f)} lines, limit 500`);
-      const fm = text.match(/^---\n([\s\S]*?)\n---/);
-      if (!fm || !/^name:\s*\S+/m.test(fm[1]) || !/^description:\s*\S+/m.test(fm[1])) fail(`${d.name}/SKILL.md needs front matter with name and description`);
-    }
-  }
-}
-
-// 2. Private files must stay out of git (the repo is public).
-function checkPrivateFilesUntracked() {
-  const r = sh('git', ['ls-files']);
-  if (r.status !== 0) { notes.push('private-file check skipped: not a git checkout'); return; }
-  const bad = r.stdout.split('\n').filter((f) =>
-    /^(AGENTS|REVIEW|DESIGN|CLAUDE)\.md$/.test(f) || /^(docs|\.claude|\.agents|\.worktrees|\.local)\//.test(f) ||
-    /(^|\/)\.env(\.|$)/.test(f) || /\.(csv|pem|key)$/.test(f));
-  for (const f of bad) fail(`tracked file must stay private: ${f}`);
-}
 
 // 3. Production-style build, zero ERROR or WARN.
 function build(out) {
@@ -100,7 +70,7 @@ function checkMeta(page, html) {
     if (/^\/(?:[a-z]{2}\/)?posts\/[^/]+\/index\.html$/.test(page)) fail(`${page}: a post page must have a description`);
     else noDescription.push(page);
   }
-  // Quality (lead review 2026-11-19): a description is read by people in link previews.
+  // Quality: a description is read by people in link previews.
   if (desc.length === 1 && desc[0]) {
     if (/&amp;(?:#\d+|[a-z]+);/i.test(desc[0])) fail(`${page}: description shows a raw HTML entity (double-escaped): ${desc[0].slice(0, 60)}`);
     if (/[\w.%+-]+@[\w.-]+\.[a-z]{2,}/i.test(desc[0])) fail(`${page}: description contains an email address`);
@@ -191,8 +161,9 @@ function checkMobile(out) {
   else notes.push(text.split('\n').pop());
 }
 
-checkInstructionFiles();
-checkPrivateFilesUntracked();
+// Optional local checks, loaded only when the file exists (it is not part of the repository).
+const localChecks = path.join(root, 'scripts/check-private.mjs');
+if (fs.existsSync(localChecks)) (await import(pathToFileURL(localChecks).href)).default({ root, fail, notes, sh, lines });
 const out = fs.mkdtempSync(path.join(os.tmpdir(), 'blog-gate-'));
 try {
   build(out);

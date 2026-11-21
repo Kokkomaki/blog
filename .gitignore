@@ -10,10 +10,3 @@ DESIGN.md
 docs/
 .claude/
 .superpowers/
-
-# AI workflow: private rules, notes and worker folders (the launcher copies the private ones into worktrees)
-AGENTS.md
-REVIEW.md
-.agents/
-.worktrees/
-.local/
